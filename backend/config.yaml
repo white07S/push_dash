@@ -1,0 +1,48 @@
+# Backend configuration file
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  reload: true
+
+cors:
+  origins:
+    - "http://localhost:3000"
+    - "http://localhost:3001"
+    - "http://127.0.0.1:3000"
+    - "http://127.0.0.1:3001"
+
+database:
+  path: "dashboard.db"
+  pragmas:
+    journal_mode: "WAL"
+    synchronous: "NORMAL"
+    temp_store: "MEMORY"
+    mmap_size: 268435456  # 256MB
+    cache_size: -200000   # ~200MB
+
+csv:
+  directory: "csv_data"
+  batch_size: 1000
+  encoding: "utf-8-sig"
+
+batch_processing:
+  max_workers: 4
+  batch_size: 100
+
+logging:
+  level: "INFO"
+  format: "json"
+
+rate_limiting:
+  enabled: false
+  requests_per_minute: 60
+
+ai_functions:
+  mock_mode: true
+  timeout: 30  # seconds
+  max_retries: 3
+
+cache:
+  ttl: 3600  # 1 hour in seconds
+  max_size: 10000  # max number of cached items

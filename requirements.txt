@@ -1,0 +1,359 @@
+
+1) Overview
+	•	Goal: React (JS only) + FastAPI (Python) dashboard to explore 4 datasets (controls, external_loss, internal_loss, issues), search by ID, view minimal fields, trigger AI-enrichment functions (mocked for now), and view details.
+	•	Constraints:
+	•	No TS. Only JS in frontend.
+	•	Use axios for API calls.
+	•	SQLite via APSW in backend for storage + querying.
+	•	Fast, responsive search; avoid heavy client-side state or storage.
+	•	Tailwind CSS; professional, minimal; UBS palette: white backgrounds, neutral grays, accents of red/black; no dark theme.
+
+⸻
+
+2) Data & Storage
+
+2.1 Source CSVs (input folder: csv/)
+	•	controls.csv (key: control_id)
+	•	external_loss.csv (key: ext_loss_id)
+	•	internal_loss.csv (key: loss_id)
+	•	issues.csv (key: issue_id)
+	•	Column: nfr_taxonomy is a pipe-delimited string (e.g., "Fraud|Cyber|Third-Party"). Multiple values allowed.
+
+Gotchas
+	•	Trim whitespace around taxonomy tokens; normalize case.
+	•	Empty/absent nfr_taxonomy -> store as '' (empty string) and NULL in a normalized table if you create one.
+	•	Validate uniqueness of IDs; reject duplicates on ingestion.
+
+2.2 SQLite layout (APSW)
+
+For each dataset, one schema with:
+	•	1 raw table (ingested CSV data).
+	•	N function tables to persist AI results (mocked now, real later).
+
+Example (controls):
+	•	controls.raw (control_id TEXT PRIMARY KEY, description TEXT, nfr_taxonomy TEXT, ...other columns...)
+	•	controls.ai_taxonomy (control_id TEXT PRIMARY KEY, payload JSON, created_at TEXT)
+	•	controls.ai_root_causes (control_id TEXT PRIMARY KEY, payload JSON, created_at TEXT)
+	•	controls.ai_enrichment (control_id TEXT PRIMARY KEY, payload JSON, created_at TEXT)
+	•	controls.similar_controls (control_id TEXT PRIMARY KEY, payload JSON, created_at TEXT)
+
+External/Internal Loss & Issues mirror the same pattern with their keys and corresponding AI tables.
+
+Indexes
+	•	Primary key on each raw table ID.
+	•	Index on nfr_taxonomy if used for filtering (or create a normalized *_taxonomy_map(id, token) table with (id, token) index).
+	•	FTS5 virtual table on description for future expansion (optional now, but wire it for performance headroom).
+
+SQLite pragmas (tune on startup)
+	•	PRAGMA journal_mode=WAL;
+	•	PRAGMA synchronous=NORMAL;
+	•	PRAGMA temp_store=MEMORY;
+	•	PRAGMA mmap_size=268435456; (256MB; adjust per container)
+	•	PRAGMA cache_size=-200000; (≈200MB; negative = KB units)
+	•	Enable json1, fts5 extensions (built-in for modern SQLite).
+
+Gotchas
+	•	Concurrency: SQLite is fine for read-heavy with WAL; serialize writes for AI tables.
+	•	Large CSV lines: use streaming ingestion; wrap ingestion in a single transaction per table for speed.
+	•	Use APSW prepared statements; avoid Python string concatenation in SQL.
+
+⸻
+
+3) Backend (FastAPI + APSW)
+
+3.1 Project shape
+
+backend/
+  app.py
+  db.py
+  dao/
+    controls.py
+    external_loss.py
+    internal_loss.py
+    issues.py
+  services/
+    resolver.py        # function result resolver (cache-or-compute)
+    mock_ai.py         # mocked AI functions
+  models/
+    controls.py        # Pydantic response schemas
+    external_loss.py
+    internal_loss.py
+    issues.py
+    shared.py
+  routers/
+    controls.py
+    external_loss.py
+    internal_loss.py
+    issues.py
+  utils/
+    csv_ingest.py
+    taxonomy.py
+  config.yaml
+
+3.2 Core endpoints (one router per dataset)
+
+List/Search (fast, minimal payload)
+	•	GET /api/controls?id=<control_id>&limit=1
+	•	GET /api/external-loss?id=<ext_loss_id>&limit=1
+	•	GET /api/internal-loss?id=<loss_id>&limit=1
+	•	GET /api/issues?id=<issue_id>&limit=1
+
+Returns (minimal): id, description, nfr_taxonomy, ai_taxonomy_present (bool).
+	•	If ai_taxonomy row exists, set ai_taxonomy_present=true; else false.
+
+Details
+	•	GET /api/controls/{control_id}/details
+	•	Same pattern for others.
+	•	Returns full raw row + all function payloads (if present) under separate keys.
+
+Trigger/Resolve Function (idempotent cache-or-compute)
+	•	POST /api/controls/{control_id}/ai-taxonomy
+Body: { "description": "..." }
+	•	POST /api/controls/{control_id}/ai-root-causes
+	•	POST /api/controls/{control_id}/ai-enrichment
+	•	POST /api/controls/{control_id}/similar-controls
+	•	Mirrors for the other datasets with their ID names.
+
+Response
+	•	{ "status": "ok", "source": "cache"|"computed", "payload": {...json...}, "created_at": "ISO-8601" }
+
+Gotchas
+	•	Treat description as optional if you can fetch it from raw by ID; but accept override via request body.
+	•	Upsert policy: if row exists, return cached unless ?refresh=true provided.
+
+3.3 Resolver utility (cache-or-compute)
+	•	Input: dataset_name, func_name, id, description?
+	•	Flow:
+	1.	Look up function table by (id). If exists -> return cached (source=cache).
+	2.	Else call services.mock_ai.<func_name>(id, description) -> JSON payload.
+	3.	Persist payload + created_at UTC.
+	4.	Return with source=computed.
+
+Edge cases
+	•	If raw ID not found -> 404.
+	•	If function fails -> 502 with diagnostic (mock will not fail; real impl should).
+
+3.4 Pydantic responses (keep small, predictable)
+	•	Minimal list item schema: { id: str, description: str, nfr_taxonomy: str, ai_taxonomy_present: bool }
+	•	Details schema: { raw: {...}, ai: { taxonomy?: {...}, root_causes?: {...}, enrichment?: {...}, similar_controls?: {...} } }
+	•	Trigger response: { status, source, payload, created_at }
+
+3.5 Middleware / Ops
+	•	CORS: allow frontend origin(s).
+	•	Timeouts: use uvicorn with sensible timeouts; keep handlers async but DB calls can be sync wrapped (APSW is fast; consider run_in_executor for long tasks even when mocked).
+	•	Logging: structured JSON logs; include session_id, user_id from headers if present.
+	•	Validation: reject invalid IDs early; sanitize description.
+
+⸻
+
+4) Frontend (React + Axios + Tailwind)
+
+4.1 Project shape
+
+frontend/
+  src/
+    App.js
+    Dashboard.js
+    components/
+      Section.js          # generic accordion/tab section
+      SearchBar.js
+      JsonBlock.js        # pretty-print JSON
+      DetailDrawer.js     # slide-over or modal for "view details"
+      Badge.js
+    api/
+      axiosClient.js      # axios instance with baseURL, interceptors
+      controls.js
+      externalLoss.js
+      internalLoss.js
+      issues.js
+    styles/index.css
+
+4.2 App wiring
+	•	App.js → passes hard-coded session_id and user_id as props to Dashboard.js.
+	•	Dashboard.js renders four sections (tabs or accordions): Controls, External Loss, Internal Loss, Issues.
+
+4.3 Section behavior (applies to all four)
+	•	Inputs:
+	•	Search bar for the ID (control_id/ext_loss_id/loss_id/issue_id).
+	•	Description textarea (optional; used when invoking AI functions).
+	•	Search button:
+	•	Debounce (250–300ms) input before enabling search.
+	•	Call GET /api/<dataset>?id=<id>&limit=1 via axios.
+	•	Render minimal row: ID, description (truncate + expand), nfr_taxonomy, and ai_taxonomy presence.
+	•	If ai_taxonomy_present=false, show “Compute AI Taxonomy” button → POST /api/<dataset>/<id>/ai-taxonomy with { description }, then display result inline (JsonBlock).
+	•	View details button opens DetailDrawer:
+	•	Loads /details endpoint; shows raw data and sub-sections per function result.
+	•	For any missing function result, show “Compute” button to POST the corresponding endpoint (uses current textarea description if filled).
+
+UI guidelines
+	•	Tailwind only; white background, gray dividers, accents of UBS red (#e0001b or near) and black.
+	•	Minimal density, clear hierarchy, responsive layout (2-column on ≥lg for details).
+	•	Use a readable mono font for JSON blocks; soft shadows, rounded corners.
+
+Gotchas
+	•	Don’t keep large JSON blobs in component state longer than necessary; render directly.
+	•	Don’t implement client-side indexing; keep the client dumb and fast.
+	•	Show optimistic spinners, but no repeated polling.
+
+4.4 Axios instance (api/axiosClient.js)
+	•	Base URL from window.location with port swap logic: if frontend is :3000, backend = same host :8000.
+	•	Interceptors for:
+	•	Injecting session_id, user_id headers.
+	•	Simple retry on 429/503 with jitter (1–2 retries max).
+
+⸻
+
+5) Performance
+	•	Backend
+	•	WAL mode, indices, prepared statements.
+	•	Single transaction per bulk insert.
+	•	Keep payloads small: minimal list responses; lazy-load details.
+	•	Cache-or-compute design prevents duplicate function work.
+	•	Frontend
+	•	Debounced search; guard empty IDs.
+	•	Render-only-on-demand for JSON blocks.
+	•	Avoid global stores for large items.
+
+Benchmarks to target (on modest VM)
+	•	ID search: < 30ms DB time.
+	•	Resolve mocked function: < 50ms end-to-end (excluding network).
+
+⸻
+
+6) CSV → DB Ingestion
+	•	On service startup (or one-time admin command):
+	1.	Create schemas + tables if not exist.
+	2.	Stream read CSVs; map columns; normalize nfr_taxonomy: split by |, trim, rejoin canonicalized string (or populate a *_taxonomy_map table).
+	3.	Upsert rows; log duplicates.
+	•	Validation
+	•	Required fields: ID, description (if needed by AI).
+	•	Reject lines with missing IDs; record to dead-letter log.
+
+Gotchas
+	•	CSV encoding (prefer UTF-8 with BOM tolerance).
+	•	Commas/quotes inside descriptions—use robust CSV reader with quotechar.
+
+⸻
+
+7) Mock AI Functions (backend)
+	•	Implement in services/mock_ai.py:
+	•	get_controls_ai_taxonomy(id, description) -> { "ai_taxonomy": ["Fraud","Cyber"] }
+	•	get_controls_ai_root_causes(...) -> { "root_causes": [...] }
+	•	get_controls_ai_enrichment(...) -> { "entities": [...], "links":[...] }
+	•	get_controls_similar_controls(...) -> { "similar_ids": [...] }
+	•	Mirror external/internal/issue variants with semantically plausible dummy payloads.
+	•	Keep deterministic output (seeded on ID) so QA is repeatable.
+
+⸻
+
+8) API Summary (paths & samples)
+
+Controls
+	•	GET /api/controls?id=CTR-123&limit=1
+
+{
+  "items": [
+    {
+      "id": "CTR-123",
+      "description": "Payments control for ...",
+      "nfr_taxonomy": "Fraud|Third-Party",
+      "ai_taxonomy_present": false
+    }
+  ]
+}
+
+
+	•	GET /api/controls/CTR-123/details
+
+{
+  "raw": { "control_id":"CTR-123", "description":"...", "nfr_taxonomy":"..." },
+  "ai": {
+    "taxonomy": null,
+    "root_causes": null,
+    "enrichment": null,
+    "similar_controls": null
+  }
+}
+
+
+	•	POST /api/controls/CTR-123/ai-taxonomy
+
+{
+  "status": "ok",
+  "source": "computed",
+  "payload": { "ai_taxonomy": ["Fraud","Cyber"] },
+  "created_at": "2025-11-03T08:30:00Z"
+}
+
+
+
+(Use same pattern for external-loss, internal-loss, issues with their IDs and function names.)
+
+Errors
+	•	404 unknown ID.
+	•	400 missing/invalid ID or bad body.
+	•	409 write conflict (rare; advise retry).
+	•	502 function compute failure (real impl).
+
+⸻
+
+9) Security & Ops (baseline)
+	•	CORS: restrict to the frontend origin(s).
+	•	Headers: accept X-Session-Id, X-User-Id from frontend (hard-coded for now). Log them; no auth yet.
+	•	Rate limiting: lightweight in-process limit on POST compute endpoints to avoid abuse.
+	•	Observability: structured logs with dataset, function, id, source(cache|computed), latency_ms.
+	•	Startup health checks: /healthz verifies DB readable and schemas present.
+
+⸻
+
+10) Testing & QA
+	•	Unit tests for DAO and resolver.
+	•	Golden sample CSVs with 10–20 rows each; include:
+	•	missing nfr_taxonomy
+	•	multiple tokens
+	•	long descriptions
+	•	Integration tests:
+	•	Search → Details → Compute → Re-Search verifies ai_taxonomy_present.
+	•	Cache hit path timing < compute path.
+
+⸻
+
+11) “Resolver” Utility (explicit spec)
+
+Function:
+resolve(dataset: str, func: str, id: str, description: Optional[str]) -> {status, source, payload, created_at}
+
+Steps:
+	1.	Map (dataset, func) → table name.
+	2.	SELECT payload FROM <table> WHERE id = ?
+	•	If found: return {source:"cache", payload}.
+	3.	Else call services.mock_ai.<func>(id, description or fetch_raw_description(id)).
+	4.	Upsert into table with created_at=UTC now.
+	5.	Return {source:"computed", payload, created_at}.
+
+Contract & Idempotency
+	•	Same inputs must return same payload for mocks (seeded).
+	•	Add ?refresh=true to force recompute.
+
+Gotchas
+	•	Ensure transactionality for step 3–4 to avoid duplicate writes if two concurrent calls arrive.
+	•	Validate that id exists in raw table before compute.
+
+⸻
+
+12) UX polish checklist
+	•	Disabled “Search” until ID is non-empty.
+	•	Keyboard: Enter triggers search, Ctrl/Cmd+Enter triggers compute if available.
+	•	Copy-to-clipboard on JSON blocks.
+	•	Truncate long descriptions with “Show more”.
+	•	Non-blocking UI spinners localized to the button/row being updated.
+
+⸻
+
+13) What NOT to do
+	•	Don’t store large arrays in React state unnecessarily.
+	•	Don’t perform client-side CSV parsing or indexing.
+	•	Don’t block the UI waiting for multiple function calls—compute per user action only.
+	•	Don’t render raw JSON unformatted; always pretty-print.
+
+⸻

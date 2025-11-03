@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools-scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "backend"
+version = "0.1.0"
+description = "React + FastAPI dashboard for NFR datasets"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.4.0",
+    "apsw>=3.44.0.0",
+    "pandas>=2.1.0",
+    "pyyaml>=6.0.1",
+    "python-multipart>=0.0.6",
+    "aiofiles>=23.2.0",
+    "httpx>=0.25.0",
+]
+
+[tool.setuptools]
+packages = ["dao", "services", "models", "routers", "utils"]
+include-package-data = true
+
+[tool.uvicorn]
+host = "0.0.0.0"
+port = 8000
+reload = true
