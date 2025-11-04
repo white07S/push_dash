@@ -3,7 +3,7 @@ import axiosClient from './axiosClient';
 
 const externalLossAPI = {
   // Search external losses by ID
-  search: async (id, limit = 1) => {
+  search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/external-loss', {
       params: { id, limit }
     });

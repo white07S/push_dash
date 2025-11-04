@@ -3,7 +3,7 @@ import axiosClient from './axiosClient';
 
 const issuesAPI = {
   // Search issues by ID
-  search: async (id, limit = 1) => {
+  search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/issues', {
       params: { id, limit }
     });

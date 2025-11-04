@@ -24,7 +24,7 @@ class BaseDAO:
         """Search for items by ID.
 
         Args:
-            id: ID to search for
+            id: ID to search for (supports partial matching)
             limit: Maximum number of results
 
         Returns:
@@ -33,11 +33,14 @@ class BaseDAO:
         query = f'''
             SELECT {self.key_field}, description, nfr_taxonomy, raw_data
             FROM {self.table_name}
-            WHERE {self.key_field} = ?
+            WHERE LOWER({self.key_field}) LIKE LOWER(?)
+            ORDER BY {self.key_field}
             LIMIT ?
         '''
 
-        rows = self.db.fetchall(query, (id, limit))
+        # Add wildcards for partial matching
+        search_pattern = f'%{id}%'
+        rows = self.db.fetchall(query, (search_pattern, limit))
         results = []
 
         for row in rows:

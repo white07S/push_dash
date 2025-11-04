@@ -3,7 +3,7 @@ import axiosClient from './axiosClient';
 
 const controlsAPI = {
   // Search controls by ID
-  search: async (id, limit = 1) => {
+  search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/controls', {
       params: { id, limit }
     });

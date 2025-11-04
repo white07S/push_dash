@@ -226,7 +226,12 @@ const DataTable = ({
       {/* Header */}
       <div className="border-b border-ubs-gray-200 px-6 py-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-ubs-gray-900">{title}</h2>
+          <div className="flex items-center space-x-4">
+            <h2 className="text-2xl font-bold text-ubs-gray-900">{title}</h2>
+            <span className="px-3 py-1 bg-ubs-gray-100 text-ubs-gray-700 rounded-md text-sm font-medium">
+              Total: {totalItems.toLocaleString()} records
+            </span>
+          </div>
           <div className="flex items-center space-x-4">
             <input
               type="text"
@@ -356,37 +361,39 @@ const DataTable = ({
       </div>
 
       {/* Pagination */}
-      {!loading && data.length > 0 && totalPages > 1 && (
+      {!loading && data.length > 0 && (
         <div className="border-t border-ubs-gray-200 px-6 py-3 flex items-center justify-between bg-white">
           <div className="text-sm text-ubs-gray-700">
             Showing {((currentPage - 1) * itemsPerPage) + 1} to{' '}
             {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} items
           </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => goToPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={`px-3 py-1 border ${
-                currentPage === 1
-                  ? 'border-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
-                  : 'border-ubs-gray-300 text-ubs-gray-700 hover:bg-ubs-gray-50'
-              }`}
-            >
-              Previous
-            </button>
-            {renderPagination()}
-            <button
-              onClick={() => goToPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={`px-3 py-1 border ${
-                currentPage === totalPages
-                  ? 'border-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
-                  : 'border-ubs-gray-300 text-ubs-gray-700 hover:bg-ubs-gray-50'
-              }`}
-            >
-              Next
-            </button>
-          </div>
+          {totalPages > 1 && (
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 border ${
+                  currentPage === 1
+                    ? 'border-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
+                    : 'border-ubs-gray-300 text-ubs-gray-700 hover:bg-ubs-gray-50'
+                }`}
+              >
+                Previous
+              </button>
+              {renderPagination()}
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 border ${
+                  currentPage === totalPages
+                    ? 'border-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
+                    : 'border-ubs-gray-300 text-ubs-gray-700 hover:bg-ubs-gray-50'
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       )}
 
