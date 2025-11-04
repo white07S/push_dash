@@ -30,7 +30,7 @@ const DataTable = ({
     } else {
       loadData();
     }
-  }, [currentPage]);
+  }, [currentPage, api, searchTerm, title, idField]);
 
   const loadData = async () => {
     setLoading(true);
