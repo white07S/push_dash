@@ -18,10 +18,11 @@ dependencies = [
     "python-multipart>=0.0.6",
     "aiofiles>=23.2.0",
     "httpx>=0.25.0",
+    "tqdm>=4.66.0",
 ]
 
 [tool.setuptools]
-packages = ["dao", "services", "models", "routers", "utils"]
+packages = ["dao", "services", "models", "routers", "utils", "cli_tool"]
 include-package-data = true
 
 [tool.uvicorn]
