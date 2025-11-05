@@ -42,13 +42,6 @@ class InternalLossDetails(BaseModel):
     ai: InternalLossAIResults
 
 
-class InternalLossSearchRequest(BaseModel):
-    """Request model for internal loss search."""
-
-    description: Optional[str] = Field(
-        None, description="Optional context override for AI functions"
-    )
-
 
 class InternalLossList(BaseModel):
     """List of internal losses."""

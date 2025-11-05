@@ -128,7 +128,6 @@ class BaseDAO:
         self,
         id_value: str,
         function_name: str,
-        description: Optional[str] = None,
         refresh: bool = False
     ) -> Dict[str, Any]:
         """Trigger an AI function for an item."""
@@ -136,7 +135,6 @@ class BaseDAO:
             dataset=self.dataset_name,
             func=function_name,
             id=id_value,
-            description=description,
             refresh=refresh,
         )
 

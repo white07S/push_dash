@@ -13,7 +13,6 @@ from .controls import (
     ControlsRawData,
     ControlsAIResults,
     ControlsDetails,
-    ControlsSearchRequest,
     ControlsList
 )
 
@@ -22,7 +21,6 @@ from .external_loss import (
     ExternalLossRawData,
     ExternalLossAIResults,
     ExternalLossDetails,
-    ExternalLossSearchRequest,
     ExternalLossList
 )
 
@@ -31,7 +29,6 @@ from .internal_loss import (
     InternalLossRawData,
     InternalLossAIResults,
     InternalLossDetails,
-    InternalLossSearchRequest,
     InternalLossList
 )
 
@@ -40,7 +37,6 @@ from .issues import (
     IssuesRawData,
     IssuesAIResults,
     IssuesDetails,
-    IssuesSearchRequest,
     IssuesList
 )
 
@@ -58,7 +54,6 @@ __all__ = [
     'ControlsRawData',
     'ControlsAIResults',
     'ControlsDetails',
-    'ControlsSearchRequest',
     'ControlsList',
 
     # External loss models
@@ -66,7 +61,6 @@ __all__ = [
     'ExternalLossRawData',
     'ExternalLossAIResults',
     'ExternalLossDetails',
-    'ExternalLossSearchRequest',
     'ExternalLossList',
 
     # Internal loss models
@@ -74,7 +68,6 @@ __all__ = [
     'InternalLossRawData',
     'InternalLossAIResults',
     'InternalLossDetails',
-    'InternalLossSearchRequest',
     'InternalLossList',
 
     # Issues models
@@ -82,6 +75,5 @@ __all__ = [
     'IssuesRawData',
     'IssuesAIResults',
     'IssuesDetails',
-    'IssuesSearchRequest',
     'IssuesList'
 ]

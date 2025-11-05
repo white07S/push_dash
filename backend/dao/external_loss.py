@@ -15,38 +15,32 @@ class ExternalLossDAO(BaseDAO):
     def trigger_issue_taxonomy(
         self,
         reference_id_code: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             reference_id_code,
             "issue_taxonomy",
-            description,
             refresh,
         )
 
     def trigger_root_cause(
         self,
         reference_id_code: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             reference_id_code,
             "root_cause",
-            description,
             refresh,
         )
 
     def trigger_enrichment(
         self,
         reference_id_code: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             reference_id_code,
             "enrichment",
-            description,
             refresh,
         )

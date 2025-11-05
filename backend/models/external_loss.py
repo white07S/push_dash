@@ -42,13 +42,6 @@ class ExternalLossDetails(BaseModel):
     ai: ExternalLossAIResults
 
 
-class ExternalLossSearchRequest(BaseModel):
-    """Request model for external loss search."""
-
-    description: Optional[str] = Field(
-        None, description="Optional context override for AI functions"
-    )
-
 
 class ExternalLossList(BaseModel):
     """List of external losses."""

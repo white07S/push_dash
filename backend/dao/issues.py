@@ -15,38 +15,32 @@ class IssuesDAO(BaseDAO):
     def trigger_issue_taxonomy(
         self,
         issue_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             issue_id,
             "issue_taxonomy",
-            description,
             refresh,
         )
 
     def trigger_root_cause(
         self,
         issue_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             issue_id,
             "root_cause",
-            description,
             refresh,
         )
 
     def trigger_enrichment(
         self,
         issue_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             issue_id,
             "enrichment",
-            description,
             refresh,
         )

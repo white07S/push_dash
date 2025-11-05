@@ -15,38 +15,32 @@ class ControlsDAO(BaseDAO):
     def trigger_controls_taxonomy(
         self,
         control_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             control_id,
             "controls_taxonomy",
-            description,
             refresh,
         )
 
     def trigger_root_cause(
         self,
         control_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             control_id,
             "root_cause",
-            description,
             refresh,
         )
 
     def trigger_enrichment(
         self,
         control_id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return self.trigger_ai_function(
             control_id,
             "enrichment",
-            description,
             refresh,
         )

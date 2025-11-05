@@ -42,13 +42,6 @@ class IssuesDetails(BaseModel):
     ai: IssuesAIResults
 
 
-class IssuesSearchRequest(BaseModel):
-    """Request model for issues search."""
-
-    description: Optional[str] = Field(
-        None, description="Optional context override for AI functions"
-    )
-
 
 class IssuesList(BaseModel):
     """List of issues."""

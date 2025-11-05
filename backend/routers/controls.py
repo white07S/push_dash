@@ -1,14 +1,12 @@
 """API router for controls endpoints."""
-from fastapi import APIRouter, HTTPException, Query, Body
-from typing import Optional
+from fastapi import APIRouter, HTTPException, Query
 import logging
 
 from dao.controls import ControlsDAO
 from models.controls import (
     ControlsList,
     ControlsListItem,
-    ControlsDetails,
-    ControlsSearchRequest
+    ControlsDetails
 )
 from models.shared import TriggerResponse, ErrorResponse
 
@@ -66,16 +64,11 @@ async def get_control_details(control_id: str):
 @router.post("/{control_id}/controls-taxonomy", response_model=TriggerResponse)
 async def trigger_controls_taxonomy(
     control_id: str,
-    request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
-        result = dao.trigger_controls_taxonomy(
-            control_id,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_controls_taxonomy(control_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -86,16 +79,11 @@ async def trigger_controls_taxonomy(
 @router.post("/{control_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     control_id: str,
-    request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI root cause analysis for a control."""
     try:
-        result = dao.trigger_root_cause(
-            control_id,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_root_cause(control_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -106,16 +94,11 @@ async def trigger_root_cause(
 @router.post("/{control_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     control_id: str,
-    request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI enrichment for a control."""
     try:
-        result = dao.trigger_enrichment(
-            control_id,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_enrichment(control_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

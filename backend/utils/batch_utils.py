@@ -25,7 +25,7 @@ class BatchProcessor:
         self,
         dataset: str,
         function_name: str,
-        compute_func: Callable[[str, str], Dict[str, Any]],
+        compute_func: Callable[[str, Dict[str, Any]], Dict[str, Any]],
         ids: Optional[List[str]] = None,
         force_recompute: bool = False,
         progress_callback: Optional[Callable[[Dict[str, Any]], None]] = None
@@ -37,26 +37,43 @@ class BatchProcessor:
 
         # Get IDs to process
         if ids is None:
-            query = f"SELECT {key_field}, title FROM {table_name}"
+            query = f"SELECT {key_field}, raw_data, title, category, risk_theme, risk_subtheme FROM {table_name}"
             rows = self.db.fetchall(query)
-            ids_to_process = [(row[0], row[1]) for row in rows]
+            ids_to_process = []
+            for row in rows:
+                raw_record = json.loads(row[1]) if row[1] else {
+                    key_field: row[0],
+                    "title": row[2],
+                    "category": row[3],
+                    "risk_theme": row[4],
+                    "risk_subtheme": row[5],
+                }
+                ids_to_process.append((row[0], raw_record))
         else:
             ids_to_process = []
             for id_val in ids:
-                query = f"SELECT title FROM {table_name} WHERE {key_field} = ?"
+                query = f"SELECT raw_data, title, category, risk_theme, risk_subtheme FROM {table_name} WHERE {key_field} = ?"
                 result = self.db.fetchone(query, (id_val,))
                 if result:
-                    ids_to_process.append((id_val, result[0]))
+                    raw_data_json, title, category, risk_theme, risk_subtheme = result
+                    raw_record = json.loads(raw_data_json) if raw_data_json else {
+                        key_field: id_val,
+                        "title": title,
+                        "category": category,
+                        "risk_theme": risk_theme,
+                        "risk_subtheme": risk_subtheme,
+                    }
+                    ids_to_process.append((id_val, raw_record))
 
         # Filter out already computed if not forcing recompute
         if not force_recompute:
-            filtered_ids: List[Tuple[str, str]] = []
+            filtered_ids: List[Tuple[str, Dict[str, Any]]] = []
             ai_table = f"{dataset}_{function_name}"
-            for id_val, title in ids_to_process:
+            for id_val, record in ids_to_process:
                 query = f"SELECT 1 FROM {ai_table} WHERE {key_field} = ?"
                 result = self.db.fetchone(query, (id_val,))
                 if not result:
-                    filtered_ids.append((id_val, title))
+                    filtered_ids.append((id_val, record))
             ids_to_process = filtered_ids
 
         if not ids_to_process:
@@ -123,8 +140,8 @@ class BatchProcessor:
         self,
         dataset: str,
         function_name: str,
-        compute_func: Callable[[str, str], Dict[str, Any]],
-        batch: List[Tuple[str, str]],
+        compute_func: Callable[[str, Dict[str, Any]], Dict[str, Any]],
+        batch: List[Tuple[str, Dict[str, Any]]],
         key_field: str,
     ) -> Dict[str, Any]:
         """Process a single batch of items."""
@@ -137,9 +154,9 @@ class BatchProcessor:
 
         ai_table = f"{dataset}_{function_name}"
 
-        for id_val, title in batch:
+        for id_val, raw_record in batch:
             try:
-                result = compute_func(id_val, title)
+                result = compute_func(id_val, raw_record)
                 query = f"""
                     INSERT OR REPLACE INTO {ai_table}
                     ({key_field}, payload, created_at)
@@ -307,4 +324,3 @@ class BatchProcessor:
             "total_items": total,
             "ai_functions": ai_status,
         }
-

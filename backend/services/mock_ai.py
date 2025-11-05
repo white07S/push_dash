@@ -85,7 +85,21 @@ CONTROL_TAXONOMY_SECONDARY = [
 # ---------------------------------------------------------------------------
 # Issues / Losses
 
-def get_issues_taxonomy(id: str, context: str) -> Dict[str, Any]:
+def _context_title(record: Dict[str, Any]) -> str:
+    for key in (
+        "issue_title",
+        "control_title",
+        "description_of_event",
+        "event_title",
+        "title",
+    ):
+        value = record.get(key)
+        if value:
+            return value
+    return ""
+
+
+def get_issues_taxonomy(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
     primary, secondary = _pick_distinct(ISSUE_PRIMARY + ISSUE_SECONDARY)
     return {
@@ -96,7 +110,7 @@ def get_issues_taxonomy(id: str, context: str) -> Dict[str, Any]:
     }
 
 
-def get_issues_root_cause(id: str, context: str) -> Dict[str, Any]:
+def get_issues_root_cause(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
     primary, secondary = _pick_distinct(ROOT_CAUSE_PRIMARY + ROOT_CAUSE_SECONDARY)
     return {
@@ -107,10 +121,11 @@ def get_issues_root_cause(id: str, context: str) -> Dict[str, Any]:
     }
 
 
-def get_issues_enrichment(id: str, context: str) -> Dict[str, Any]:
+def get_issues_enrichment(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
+    title = _context_title(record) or f"record {id}"
     return {
-        "summary": f"Case {id} highlights {random.choice(['persistent gaps', 'heightened exposure', 'escalating oversight needs'])} within the current workflow.",
+        "summary": f"Case '{title}' highlights {random.choice(['persistent gaps', 'heightened exposure', 'escalating oversight needs'])} within the current workflow.",
         "impacts": {
             "financial": random.choice(["High", "Medium", "Low"]),
             "reputation": random.choice(["Moderate", "Elevated", "Contained"]),
@@ -147,7 +162,7 @@ def get_issues_enrichment(id: str, context: str) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Controls
 
-def get_controls_taxonomy(id: str, context: str) -> Dict[str, Any]:
+def get_controls_taxonomy(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
     primary, secondary = _pick_distinct(CONTROL_TAXONOMY_PRIMARY + CONTROL_TAXONOMY_SECONDARY)
     return {
@@ -158,15 +173,16 @@ def get_controls_taxonomy(id: str, context: str) -> Dict[str, Any]:
     }
 
 
-def get_controls_root_cause(id: str, context: str) -> Dict[str, Any]:
+def get_controls_root_cause(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     # For controls this describes why the control is critical or what risks it mitigates
-    return get_issues_root_cause(id, context)
+    return get_issues_root_cause(id, record)
 
 
-def get_controls_enrichment(id: str, context: str) -> Dict[str, Any]:
+def get_controls_enrichment(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
+    title = record.get("control_title") or _context_title(record) or id
     return {
-        "summary": f"Control {id} addresses the primary risk scenario described in the context.",
+        "summary": f"Control '{title}' addresses the primary risk scenario derived from the record.",
         "5ws": {
             "who": random.choice(["Risk Operations", "Front Office", "Technology", "Compliance"]),
             "what": random.choice(
@@ -208,26 +224,25 @@ def get_controls_enrichment(id: str, context: str) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Loss datasets reuse issue logic
 
-def get_external_loss_taxonomy(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_taxonomy(id, context)
+def get_external_loss_taxonomy(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_taxonomy(id, record)
 
 
-def get_external_loss_root_cause(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_root_cause(id, context)
+def get_external_loss_root_cause(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_root_cause(id, record)
 
 
-def get_external_loss_enrichment(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_enrichment(id, context)
+def get_external_loss_enrichment(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_enrichment(id, record)
 
 
-def get_internal_loss_taxonomy(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_taxonomy(id, context)
+def get_internal_loss_taxonomy(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_taxonomy(id, record)
 
 
-def get_internal_loss_root_cause(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_root_cause(id, context)
+def get_internal_loss_root_cause(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_root_cause(id, record)
 
 
-def get_internal_loss_enrichment(id: str, context: str) -> Dict[str, Any]:
-    return get_issues_enrichment(id, context)
-
+def get_internal_loss_enrichment(id: str, record: Dict[str, Any]) -> Dict[str, Any]:
+    return get_issues_enrichment(id, record)

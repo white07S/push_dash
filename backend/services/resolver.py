@@ -81,7 +81,6 @@ class FunctionResolver:
         dataset: str,
         func: str,
         id: str,
-        description: Optional[str] = None,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         """Resolve function result using cache-or-compute pattern."""
@@ -94,7 +93,7 @@ class FunctionResolver:
         config = get_dataset_config(dataset)
         key_field = config.key_field
         raw_query = f"""
-            SELECT title, raw_data
+            SELECT raw_data, title, category, risk_theme, risk_subtheme
             FROM {config.table}
             WHERE {key_field} = ?
         """
@@ -102,11 +101,20 @@ class FunctionResolver:
 
         if not raw_result:
             raise ValueError(f"ID '{id}' not found in {dataset}")
+        raw_data_json, title, category, risk_theme, risk_subtheme = raw_result
 
-        if description is None:
-            title, raw_data_json = raw_result
-            raw_data = json.loads(raw_data_json) if raw_data_json else {}
-            description = raw_data.get(config.description_field) or title or ""
+        if raw_data_json:
+            raw_record = json.loads(raw_data_json)
+        else:
+            raw_record = {
+                config.key_field: id,
+                config.title_field: title,
+                config.theme_field: risk_theme,
+            }
+            if config.category_field:
+                raw_record[config.category_field] = category
+            if config.subtheme_field:
+                raw_record[config.subtheme_field] = risk_subtheme
 
         table_name = f"{dataset}_{func}"
 
@@ -122,7 +130,7 @@ class FunctionResolver:
 
         compute_func = self.function_map[dataset][func]
         try:
-            payload = compute_func(id, description)
+            payload = compute_func(id, raw_record)
         except Exception as exc:  # pragma: no cover - logging side-effect
             logger.error("Error computing %s for %s: %s", func, id, exc)
             raise RuntimeError(f"Failed to compute {func}: {exc}") from exc

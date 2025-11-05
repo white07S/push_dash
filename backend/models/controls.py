@@ -42,13 +42,6 @@ class ControlsDetails(BaseModel):
     ai: ControlsAIResults
 
 
-class ControlsSearchRequest(BaseModel):
-    """Request model for controls search."""
-
-    description: Optional[str] = Field(
-        None, description="Optional context override for AI functions"
-    )
-
 
 class ControlsList(BaseModel):
     """List of controls."""

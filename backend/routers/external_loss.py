@@ -1,14 +1,12 @@
 """API router for external loss endpoints."""
-from fastapi import APIRouter, HTTPException, Query, Body
-from typing import Optional
+from fastapi import APIRouter, HTTPException, Query
 import logging
 
 from dao.external_loss import ExternalLossDAO
 from models.external_loss import (
     ExternalLossList,
     ExternalLossListItem,
-    ExternalLossDetails,
-    ExternalLossSearchRequest
+    ExternalLossDetails
 )
 from models.shared import TriggerResponse, ErrorResponse
 
@@ -66,16 +64,11 @@ async def get_external_loss_details(reference_id_code: str):
 @router.post("/{reference_id_code}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     reference_id_code: str,
-    request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI taxonomy generation for an external loss."""
     try:
-        result = dao.trigger_issue_taxonomy(
-            reference_id_code,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_issue_taxonomy(reference_id_code, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -86,16 +79,11 @@ async def trigger_issue_taxonomy(
 @router.post("/{reference_id_code}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     reference_id_code: str,
-    request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI root cause analysis for an external loss."""
     try:
-        result = dao.trigger_root_cause(
-            reference_id_code,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_root_cause(reference_id_code, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -106,16 +94,11 @@ async def trigger_root_cause(
 @router.post("/{reference_id_code}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     reference_id_code: str,
-    request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI enrichment for an external loss."""
     try:
-        result = dao.trigger_enrichment(
-            reference_id_code,
-            request.description,
-            refresh
-        )
+        result = dao.trigger_enrichment(reference_id_code, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
