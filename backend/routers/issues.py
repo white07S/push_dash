@@ -63,15 +63,15 @@ async def get_issue_details(issue_id: str):
         logger.error(f"Error getting issue details: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/{issue_id}/ai-taxonomy", response_model=TriggerResponse)
-async def trigger_ai_taxonomy(
+@router.post("/{issue_id}/issue-taxonomy", response_model=TriggerResponse)
+async def trigger_issue_taxonomy(
     issue_id: str,
     request: IssuesSearchRequest = Body(default=IssuesSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI taxonomy generation for an issue."""
     try:
-        result = dao.trigger_ai_taxonomy(
+        result = dao.trigger_issue_taxonomy(
             issue_id,
             request.description,
             refresh
@@ -80,18 +80,18 @@ async def trigger_ai_taxonomy(
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
-        logger.error(f"Error triggering AI taxonomy: {e}")
+        logger.error(f"Error triggering issue taxonomy: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{issue_id}/ai-root-causes", response_model=TriggerResponse)
-async def trigger_ai_root_causes(
+@router.post("/{issue_id}/root-cause", response_model=TriggerResponse)
+async def trigger_root_cause(
     issue_id: str,
     request: IssuesSearchRequest = Body(default=IssuesSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI root cause analysis for an issue."""
     try:
-        result = dao.trigger_ai_root_causes(
+        result = dao.trigger_root_cause(
             issue_id,
             request.description,
             refresh
@@ -103,15 +103,15 @@ async def trigger_ai_root_causes(
         logger.error(f"Error triggering AI root causes: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{issue_id}/ai-enrichment", response_model=TriggerResponse)
-async def trigger_ai_enrichment(
+@router.post("/{issue_id}/enrichment", response_model=TriggerResponse)
+async def trigger_enrichment(
     issue_id: str,
     request: IssuesSearchRequest = Body(default=IssuesSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI enrichment for an issue."""
     try:
-        result = dao.trigger_ai_enrichment(
+        result = dao.trigger_enrichment(
             issue_id,
             request.description,
             refresh
@@ -122,39 +122,6 @@ async def trigger_ai_enrichment(
     except Exception as e:
         logger.error(f"Error triggering AI enrichment: {e}")
         raise HTTPException(status_code=502, detail=str(e))
-
-@router.post("/{issue_id}/similar-issues", response_model=TriggerResponse)
-async def trigger_similar_issues(
-    issue_id: str,
-    request: IssuesSearchRequest = Body(default=IssuesSearchRequest()),
-    refresh: bool = Query(False, description="Force recompute even if cached")
-):
-    """Trigger similar issues identification."""
-    try:
-        result = dao.trigger_similar_issues(
-            issue_id,
-            request.description,
-            refresh
-        )
-        return result
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error triggering similar issues: {e}")
-        raise HTTPException(status_code=502, detail=str(e))
-
-@router.get("/taxonomy/{taxonomy_token}", response_model=IssuesList)
-async def search_by_taxonomy(
-    taxonomy_token: str,
-    limit: int = Query(100, description="Maximum number of results", ge=1, le=1000)
-):
-    """Search issues by taxonomy token."""
-    try:
-        items = dao.search_by_taxonomy(taxonomy_token, limit)
-        return IssuesList(items=items, total=len(items))
-    except Exception as e:
-        logger.error(f"Error searching by taxonomy: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/statistics")
 async def get_statistics():

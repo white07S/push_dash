@@ -1,38 +1,57 @@
 """Pydantic models for issues dataset."""
-from typing import Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional
+
 from pydantic import BaseModel, Field
+
 
 class IssuesListItem(BaseModel):
     """Issues list item for search results."""
+
     issue_id: str = Field(..., description="Issue ID")
-    description: str = Field(..., description="Issue description")
-    nfr_taxonomy: str = Field(..., description="NFR taxonomy (pipe-delimited)")
-    ai_taxonomy_present: bool = Field(False, description="Whether AI taxonomy has been computed")
+    issue_title: Optional[str] = Field(None, description="Issue title")
+    issues_type: Optional[str] = Field(None, description="Issue type")
+    risk_theme: Optional[str] = Field(None, description="Risk theme")
+    risk_subtheme: Optional[str] = Field(None, description="Risk subtheme")
+    ai_status: Dict[str, bool] = Field(default_factory=dict, description="AI computation flags")
+    record: Dict[str, Any] = Field(default_factory=dict, description="Complete CSV row")
+
 
 class IssuesRawData(BaseModel):
     """Raw issues data."""
+
     issue_id: str
-    description: str
-    nfr_taxonomy: str
-    raw_data: Optional[Dict[str, Any]] = None
+    issue_title: Optional[str] = None
+    issues_type: Optional[str] = None
+    risk_theme: Optional[str] = None
+    risk_subtheme: Optional[str] = None
+    record: Dict[str, Any] = Field(default_factory=dict)
+
 
 class IssuesAIResults(BaseModel):
     """AI results for an issue."""
-    taxonomy: Optional[Dict[str, Any]] = None
-    root_causes: Optional[Dict[str, Any]] = None
+
+    issue_taxonomy: Optional[Dict[str, Any]] = None
+    root_cause: Optional[Dict[str, Any]] = None
     enrichment: Optional[Dict[str, Any]] = None
-    similar_issues: Optional[Dict[str, Any]] = None
+
 
 class IssuesDetails(BaseModel):
     """Detailed issue information."""
+
     raw: IssuesRawData
     ai: IssuesAIResults
 
+
 class IssuesSearchRequest(BaseModel):
     """Request model for issues search."""
-    description: Optional[str] = Field(None, description="Optional description for AI functions")
+
+    description: Optional[str] = Field(
+        None, description="Optional context override for AI functions"
+    )
+
 
 class IssuesList(BaseModel):
     """List of issues."""
+
     items: List[IssuesListItem]
     total: Optional[int] = None

@@ -1,0 +1,181 @@
+event_id,event_title,event_type,risk_theme,risk_subtheme
+INT-2025-89945,System Outage: Breach queue exception,System Outage,AML Sanctions,General
+INT-2025-64477,Compliance Breach: Customer breach migration,Compliance Breach,Conduct & Culture,Sales Practice
+INT-2025-98564,Theft or Fraud: Batch exception migration,Theft or Fraud,Model Risk,Validation Finding
+INT-2025-67264,Theft or Fraud: Latency threshold workflow,Theft or Fraud,Conduct & Culture,Sales Practice
+INT-2025-56306,Information Security Incident: Reference latency control,Information Security Incident,Fraud & Financial Crime,Check Fraud
+INT-2025-35586,Information Security Incident: Dataset latency policy,Information Security Incident,Data Quality  Integrity,General
+INT-2025-16841,Information Security Incident: Workflow control gateway,Information Security Incident,Fraud & Financial Crime,Check Fraud
+INT-2025-32717,Theft or Fraud: Gateway reconciliation misconfiguration,Theft or Fraud,Data Quality  Integrity,General
+INT-2025-38530,Data Entry Error: Override queue migration,Data Entry Error,Technology Change,Release Regression
+INT-2025-71052,Theft or Fraud: Validation payment onboarding,Theft or Fraud,Data Quality  Integrity,General
+INT-2025-22246,System Outage: Automated control policy,System Outage,Cybersecurity,Phishing
+INT-2025-69128,Information Security Incident: Reconciliation payment validation,Information Security Incident,AML Sanctions,General
+INT-2025-74717,Processing Error: Latency security payment,Processing Error,Operational Resilience,BCP Gap
+INT-2025-62219,Theft or Fraud: Batch control override,Theft or Fraud,Fraud & Financial Crime,Card-Not-Present
+INT-2025-83735,Processing Error: Reconciliation security migration,Processing Error,Operational Resilience,BCP Gap
+INT-2025-82015,Compliance Breach: Customer security queue,Compliance Breach,Conduct & Culture,Conflicts of Interest
+INT-2025-61814,Information Security Incident: Latency payment customer,Information Security Incident,Operational Resilience,Capacity/Scaling
+INT-2025-97232,Data Entry Error: Policy misconfiguration threshold,Data Entry Error,Technology Change,Release Regression
+INT-2025-34077,System Outage: Migration gateway exception,System Outage,Operational Resilience,Capacity/Scaling
+INT-2025-52860,Compliance Breach: Migration manual workflow,Compliance Breach,Data Quality  Integrity,General
+INT-2025-30460,Data Entry Error: Migration dataset threshold,Data Entry Error,Cybersecurity,Phishing
+INT-2025-91015,Information Security Incident: Manual onboarding threshold,Information Security Incident,Model Risk,Validation Finding
+INT-2025-73736,Data Entry Error: Exception misconfiguration policy,Data Entry Error,Fraud & Financial Crime,Account Takeover
+INT-2025-92760,Processing Error: Retry reference manual,Processing Error,AML Sanctions,General
+INT-2025-82168,Data Entry Error: Misconfiguration spike integration,Data Entry Error,Regulatory Compliance,MiFID II Breach
+INT-2025-15579,System Outage: Alert batch spike,System Outage,Conduct & Culture,Sales Practice
+INT-2025-33219,Theft or Fraud: Workflow latency automated,Theft or Fraud,Regulatory Compliance,KYC/CDD Gap
+INT-2025-23535,System Outage: Integration dataset dataset,System Outage,Third-Party Vendor,General
+INT-2025-22793,Compliance Breach: Timeout alert workflow,Compliance Breach,Conduct & Culture,Sales Practice
+INT-2025-44940,Theft or Fraud: Customer latency workflow,Theft or Fraud,Regulatory Compliance,Reporting Error
+INT-2025-81784,Theft or Fraud: Threshold latency integration,Theft or Fraud,Technology Change,Config Drift
+INT-2025-10013,Compliance Breach: Timeout validation retry,Compliance Breach,Third-Party Vendor,General
+INT-2025-73494,Processing Error: Security spike retry,Processing Error,Regulatory Compliance,Record Retention
+INT-2025-61192,Compliance Breach: Breach timeout gateway,Compliance Breach,Cybersecurity,Unauthorized Access
+INT-2025-98593,Data Entry Error: Timeout validation latency,Data Entry Error,Regulatory Compliance,Reporting Error
+INT-2025-68641,Theft or Fraud: Breach control latency,Theft or Fraud,AML Sanctions,General
+INT-2025-93458,Processing Error: Timeout reconciliation queue,Processing Error,AML Sanctions,General
+INT-2025-56049,Compliance Breach: Alert policy investigation,Compliance Breach,Regulatory Compliance,MiFID II Breach
+INT-2025-90463,Processing Error: Onboarding workflow policy,Processing Error,Technology Change,Failed Deployment
+INT-2025-58374,Theft or Fraud: Automated misconfiguration manual,Theft or Fraud,Regulatory Compliance,Reporting Error
+INT-2025-25834,Information Security Incident: Automated integration manual,Information Security Incident,Conduct & Culture,Insider Trading
+INT-2025-60835,Information Security Incident: Onboarding threshold spike,Information Security Incident,Data Quality  Integrity,General
+INT-2025-73337,Compliance Breach: Timeout reconciliation investigation,Compliance Breach,Regulatory Compliance,Record Retention
+INT-2025-50940,Compliance Breach: Misconfiguration threshold batch,Compliance Breach,Conduct & Culture,Insider Trading
+INT-2025-54939,System Outage: Retry alert investigation,System Outage,Regulatory Compliance,KYC/CDD Gap
+INT-2025-85218,Theft or Fraud: Dataset onboarding breach,Theft or Fraud,Fraud & Financial Crime,Account Takeover
+INT-2025-40580,Compliance Breach: Dataset migration migration,Compliance Breach,Third-Party Vendor,General
+INT-2025-75049,Processing Error: Manual payment manual,Processing Error,Third-Party Vendor,General
+INT-2025-68325,System Outage: Threshold gateway manual,System Outage,Operational Resilience,Capacity/Scaling
+INT-2025-64301,Information Security Incident: Validation reference policy,Information Security Incident,Model Risk,Validation Finding
+INT-2025-21010,Compliance Breach: Payment reference policy,Compliance Breach,Conduct & Culture,Sales Practice
+INT-2025-21851,Compliance Breach: Retry dataset customer,Compliance Breach,Conduct & Culture,Insider Trading
+INT-2025-39321,Compliance Breach: Onboarding latency alert,Compliance Breach,Conduct & Culture,Conflicts of Interest
+INT-2025-86699,Information Security Incident: Queue spike gateway,Information Security Incident,Technology Change,Failed Deployment
+INT-2025-59720,Information Security Incident: Queue payment latency,Information Security Incident,Fraud & Financial Crime,Account Takeover
+INT-2025-21470,Information Security Incident: Exception reconciliation policy,Information Security Incident,Model Risk,Calibration Error
+INT-2025-62507,Processing Error: Queue manual onboarding,Processing Error,Data Quality  Integrity,General
+INT-2025-61329,Processing Error: Timeout integration dataset,Processing Error,Conduct & Culture,Sales Practice
+INT-2025-73133,Processing Error: Automated investigation reconciliation,Processing Error,Fraud & Financial Crime,Card-Not-Present
+INT-2025-83758,Data Entry Error: Misconfiguration workflow onboarding,Data Entry Error,AML Sanctions,General
+INT-2025-82906,Compliance Breach: Control policy investigation,Compliance Breach,Operational Resilience,Single Point of Failure
+INT-2025-94954,Compliance Breach: Payment breach misconfiguration,Compliance Breach,Conduct & Culture,Insider Trading
+INT-2025-88856,Data Entry Error: Breach control queue,Data Entry Error,Third-Party Vendor,General
+INT-2025-64079,Data Entry Error: Threshold migration investigation,Data Entry Error,Model Risk,Concept Drift
+INT-2025-96204,Processing Error: Batch policy control,Processing Error,Technology Change,Change Collision
+INT-2025-51028,Theft or Fraud: Validation security onboarding,Theft or Fraud,Operational Resilience,Disaster Recovery
+INT-2025-33601,Theft or Fraud: Gateway onboarding spike,Theft or Fraud,Conduct & Culture,Conflicts of Interest
+INT-2025-91155,Theft or Fraud: Manual reference control,Theft or Fraud,Regulatory Compliance,MiFID II Breach
+INT-2025-44775,Data Entry Error: Automated investigation alert,Data Entry Error,Technology Change,Config Drift
+INT-2025-47914,Compliance Breach: Validation retry exception,Compliance Breach,Regulatory Compliance,Record Retention
+INT-2025-40008,Compliance Breach: Onboarding batch customer,Compliance Breach,AML Sanctions,General
+INT-2025-82763,System Outage: Payment automated automated,System Outage,Data Quality  Integrity,General
+INT-2025-97601,Processing Error: Onboarding payment validation,Processing Error,Third-Party Vendor,General
+INT-2025-39127,System Outage: Automated misconfiguration override,System Outage,Cybersecurity,Phishing
+INT-2025-79514,Processing Error: Policy migration manual,Processing Error,Cybersecurity,Unauthorized Access
+INT-2025-25624,System Outage: Reconciliation alert reference,System Outage,Fraud & Financial Crime,Check Fraud
+INT-2025-35239,Compliance Breach: Override migration misconfiguration,Compliance Breach,Data Quality  Integrity,General
+INT-2025-67119,Processing Error: Exception security alert,Processing Error,Third-Party Vendor,General
+INT-2025-39559,System Outage: Timeout migration spike,System Outage,Technology Change,Failed Deployment
+INT-2025-94992,Theft or Fraud: Payment threshold reconciliation,Theft or Fraud,Fraud & Financial Crime,Check Fraud
+INT-2025-42907,Data Entry Error: Migration exception reconciliation,Data Entry Error,AML Sanctions,General
+INT-2025-97900,Compliance Breach: Investigation workflow payment,Compliance Breach,Model Risk,Calibration Error
+INT-2025-92245,Information Security Incident: Onboarding alert security,Information Security Incident,Third-Party Vendor,General
+INT-2025-88495,Data Entry Error: Onboarding security exception,Data Entry Error,Data Quality  Integrity,General
+INT-2025-50777,Processing Error: Batch security alert,Processing Error,Operational Resilience,Capacity/Scaling
+INT-2025-87616,Data Entry Error: Workflow validation alert,Data Entry Error,AML Sanctions,General
+INT-2025-73074,Information Security Incident: Spike latency security,Information Security Incident,Regulatory Compliance,Record Retention
+INT-2025-36169,Processing Error: Workflow retry workflow,Processing Error,Conduct & Culture,Sales Practice
+INT-2025-32102,Information Security Incident: Misconfiguration alert policy,Information Security Incident,Conduct & Culture,Inappropriate Communication
+INT-2025-29938,Information Security Incident: Batch payment timeout,Information Security Incident,Cybersecurity,Unauthorized Access
+INT-2025-90501,System Outage: Reconciliation batch dataset,System Outage,AML Sanctions,General
+INT-2025-51392,Theft or Fraud: Policy misconfiguration override,Theft or Fraud,Operational Resilience,BCP Gap
+INT-2025-31854,Data Entry Error: Dataset exception policy,Data Entry Error,Fraud & Financial Crime,Internal Fraud
+INT-2025-27877,Compliance Breach: Dataset onboarding customer,Compliance Breach,Technology Change,Failed Deployment
+INT-2025-71673,System Outage: Misconfiguration reconciliation security,System Outage,Data Quality  Integrity,General
+INT-2025-99623,Theft or Fraud: Timeout reference gateway,Theft or Fraud,Fraud & Financial Crime,Internal Fraud
+INT-2025-59434,System Outage: Retry manual policy,System Outage,Regulatory Compliance,Reporting Error
+INT-2025-71499,Processing Error: Validation reconciliation queue,Processing Error,Technology Change,Failed Deployment
+INT-2025-83146,Theft or Fraud: Security alert control,Theft or Fraud,Cybersecurity,Unauthorized Access
+INT-2025-90895,Compliance Breach: Payment workflow override,Compliance Breach,Technology Change,Change Collision
+INT-2025-92921,Processing Error: Control workflow exception,Processing Error,Third-Party Vendor,General
+INT-2025-19954,Data Entry Error: Alert batch threshold,Data Entry Error,Conduct & Culture,Inappropriate Communication
+INT-2025-54577,Compliance Breach: Gateway policy threshold,Compliance Breach,Fraud & Financial Crime,Card-Not-Present
+INT-2025-22940,Data Entry Error: Integration spike reconciliation,Data Entry Error,Cybersecurity,Phishing
+INT-2025-43432,Compliance Breach: Investigation threshold control,Compliance Breach,Cybersecurity,Data Breach
+INT-2025-87928,System Outage: Breach misconfiguration payment,System Outage,Third-Party Vendor,General
+INT-2025-45979,Theft or Fraud: Latency workflow reference,Theft or Fraud,Conduct & Culture,Insider Trading
+INT-2025-22091,Theft or Fraud: Reference override control,Theft or Fraud,Operational Resilience,Disaster Recovery
+INT-2025-31217,System Outage: Manual misconfiguration customer,System Outage,Technology Change,Config Drift
+INT-2025-28173,Data Entry Error: Payment migration workflow,Data Entry Error,Technology Change,Config Drift
+INT-2025-30178,Information Security Incident: Workflow migration integration,Information Security Incident,Conduct & Culture,Conflicts of Interest
+INT-2025-88706,Processing Error: Misconfiguration batch threshold,Processing Error,Technology Change,Change Collision
+INT-2025-34934,System Outage: Migration queue control,System Outage,Data Quality  Integrity,General
+INT-2025-42438,Information Security Incident: Security misconfiguration validation,Information Security Incident,Data Quality  Integrity,General
+INT-2025-36926,Information Security Incident: Queue investigation alert,Information Security Incident,Data Quality  Integrity,General
+INT-2025-36524,Processing Error: Manual control customer,Processing Error,Regulatory Compliance,KYC/CDD Gap
+INT-2025-30937,Theft or Fraud: Automated validation breach,Theft or Fraud,Conduct & Culture,Conflicts of Interest
+INT-2025-30335,Theft or Fraud: Override latency threshold,Theft or Fraud,Operational Resilience,BCP Gap
+INT-2025-30188,Information Security Incident: Workflow alert retry,Information Security Incident,Third-Party Vendor,General
+INT-2025-33942,System Outage: Validation control migration,System Outage,Regulatory Compliance,KYC/CDD Gap
+INT-2025-35202,System Outage: Integration spike integration,System Outage,Regulatory Compliance,KYC/CDD Gap
+INT-2025-49748,Compliance Breach: Queue onboarding threshold,Compliance Breach,Conduct & Culture,Conflicts of Interest
+INT-2025-90079,Data Entry Error: Timeout retry automated,Data Entry Error,Regulatory Compliance,MiFID II Breach
+INT-2025-91179,Processing Error: Exception automated gateway,Processing Error,Data Quality  Integrity,General
+INT-2025-39818,Processing Error: Control automated reference,Processing Error,AML Sanctions,General
+INT-2025-81567,Processing Error: Threshold retry exception,Processing Error,Fraud & Financial Crime,Check Fraud
+INT-2025-11420,Processing Error: Retry migration control,Processing Error,Technology Change,Failed Deployment
+INT-2025-54688,System Outage: Integration retry timeout,System Outage,Model Risk,Use-Case Misalignment
+INT-2025-37820,Theft or Fraud: Payment batch integration,Theft or Fraud,Technology Change,Failed Deployment
+INT-2025-43266,Information Security Incident: Validation control timeout,Information Security Incident,Model Risk,Use-Case Misalignment
+INT-2025-63550,Theft or Fraud: Integration onboarding latency,Theft or Fraud,Technology Change,Release Regression
+INT-2025-73526,System Outage: Policy override exception,System Outage,Third-Party Vendor,General
+INT-2025-58375,Information Security Incident: Reference automated misconfiguration,Information Security Incident,Cybersecurity,Unauthorized Access
+INT-2025-18553,Data Entry Error: Payment threshold batch,Data Entry Error,Regulatory Compliance,MiFID II Breach
+INT-2025-19042,Information Security Incident: Breach policy gateway,Information Security Incident,Conduct & Culture,Conflicts of Interest
+INT-2025-69251,Data Entry Error: Retry spike control,Data Entry Error,AML Sanctions,General
+INT-2025-33423,System Outage: Investigation breach control,System Outage,Third-Party Vendor,General
+INT-2025-28537,System Outage: Control payment timeout,System Outage,Fraud & Financial Crime,Account Takeover
+INT-2025-47075,Information Security Incident: Onboarding automated spike,Information Security Incident,Third-Party Vendor,General
+INT-2025-70824,System Outage: Policy security workflow,System Outage,Regulatory Compliance,Reporting Error
+INT-2025-61795,Data Entry Error: Automated dataset threshold,Data Entry Error,AML Sanctions,General
+INT-2025-95902,System Outage: Threshold policy customer,System Outage,Third-Party Vendor,General
+INT-2025-84716,Data Entry Error: Override policy control,Data Entry Error,Third-Party Vendor,General
+INT-2025-29779,Processing Error: Dataset control payment,Processing Error,Model Risk,Concept Drift
+INT-2025-10356,Processing Error: Control integration gateway,Processing Error,Third-Party Vendor,General
+INT-2025-81806,Compliance Breach: Onboarding dataset reconciliation,Compliance Breach,Model Risk,Validation Finding
+INT-2025-68894,Data Entry Error: Threshold breach gateway,Data Entry Error,Model Risk,Validation Finding
+INT-2025-44923,Information Security Incident: Workflow payment timeout,Information Security Incident,Operational Resilience,Disaster Recovery
+INT-2025-82075,Compliance Breach: Control misconfiguration validation,Compliance Breach,Third-Party Vendor,General
+INT-2025-51472,Information Security Incident: Control queue queue,Information Security Incident,Technology Change,Release Regression
+INT-2025-42778,Information Security Incident: Validation queue dataset,Information Security Incident,Regulatory Compliance,KYC/CDD Gap
+INT-2025-95103,System Outage: Manual validation integration,System Outage,Model Risk,Validation Finding
+INT-2025-40689,Information Security Incident: Manual alert reconciliation,Information Security Incident,Cybersecurity,Ransomware
+INT-2025-10177,Theft or Fraud: Queue threshold reconciliation,Theft or Fraud,Conduct & Culture,Inappropriate Communication
+INT-2025-30752,Compliance Breach: Reconciliation latency queue,Compliance Breach,Data Quality  Integrity,General
+INT-2025-20948,Data Entry Error: Policy queue reconciliation,Data Entry Error,Fraud & Financial Crime,Check Fraud
+INT-2025-84714,Theft or Fraud: Payment queue migration,Theft or Fraud,Technology Change,Release Regression
+INT-2025-33242,Compliance Breach: Onboarding override manual,Compliance Breach,Conduct & Culture,Sales Practice
+INT-2025-70097,Processing Error: Control misconfiguration automated,Processing Error,Data Quality  Integrity,General
+INT-2025-47248,Data Entry Error: Onboarding override alert,Data Entry Error,Operational Resilience,Disaster Recovery
+INT-2025-41687,Compliance Breach: Dataset threshold gateway,Compliance Breach,Technology Change,Release Regression
+INT-2025-47475,Data Entry Error: Manual workflow investigation,Data Entry Error,Technology Change,Release Regression
+INT-2025-78975,Information Security Incident: Security validation investigation,Information Security Incident,Third-Party Vendor,General
+INT-2025-31699,Processing Error: Investigation control dataset,Processing Error,Model Risk,Concept Drift
+INT-2025-87014,Data Entry Error: Threshold payment threshold,Data Entry Error,Technology Change,Change Collision
+INT-2025-95080,Processing Error: Override timeout customer,Processing Error,Cybersecurity,Phishing
+INT-2025-73080,System Outage: Reconciliation payment misconfiguration,System Outage,AML Sanctions,General
+INT-2025-92701,Compliance Breach: Queue validation onboarding,Compliance Breach,Technology Change,Release Regression
+INT-2025-13269,Compliance Breach: Timeout workflow manual,Compliance Breach,Fraud & Financial Crime,Check Fraud
+INT-2025-87033,System Outage: Misconfiguration reference timeout,System Outage,Data Quality  Integrity,General
+INT-2025-65767,Information Security Incident: Security security customer,Information Security Incident,Technology Change,Release Regression
+INT-2025-21021,Theft or Fraud: Dataset misconfiguration onboarding,Theft or Fraud,Operational Resilience,Disaster Recovery
+INT-2025-87904,System Outage: Reference retry dataset,System Outage,Technology Change,Change Collision
+INT-2025-74128,System Outage: Investigation automated alert,System Outage,Cybersecurity,Ransomware
+INT-2025-61869,Data Entry Error: Spike threshold control,Data Entry Error,Operational Resilience,BCP Gap
+INT-2025-74843,Information Security Incident: Gateway validation spike,Information Security Incident,Conduct & Culture,Insider Trading
+INT-2025-92814,Data Entry Error: Retry override reconciliation,Data Entry Error,Conduct & Culture,Insider Trading
+INT-2025-32472,Information Security Incident: Control workflow timeout,Information Security Incident,Fraud & Financial Crime,Card-Not-Present
+INT-2025-21305,System Outage: Onboarding exception security,System Outage,Technology Change,Config Drift
+INT-2025-30961,Compliance Breach: Batch latency investigation,Compliance Breach,Model Risk,Validation Finding

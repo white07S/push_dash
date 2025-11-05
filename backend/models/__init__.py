@@ -1,6 +1,5 @@
 """Models package for backend."""
 from .shared import (
-    MinimalListItem,
     AIFunctionResult,
     TriggerResponse,
     ErrorResponse,
@@ -47,7 +46,6 @@ from .issues import (
 
 __all__ = [
     # Shared models
-    'MinimalListItem',
     'AIFunctionResult',
     'TriggerResponse',
     'ErrorResponse',

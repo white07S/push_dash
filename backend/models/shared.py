@@ -1,14 +1,7 @@
 """Shared Pydantic models for API responses."""
-from typing import Dict, Any, Optional, List
-from pydantic import BaseModel, Field
-from datetime import datetime
+from typing import Any, Dict, List, Optional
 
-class MinimalListItem(BaseModel):
-    """Minimal list item response for search results."""
-    id: str = Field(..., description="Item ID")
-    description: str = Field(..., description="Item description")
-    nfr_taxonomy: str = Field(..., description="NFR taxonomy (pipe-delimited)")
-    ai_taxonomy_present: bool = Field(False, description="Whether AI taxonomy has been computed")
+from pydantic import BaseModel, Field
 
 class AIFunctionResult(BaseModel):
     """AI function result response."""

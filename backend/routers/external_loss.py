@@ -49,13 +49,13 @@ async def list_external_losses(
         logger.error(f"Error listing external losses: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/{ext_loss_id}/details", response_model=ExternalLossDetails)
-async def get_external_loss_details(ext_loss_id: str):
+@router.get("/{reference_id_code}/details", response_model=ExternalLossDetails)
+async def get_external_loss_details(reference_id_code: str):
     """Get full external loss details including AI results."""
     try:
-        details = dao.get_details(ext_loss_id)
+        details = dao.get_details(reference_id_code)
         if not details:
-            raise HTTPException(status_code=404, detail=f"External loss {ext_loss_id} not found")
+            raise HTTPException(status_code=404, detail=f"External loss {reference_id_code} not found")
         return details
     except HTTPException:
         raise
@@ -63,16 +63,16 @@ async def get_external_loss_details(ext_loss_id: str):
         logger.error(f"Error getting external loss details: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/{ext_loss_id}/ai-taxonomy", response_model=TriggerResponse)
-async def trigger_ai_taxonomy(
-    ext_loss_id: str,
+@router.post("/{reference_id_code}/issue-taxonomy", response_model=TriggerResponse)
+async def trigger_issue_taxonomy(
+    reference_id_code: str,
     request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI taxonomy generation for an external loss."""
     try:
-        result = dao.trigger_ai_taxonomy(
-            ext_loss_id,
+        result = dao.trigger_issue_taxonomy(
+            reference_id_code,
             request.description,
             refresh
         )
@@ -83,16 +83,16 @@ async def trigger_ai_taxonomy(
         logger.error(f"Error triggering AI taxonomy: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{ext_loss_id}/ai-root-causes", response_model=TriggerResponse)
-async def trigger_ai_root_causes(
-    ext_loss_id: str,
+@router.post("/{reference_id_code}/root-cause", response_model=TriggerResponse)
+async def trigger_root_cause(
+    reference_id_code: str,
     request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI root cause analysis for an external loss."""
     try:
-        result = dao.trigger_ai_root_causes(
-            ext_loss_id,
+        result = dao.trigger_root_cause(
+            reference_id_code,
             request.description,
             refresh
         )
@@ -103,16 +103,16 @@ async def trigger_ai_root_causes(
         logger.error(f"Error triggering AI root causes: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{ext_loss_id}/ai-enrichment", response_model=TriggerResponse)
-async def trigger_ai_enrichment(
-    ext_loss_id: str,
+@router.post("/{reference_id_code}/enrichment", response_model=TriggerResponse)
+async def trigger_enrichment(
+    reference_id_code: str,
     request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI enrichment for an external loss."""
     try:
-        result = dao.trigger_ai_enrichment(
-            ext_loss_id,
+        result = dao.trigger_enrichment(
+            reference_id_code,
             request.description,
             refresh
         )
@@ -122,39 +122,6 @@ async def trigger_ai_enrichment(
     except Exception as e:
         logger.error(f"Error triggering AI enrichment: {e}")
         raise HTTPException(status_code=502, detail=str(e))
-
-@router.post("/{ext_loss_id}/similar-external-loss", response_model=TriggerResponse)
-async def trigger_similar_external_losses(
-    ext_loss_id: str,
-    request: ExternalLossSearchRequest = Body(default=ExternalLossSearchRequest()),
-    refresh: bool = Query(False, description="Force recompute even if cached")
-):
-    """Trigger similar external losses identification."""
-    try:
-        result = dao.trigger_similar_external_loss(
-            ext_loss_id,
-            request.description,
-            refresh
-        )
-        return result
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error triggering similar external losses: {e}")
-        raise HTTPException(status_code=502, detail=str(e))
-
-@router.get("/taxonomy/{taxonomy_token}", response_model=ExternalLossList)
-async def search_by_taxonomy(
-    taxonomy_token: str,
-    limit: int = Query(100, description="Maximum number of results", ge=1, le=1000)
-):
-    """Search external losses by taxonomy token."""
-    try:
-        items = dao.search_by_taxonomy(taxonomy_token, limit)
-        return ExternalLossList(items=items, total=len(items))
-    except Exception as e:
-        logger.error(f"Error searching by taxonomy: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/statistics")
 async def get_statistics():

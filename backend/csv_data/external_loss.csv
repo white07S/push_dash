@@ -1,0 +1,121 @@
+reference_id_code,parent_name,description_of_event,risk_theme,risk_subtheme
+EXT-2025-88645,NorthBridge Bank plc,NorthBridge Bank plc experienced a service disruption leading to data exposure. Root cause linked to card-not-present.,Fraud & Financial Crime,Card-Not-Present
+EXT-2025-91195,CloudCompute Inc.,CloudCompute Inc. experienced an operations failure leading to data exposure. Root cause linked to phishing.,Cybersecurity,Phishing
+EXT-2025-67843,Acme Vendor Corp,Acme Vendor Corp experienced an operations failure leading to data exposure. Root cause linked to validation finding.,Model Risk,Validation Finding
+EXT-2025-74614,FinPay Services AG,FinPay Services AG experienced an operations failure leading to failed end-of-day processing. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-43388,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to data exposure. Root cause linked to mifid ii breach.,Regulatory Compliance,MiFID II Breach
+EXT-2025-45239,FinPay Services AG,FinPay Services AG experienced a service disruption leading to failed end-of-day processing. Root cause linked to inappropriate communication.,Conduct & Culture,Inappropriate Communication
+EXT-2025-67148,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to data exposure. Root cause linked to phishing.,Cybersecurity,Phishing
+EXT-2025-63662,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-30277,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to delayed settlements. Root cause linked to internal fraud.,Fraud & Financial Crime,Internal Fraud
+EXT-2025-68343,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to data exposure. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-52737,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to failed end-of-day processing. Root cause linked to reporting error.,Regulatory Compliance,Reporting Error
+EXT-2025-26384,FinPay Services AG,FinPay Services AG experienced an operations failure leading to data exposure. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-39788,CloudCompute Inc.,CloudCompute Inc. experienced an operations failure leading to delayed settlements. Root cause linked to unauthorized access.,Cybersecurity,Unauthorized Access
+EXT-2025-39375,CloudCompute Inc.,CloudCompute Inc. experienced an operations failure leading to data exposure. Root cause linked to conflicts of interest.,Conduct & Culture,Conflicts of Interest
+EXT-2025-64718,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to data exposure. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-51668,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to failed end-of-day processing. Root cause linked to phishing.,Cybersecurity,Phishing
+EXT-2025-47820,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-65924,EuroTrade Clearing SA,EuroTrade Clearing SA experienced an operations failure leading to data exposure. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-58964,FinPay Services AG,FinPay Services AG experienced a service disruption leading to delayed settlements. Root cause linked to ransomware.,Cybersecurity,Ransomware
+EXT-2025-24089,FinPay Services AG,FinPay Services AG experienced a service disruption leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-25228,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to delayed settlements. Root cause linked to failed deployment.,Technology Change,Failed Deployment
+EXT-2025-58692,Acme Vendor Corp,Acme Vendor Corp experienced a security incident leading to delayed settlements. Root cause linked to unauthorized access.,Cybersecurity,Unauthorized Access
+EXT-2025-67396,NorthBridge Bank plc,NorthBridge Bank plc experienced a service disruption leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-88286,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to data exposure. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-57038,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to delayed settlements. Root cause linked to calibration error.,Model Risk,Calibration Error
+EXT-2025-29973,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to delayed settlements. Root cause linked to data breach.,Cybersecurity,Data Breach
+EXT-2025-13283,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to failed end-of-day processing. Root cause linked to conflicts of interest.,Conduct & Culture,Conflicts of Interest
+EXT-2025-19210,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to delayed settlements. Root cause linked to change collision.,Technology Change,Change Collision
+EXT-2025-14805,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to failed end-of-day processing. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-61177,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to data exposure. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-25204,NorthBridge Bank plc,NorthBridge Bank plc experienced an operations failure leading to failed end-of-day processing. Root cause linked to release regression.,Technology Change,Release Regression
+EXT-2025-76235,Acme Vendor Corp,Acme Vendor Corp experienced an operations failure leading to delayed settlements. Root cause linked to insider trading.,Conduct & Culture,Insider Trading
+EXT-2025-77315,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to data exposure. Root cause linked to validation finding.,Model Risk,Validation Finding
+EXT-2025-60087,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to data exposure. Root cause linked to bcp gap.,Operational Resilience,BCP Gap
+EXT-2025-56469,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to data exposure. Root cause linked to validation finding.,Model Risk,Validation Finding
+EXT-2025-15672,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to delayed settlements. Root cause linked to config drift.,Technology Change,Config Drift
+EXT-2025-35393,NorthBridge Bank plc,NorthBridge Bank plc experienced a security incident leading to delayed settlements. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-65805,EuroTrade Clearing SA,EuroTrade Clearing SA experienced an operations failure leading to data exposure. Root cause linked to internal fraud.,Fraud & Financial Crime,Internal Fraud
+EXT-2025-99297,FinPay Services AG,FinPay Services AG experienced a security incident leading to data exposure. Root cause linked to disaster recovery.,Operational Resilience,Disaster Recovery
+EXT-2025-20341,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to delayed settlements. Root cause linked to validation finding.,Model Risk,Validation Finding
+EXT-2025-51554,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to failed end-of-day processing. Root cause linked to disaster recovery.,Operational Resilience,Disaster Recovery
+EXT-2025-35755,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to delayed settlements. Root cause linked to calibration error.,Model Risk,Calibration Error
+EXT-2025-40292,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to delayed settlements. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-96979,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-31291,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to failed end-of-day processing. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-96862,CloudCompute Inc.,CloudCompute Inc. experienced an operations failure leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-50578,Acme Vendor Corp,Acme Vendor Corp experienced a security incident leading to data exposure. Root cause linked to mifid ii breach.,Regulatory Compliance,MiFID II Breach
+EXT-2025-42228,NorthBridge Bank plc,NorthBridge Bank plc experienced a service disruption leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-26444,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to failed end-of-day processing. Root cause linked to insider trading.,Conduct & Culture,Insider Trading
+EXT-2025-80536,FinPay Services AG,FinPay Services AG experienced a service disruption leading to data exposure. Root cause linked to bcp gap.,Operational Resilience,BCP Gap
+EXT-2025-61202,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-31562,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to data exposure. Root cause linked to disaster recovery.,Operational Resilience,Disaster Recovery
+EXT-2025-94912,Acme Vendor Corp,Acme Vendor Corp experienced a security incident leading to data exposure. Root cause linked to release regression.,Technology Change,Release Regression
+EXT-2025-51108,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to data exposure. Root cause linked to capacity/scaling.,Operational Resilience,Capacity/Scaling
+EXT-2025-68869,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to failed end-of-day processing. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-79760,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to delayed settlements. Root cause linked to ransomware.,Cybersecurity,Ransomware
+EXT-2025-91108,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to data exposure. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-39486,FinPay Services AG,FinPay Services AG experienced a security incident leading to data exposure. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-99598,Acme Vendor Corp,Acme Vendor Corp experienced a security incident leading to failed end-of-day processing. Root cause linked to card-not-present.,Fraud & Financial Crime,Card-Not-Present
+EXT-2025-46216,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to data exposure. Root cause linked to disaster recovery.,Operational Resilience,Disaster Recovery
+EXT-2025-33760,FinPay Services AG,FinPay Services AG experienced a security incident leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-13747,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to failed end-of-day processing. Root cause linked to change collision.,Technology Change,Change Collision
+EXT-2025-65709,Acme Vendor Corp,Acme Vendor Corp experienced an operations failure leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-98703,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to delayed settlements. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-61483,FinPay Services AG,FinPay Services AG experienced a service disruption leading to failed end-of-day processing. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-13097,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to data exposure. Root cause linked to reporting error.,Regulatory Compliance,Reporting Error
+EXT-2025-71717,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to failed end-of-day processing. Root cause linked to mifid ii breach.,Regulatory Compliance,MiFID II Breach
+EXT-2025-10856,NorthBridge Bank plc,NorthBridge Bank plc experienced an operations failure leading to data exposure. Root cause linked to phishing.,Cybersecurity,Phishing
+EXT-2025-92011,NorthBridge Bank plc,NorthBridge Bank plc experienced a security incident leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-52117,NorthBridge Bank plc,NorthBridge Bank plc experienced an operations failure leading to failed end-of-day processing. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-26882,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to data exposure. Root cause linked to use-case misalignment.,Model Risk,Use-Case Misalignment
+EXT-2025-94324,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to data exposure. Root cause linked to validation finding.,Model Risk,Validation Finding
+EXT-2025-18685,FinPay Services AG,FinPay Services AG experienced a security incident leading to data exposure. Root cause linked to account takeover.,Fraud & Financial Crime,Account Takeover
+EXT-2025-46854,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to failed end-of-day processing. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-96877,FinPay Services AG,FinPay Services AG experienced a service disruption leading to failed end-of-day processing. Root cause linked to calibration error.,Model Risk,Calibration Error
+EXT-2025-58154,FinPay Services AG,FinPay Services AG experienced a service disruption leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-35379,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to data exposure. Root cause linked to use-case misalignment.,Model Risk,Use-Case Misalignment
+EXT-2025-56766,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to data exposure. Root cause linked to unauthorized access.,Cybersecurity,Unauthorized Access
+EXT-2025-45911,Acme Vendor Corp,Acme Vendor Corp experienced an operations failure leading to delayed settlements. Root cause linked to general.,AML Sanctions,General
+EXT-2025-18093,Global Payments Ltd,Global Payments Ltd experienced an operations failure leading to delayed settlements. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-62320,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to delayed settlements. Root cause linked to concept drift.,Model Risk,Concept Drift
+EXT-2025-30061,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to data exposure. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-58036,CloudCompute Inc.,CloudCompute Inc. experienced an operations failure leading to data exposure. Root cause linked to reporting error.,Regulatory Compliance,Reporting Error
+EXT-2025-95398,NorthBridge Bank plc,NorthBridge Bank plc experienced an operations failure leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-35731,NorthBridge Bank plc,NorthBridge Bank plc experienced a security incident leading to failed end-of-day processing. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-94895,FinPay Services AG,FinPay Services AG experienced a security incident leading to failed end-of-day processing. Root cause linked to mifid ii breach.,Regulatory Compliance,MiFID II Breach
+EXT-2025-60142,FinPay Services AG,FinPay Services AG experienced an operations failure leading to failed end-of-day processing. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-43175,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to data exposure. Root cause linked to internal fraud.,Fraud & Financial Crime,Internal Fraud
+EXT-2025-36157,FinPay Services AG,FinPay Services AG experienced a security incident leading to delayed settlements. Root cause linked to conflicts of interest.,Conduct & Culture,Conflicts of Interest
+EXT-2025-79665,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to data exposure. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-33941,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to delayed settlements. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-89798,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to data exposure. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-63151,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to failed end-of-day processing. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-87804,FinPay Services AG,FinPay Services AG experienced an operations failure leading to failed end-of-day processing. Root cause linked to general.,AML Sanctions,General
+EXT-2025-91932,CloudCompute Inc.,CloudCompute Inc. experienced a service disruption leading to data exposure. Root cause linked to bcp gap.,Operational Resilience,BCP Gap
+EXT-2025-41430,NorthBridge Bank plc,NorthBridge Bank plc experienced a security incident leading to failed end-of-day processing. Root cause linked to config drift.,Technology Change,Config Drift
+EXT-2025-22849,EuroTrade Clearing SA,EuroTrade Clearing SA experienced an operations failure leading to delayed settlements. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-86570,Acme Vendor Corp,Acme Vendor Corp experienced an operations failure leading to data exposure. Root cause linked to data breach.,Cybersecurity,Data Breach
+EXT-2025-43171,FinPay Services AG,FinPay Services AG experienced a security incident leading to delayed settlements. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-28812,EuroTrade Clearing SA,EuroTrade Clearing SA experienced an operations failure leading to failed end-of-day processing. Root cause linked to general.,AML Sanctions,General
+EXT-2025-69983,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to data exposure. Root cause linked to data breach.,Cybersecurity,Data Breach
+EXT-2025-29410,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to data exposure. Root cause linked to config drift.,Technology Change,Config Drift
+EXT-2025-41632,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to failed end-of-day processing. Root cause linked to conflicts of interest.,Conduct & Culture,Conflicts of Interest
+EXT-2025-22074,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to data exposure. Root cause linked to capacity/scaling.,Operational Resilience,Capacity/Scaling
+EXT-2025-31561,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to delayed settlements. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-13663,NorthBridge Bank plc,NorthBridge Bank plc experienced a service disruption leading to failed end-of-day processing. Root cause linked to change collision.,Technology Change,Change Collision
+EXT-2025-80711,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to failed end-of-day processing. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-40213,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to failed end-of-day processing. Root cause linked to reporting error.,Regulatory Compliance,Reporting Error
+EXT-2025-92325,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to data exposure. Root cause linked to general.,Data Quality  Integrity,General
+EXT-2025-69541,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to delayed settlements. Root cause linked to release regression.,Technology Change,Release Regression
+EXT-2025-32362,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to delayed settlements. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-40832,CloudCompute Inc.,CloudCompute Inc. experienced a security incident leading to delayed settlements. Root cause linked to single point of failure.,Operational Resilience,Single Point of Failure
+EXT-2025-68134,Global Payments Ltd,Global Payments Ltd experienced a service disruption leading to failed end-of-day processing. Root cause linked to inappropriate communication.,Conduct & Culture,Inappropriate Communication
+EXT-2025-88128,Global Payments Ltd,Global Payments Ltd experienced a security incident leading to failed end-of-day processing. Root cause linked to sales practice.,Conduct & Culture,Sales Practice
+EXT-2025-66163,Acme Vendor Corp,Acme Vendor Corp experienced a service disruption leading to failed end-of-day processing. Root cause linked to general.,Third-Party Vendor,General
+EXT-2025-15229,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a service disruption leading to delayed settlements. Root cause linked to conflicts of interest.,Conduct & Culture,Conflicts of Interest
+EXT-2025-31457,EuroTrade Clearing SA,EuroTrade Clearing SA experienced an operations failure leading to failed end-of-day processing. Root cause linked to ransomware.,Cybersecurity,Ransomware
+EXT-2025-13946,FinPay Services AG,FinPay Services AG experienced a security incident leading to failed end-of-day processing. Root cause linked to ransomware.,Cybersecurity,Ransomware
+EXT-2025-18915,FinPay Services AG,FinPay Services AG experienced a security incident leading to data exposure. Root cause linked to record retention.,Regulatory Compliance,Record Retention
+EXT-2025-88906,EuroTrade Clearing SA,EuroTrade Clearing SA experienced a security incident leading to data exposure. Root cause linked to general.,AML Sanctions,General

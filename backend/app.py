@@ -12,6 +12,7 @@ import uvicorn
 import yaml
 
 from db import get_db
+from dataset_config import get_dataset_config
 from utils.csv_ingest import CSVIngester
 from utils.batch_utils import BatchProcessor
 from routers import (
@@ -213,28 +214,24 @@ async def batch_compute_ai_functions(
         # Map function names to compute functions
         function_map = {
             'controls': {
-                'ai_taxonomy': mock_ai.get_controls_ai_taxonomy,
-                'ai_root_causes': mock_ai.get_controls_ai_root_causes,
-                'ai_enrichment': mock_ai.get_controls_ai_enrichment,
-                'similar_controls': mock_ai.get_controls_similar_controls
+                'controls_taxonomy': mock_ai.get_controls_taxonomy,
+                'root_cause': mock_ai.get_controls_root_cause,
+                'enrichment': mock_ai.get_controls_enrichment
             },
             'external_loss': {
-                'ai_taxonomy': mock_ai.get_external_loss_ai_taxonomy,
-                'ai_root_causes': mock_ai.get_external_loss_ai_root_causes,
-                'ai_enrichment': mock_ai.get_external_loss_ai_enrichment,
-                'similar_external_loss': mock_ai.get_external_loss_similar_external_loss
+                'issue_taxonomy': mock_ai.get_external_loss_taxonomy,
+                'root_cause': mock_ai.get_external_loss_root_cause,
+                'enrichment': mock_ai.get_external_loss_enrichment
             },
             'internal_loss': {
-                'ai_taxonomy': mock_ai.get_internal_loss_ai_taxonomy,
-                'ai_root_causes': mock_ai.get_internal_loss_ai_root_causes,
-                'ai_enrichment': mock_ai.get_internal_loss_ai_enrichment,
-                'similar_internal_loss': mock_ai.get_internal_loss_similar_internal_loss
+                'issue_taxonomy': mock_ai.get_internal_loss_taxonomy,
+                'root_cause': mock_ai.get_internal_loss_root_cause,
+                'enrichment': mock_ai.get_internal_loss_enrichment
             },
             'issues': {
-                'ai_taxonomy': mock_ai.get_issues_ai_taxonomy,
-                'ai_root_causes': mock_ai.get_issues_ai_root_causes,
-                'ai_enrichment': mock_ai.get_issues_ai_enrichment,
-                'similar_issues': mock_ai.get_issues_similar_issues
+                'issue_taxonomy': mock_ai.get_issues_taxonomy,
+                'root_cause': mock_ai.get_issues_root_cause,
+                'enrichment': mock_ai.get_issues_enrichment
             }
         }
 
@@ -251,14 +248,9 @@ async def batch_compute_ai_functions(
         ids = None
         if max_items:
             db = get_db()
-            key_fields = {
-                'controls': 'control_id',
-                'external_loss': 'ext_loss_id',
-                'internal_loss': 'loss_id',
-                'issues': 'issue_id'
-            }
-            key_field = key_fields[dataset]
-            query = f"SELECT {key_field} FROM {dataset}_raw LIMIT ?"
+            config = get_dataset_config(dataset)
+            key_field = config.key_field
+            query = f"SELECT {key_field} FROM {config.table} LIMIT ?"
             rows = db.fetchall(query, (max_items,))
             ids = [row[0] for row in rows]
 

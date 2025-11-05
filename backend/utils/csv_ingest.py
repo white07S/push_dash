@@ -3,13 +3,14 @@ import csv
 import json
 import os
 import logging
-from typing import Dict, List, Any, Optional, Generator, Tuple
+from typing import Dict, List, Any, Generator, Tuple
 from datetime import datetime
-import pandas as pd
 
 from db import get_db
+from dataset_config import DATASET_CONFIG, DatasetConfig, get_dataset_config
 
 logger = logging.getLogger(__name__)
+
 
 class CSVIngester:
     """Handle CSV data ingestion into SQLite database."""
@@ -18,51 +19,27 @@ class CSVIngester:
         """Initialize CSV ingester."""
         self.csv_dir = csv_dir
         self.db = get_db()
-        self.dataset_configs = {
-            'controls': {
-                'filename': 'controls.csv',
-                'table': 'controls_raw',
-                'key_field': 'control_id',
-                'required_fields': ['control_id', 'description']
-            },
-            'external_loss': {
-                'filename': 'external_losses.csv',
-                'table': 'external_loss_raw',
-                'key_field': 'ext_loss_id',
-                'required_fields': ['ext_loss_id', 'description']
-            },
-            'internal_loss': {
-                'filename': 'internal_losses.csv',
-                'table': 'internal_loss_raw',
-                'key_field': 'loss_id',
-                'required_fields': ['loss_id', 'description']
-            },
-            'issues': {
-                'filename': 'issues.csv',
-                'table': 'issues_raw',
-                'key_field': 'issue_id',
-                'required_fields': ['issue_id', 'description']
-            }
-        }
+        self.dataset_configs = DATASET_CONFIG
 
-    def normalize_taxonomy(self, taxonomy_str: Optional[str]) -> str:
-        """Normalize NFR taxonomy string."""
-        if not taxonomy_str:
-            return ''
+    def _required_fields(self, config: DatasetConfig) -> List[str]:
+        """Return a list of required CSV columns for the dataset."""
+        fields = [
+            config.key_field,
+            config.title_field,
+            config.theme_field,
+            config.subtheme_field
+        ]
+        return fields
 
-        # Split by pipe, trim whitespace, normalize case
-        tokens = [token.strip().title() for token in taxonomy_str.split('|') if token.strip()]
-        return '|'.join(tokens)
-
-    def validate_row(self, row: Dict[str, Any], config: Dict) -> Tuple[bool, str]:
+    def validate_row(self, row: Dict[str, Any], config: DatasetConfig) -> Tuple[bool, str]:
         """Validate a CSV row."""
         # Check required fields
-        for field in config['required_fields']:
+        for field in self._required_fields(config):
             if field not in row or not row[field]:
                 return False, f"Missing required field: {field}"
 
         # Check for duplicate ID (this would be handled by DB constraint as well)
-        key_field = config['key_field']
+        key_field = config.key_field
         key_value = row[key_field]
 
         if not key_value:
@@ -83,17 +60,16 @@ class CSVIngester:
             logger.error(f"Error reading CSV file {filepath}: {e}")
             raise
 
-    def process_batch(self, rows: List[Dict[str, Any]], config: Dict) -> Tuple[int, int, List[str]]:
+    def process_batch(self, rows: List[Dict[str, Any]], config: DatasetConfig) -> Tuple[int, int, List[str]]:
         """Process a batch of rows for insertion."""
-        table = config['table']
-        key_field = config['key_field']
+        table = config.table
+        key_field = config.key_field
         successful = 0
         failed = 0
         errors = []
 
         # Prepare batch data
         batch_data = []
-        taxonomy_data = []
 
         for row in rows:
             is_valid, error_msg = self.validate_row(row, config)
@@ -103,25 +79,23 @@ class CSVIngester:
                 continue
 
             key_value = row[key_field]
-            description = row.get('description', '')
-            nfr_taxonomy = self.normalize_taxonomy(row.get('nfr_taxonomy', ''))
+            title_value = row.get(config.title_field, '')
+            category_value = row.get(config.category_field, '') if config.category_field else ''
+            risk_theme = row.get(config.theme_field, '')
+            risk_subtheme = row.get(config.subtheme_field, '')
 
             # Store entire row as JSON for raw_data column
             raw_data = json.dumps(row)
 
             batch_data.append((
                 key_value,
-                description,
-                nfr_taxonomy,
+                title_value,
+                category_value,
+                risk_theme,
+                risk_subtheme,
                 raw_data,
                 datetime.utcnow().isoformat() + 'Z'
             ))
-
-            # Prepare taxonomy mapping data
-            if nfr_taxonomy:
-                for token in nfr_taxonomy.split('|'):
-                    if token:
-                        taxonomy_data.append((key_value, token))
 
         # Insert batch into database
         if batch_data:
@@ -129,20 +103,10 @@ class CSVIngester:
                 # Use INSERT OR IGNORE to skip duplicates
                 insert_query = f'''
                     INSERT OR IGNORE INTO {table}
-                    ({key_field}, description, nfr_taxonomy, raw_data, created_at)
-                    VALUES (?, ?, ?, ?, ?)
+                    ({key_field}, title, category, risk_theme, risk_subtheme, raw_data, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 '''
                 self.db.executemany(insert_query, batch_data)
-
-                # Insert taxonomy mappings
-                if taxonomy_data:
-                    dataset_name = table.replace('_raw', '')
-                    taxonomy_query = f'''
-                        INSERT OR IGNORE INTO {dataset_name}_taxonomy_map
-                        ({key_field}, taxonomy_token)
-                        VALUES (?, ?)
-                    '''
-                    self.db.executemany(taxonomy_query, taxonomy_data)
 
                 # APSW is in autocommit mode by default, no commit needed
                 successful = len(batch_data)
@@ -155,11 +119,8 @@ class CSVIngester:
 
     def ingest_dataset(self, dataset_name: str, batch_size: int = 1000) -> Dict[str, Any]:
         """Ingest a single dataset from CSV."""
-        if dataset_name not in self.dataset_configs:
-            raise ValueError(f"Unknown dataset: {dataset_name}")
-
-        config = self.dataset_configs[dataset_name]
-        filepath = os.path.join(self.csv_dir, config['filename'])
+        config = get_dataset_config(dataset_name)
+        filepath = os.path.join(self.csv_dir, config.csv_filename)
 
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"CSV file not found: {filepath}")
@@ -224,7 +185,7 @@ class CSVIngester:
         stats = {}
 
         for dataset_name, config in self.dataset_configs.items():
-            table = config['table']
+            table = config.table
             query = f"SELECT COUNT(*) FROM {table}"
             result = self.db.fetchone(query)
             stats[dataset_name] = result[0] if result else 0

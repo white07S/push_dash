@@ -63,15 +63,15 @@ async def get_control_details(control_id: str):
         logger.error(f"Error getting control details: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/{control_id}/ai-taxonomy", response_model=TriggerResponse)
-async def trigger_ai_taxonomy(
+@router.post("/{control_id}/controls-taxonomy", response_model=TriggerResponse)
+async def trigger_controls_taxonomy(
     control_id: str,
     request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
-        result = dao.trigger_ai_taxonomy(
+        result = dao.trigger_controls_taxonomy(
             control_id,
             request.description,
             refresh
@@ -83,15 +83,15 @@ async def trigger_ai_taxonomy(
         logger.error(f"Error triggering AI taxonomy: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{control_id}/ai-root-causes", response_model=TriggerResponse)
-async def trigger_ai_root_causes(
+@router.post("/{control_id}/root-cause", response_model=TriggerResponse)
+async def trigger_root_cause(
     control_id: str,
     request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI root cause analysis for a control."""
     try:
-        result = dao.trigger_ai_root_causes(
+        result = dao.trigger_root_cause(
             control_id,
             request.description,
             refresh
@@ -103,15 +103,15 @@ async def trigger_ai_root_causes(
         logger.error(f"Error triggering AI root causes: {e}")
         raise HTTPException(status_code=502, detail=str(e))
 
-@router.post("/{control_id}/ai-enrichment", response_model=TriggerResponse)
-async def trigger_ai_enrichment(
+@router.post("/{control_id}/enrichment", response_model=TriggerResponse)
+async def trigger_enrichment(
     control_id: str,
     request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
     refresh: bool = Query(False, description="Force recompute even if cached")
 ):
     """Trigger AI enrichment for a control."""
     try:
-        result = dao.trigger_ai_enrichment(
+        result = dao.trigger_enrichment(
             control_id,
             request.description,
             refresh
@@ -122,39 +122,6 @@ async def trigger_ai_enrichment(
     except Exception as e:
         logger.error(f"Error triggering AI enrichment: {e}")
         raise HTTPException(status_code=502, detail=str(e))
-
-@router.post("/{control_id}/similar-controls", response_model=TriggerResponse)
-async def trigger_similar_controls(
-    control_id: str,
-    request: ControlsSearchRequest = Body(default=ControlsSearchRequest()),
-    refresh: bool = Query(False, description="Force recompute even if cached")
-):
-    """Trigger similar controls identification."""
-    try:
-        result = dao.trigger_similar_controls(
-            control_id,
-            request.description,
-            refresh
-        )
-        return result
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error triggering similar controls: {e}")
-        raise HTTPException(status_code=502, detail=str(e))
-
-@router.get("/taxonomy/{taxonomy_token}", response_model=ControlsList)
-async def search_by_taxonomy(
-    taxonomy_token: str,
-    limit: int = Query(100, description="Maximum number of results", ge=1, le=1000)
-):
-    """Search controls by taxonomy token."""
-    try:
-        items = dao.search_by_taxonomy(taxonomy_token, limit)
-        return ControlsList(items=items, total=len(items))
-    except Exception as e:
-        logger.error(f"Error searching by taxonomy: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/statistics")
 async def get_statistics():

@@ -6,6 +6,8 @@ from datetime import datetime
 from typing import Optional, Dict, Any, List
 import logging
 
+from dataset_config import DATASET_CONFIG
+
 logger = logging.getLogger(__name__)
 
 class Database:
@@ -41,38 +43,32 @@ class Database:
         """Create all necessary tables for the dashboard."""
         cursor = self.connection.cursor()
 
-        # Define datasets and their keys
-        datasets = {
-            'controls': 'control_id',
-            'external_loss': 'ext_loss_id',
-            'internal_loss': 'loss_id',
-            'issues': 'issue_id'
-        }
+        for dataset, config in DATASET_CONFIG.items():
+            key_field = config.key_field
+            table = config.table
 
-        # AI function tables for each dataset
-        ai_functions = [
-            'ai_taxonomy',
-            'ai_root_causes',
-            'ai_enrichment',
-            'similar_controls'
-        ]
-
-        for dataset, key_field in datasets.items():
             # Create raw table for each dataset
             cursor.execute(f'''
-                CREATE TABLE IF NOT EXISTS {dataset}_raw (
+                CREATE TABLE IF NOT EXISTS {table} (
                     {key_field} TEXT PRIMARY KEY,
-                    description TEXT,
-                    nfr_taxonomy TEXT,
+                    title TEXT,
+                    category TEXT,
+                    risk_theme TEXT,
+                    risk_subtheme TEXT,
                     raw_data JSON,
                     created_at TEXT DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
 
-            # Create index on nfr_taxonomy for filtering
+            # Create index on risk theme for filtering
             cursor.execute(f'''
-                CREATE INDEX IF NOT EXISTS idx_{dataset}_nfr_taxonomy
-                ON {dataset}_raw(nfr_taxonomy)
+                CREATE INDEX IF NOT EXISTS idx_{dataset}_risk_theme
+                ON {table}(risk_theme)
+            ''')
+
+            cursor.execute(f'''
+                CREATE INDEX IF NOT EXISTS idx_{dataset}_risk_subtheme
+                ON {table}(risk_subtheme)
             ''')
 
             # Create FTS5 virtual table for text search (optional, for future expansion)
@@ -86,44 +82,25 @@ class Database:
                     CREATE VIRTUAL TABLE {dataset}_fts
                     USING fts5(
                         {key_field} UNINDEXED,
-                        description,
-                        content={dataset}_raw,
+                        title,
+                        category,
+                        content={table},
                         tokenize='porter ascii'
                     )
                 ''')
 
             # Create AI function tables
-            for func in ai_functions:
-                # Adjust function name for datasets other than controls
-                if func == 'similar_controls' and dataset != 'controls':
-                    func_name = f'similar_{dataset}'
-                else:
-                    func_name = func
+            for func in config.ai_functions:
+                table_name = f'{dataset}_{func}'
 
                 cursor.execute(f'''
-                    CREATE TABLE IF NOT EXISTS {dataset}_{func_name} (
+                    CREATE TABLE IF NOT EXISTS {table_name} (
                         {key_field} TEXT PRIMARY KEY,
                         payload JSON,
                         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                        FOREIGN KEY({key_field}) REFERENCES {dataset}_raw({key_field})
+                        FOREIGN KEY({key_field}) REFERENCES {table}({key_field})
                     )
                 ''')
-
-        # Create taxonomy normalization tables (optional, for normalized taxonomy storage)
-        for dataset, key_field in datasets.items():
-            cursor.execute(f'''
-                CREATE TABLE IF NOT EXISTS {dataset}_taxonomy_map (
-                    {key_field} TEXT,
-                    taxonomy_token TEXT,
-                    PRIMARY KEY({key_field}, taxonomy_token),
-                    FOREIGN KEY({key_field}) REFERENCES {dataset}_raw({key_field})
-                )
-            ''')
-
-            cursor.execute(f'''
-                CREATE INDEX IF NOT EXISTS idx_{dataset}_taxonomy_map_token
-                ON {dataset}_taxonomy_map(taxonomy_token)
-            ''')
 
         # APSW is in autocommit mode by default, no commit needed
 
