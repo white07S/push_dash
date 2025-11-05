@@ -23,6 +23,36 @@ const Section = ({
   const [drawerData, setDrawerData] = useState(null);
   const [aiLoading, setAiLoading] = useState({});
 
+  const { meta = {}, aiTriggers = {} } = api;
+  const functionKeys = Object.keys(aiTriggers);
+  const primaryFunction = meta.primaryFunction || functionKeys[0] || null;
+  const titleField = meta.titleField || 'title';
+  const typeField = meta.typeField || 'category';
+  const themeField = meta.themeField || 'risk_theme';
+  const subthemeField = meta.subthemeField || 'risk_subtheme';
+  const functionLabels = meta.functionLabels || {};
+
+  const formatFunctionLabel = (key) => {
+    if (!key) return '';
+    if (functionLabels[key]) {
+      return functionLabels[key];
+    }
+    return key
+      .split('_')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  };
+
+  const searchMeta = searchResult
+    ? {
+        aiStatus: searchResult.ai_status || {},
+        titleValue: searchResult[titleField] || searchResult.title || '',
+        typeValue: typeField ? (searchResult[typeField] ?? searchResult.category ?? '') : null,
+        themeValue: searchResult[themeField] || searchResult.risk_theme || '',
+        subthemeValue: searchResult[subthemeField] || searchResult.risk_subtheme || ''
+      }
+    : null;
+
   // Handle search
   const handleSearch = async (id) => {
     setLoading(true);
@@ -65,70 +95,63 @@ const Section = ({
   };
 
   // Handle AI function trigger in main view
-  const handleTriggerAI = async (functionName, functionCall) => {
+  const handleTriggerAI = async (functionKey) => {
     if (!searchResult) return;
 
-    const itemId = searchResult[idField];
-    const desc = description || searchResult.description;
+    const triggerFunc = aiTriggers[functionKey];
+    if (!triggerFunc) return;
 
-    setAiLoading(prev => ({ ...prev, [functionName]: true }));
+    const itemId = searchResult[idField];
+    const contextValue =
+      description || searchResult.record?.[titleField] || searchResult[titleField] || '';
+
+    setAiLoading(prev => ({ ...prev, [functionKey]: true }));
 
     try {
-      const result = await functionCall(itemId, desc, false);
-      setAiResults(prev => ({ ...prev, [functionName]: result }));
-
-      // Update search result to reflect AI taxonomy computed
-      if (functionName === 'taxonomy') {
-        setSearchResult(prev => ({ ...prev, ai_taxonomy_present: true }));
-      }
+      const result = await triggerFunc(itemId, contextValue, false);
+      setAiResults(prev => ({ ...prev, [functionKey]: result }));
+      setSearchResult(prev => ({
+        ...prev,
+        ai_status: {
+          ...(prev?.ai_status || {}),
+          [functionKey]: true
+        }
+      }));
     } catch (err) {
-      console.error(`Error triggering ${functionName}:`, err);
-      setError(err.response?.data?.detail || `Failed to compute ${functionName}`);
+      console.error(`Error triggering ${functionKey}:`, err);
+      setError(err.response?.data?.detail || `Failed to compute ${formatFunctionLabel(functionKey)}`);
     } finally {
-      setAiLoading(prev => ({ ...prev, [functionName]: false }));
+      setAiLoading(prev => ({ ...prev, [functionKey]: false }));
     }
   };
 
   // Handle AI function trigger in drawer
-  const handleDrawerTriggerFunction = async (functionName, desc) => {
+  const handleDrawerTriggerFunction = async (functionKey, desc) => {
     if (!drawerData) return;
 
     const itemId = drawerData.raw[idField];
-    const functionMap = {
-      'taxonomy': api.triggerAITaxonomy,
-      'root_causes': api.triggerAIRootCauses,
-      'enrichment': api.triggerAIEnrichment,
-      'similar_controls': api.triggerSimilarControls,
-      'similar_external_loss': api.triggerSimilarExternalLoss,
-      'similar_internal_loss': api.triggerSimilarInternalLoss,
-      'similar_issues': api.triggerSimilarIssues,
-    };
-
-    const functionCall = functionMap[functionName];
-    if (!functionCall) return;
+    const triggerFunc = aiTriggers[functionKey];
+    if (!triggerFunc) return;
+    const contextValue =
+      desc || drawerData.raw?.record?.[titleField] || drawerData.raw?.[titleField] || '';
 
     try {
-      const result = await functionCall(itemId, desc, false);
+      const result = await triggerFunc(itemId, contextValue, false);
       // Update drawer data with new AI results
       setDrawerData(prev => ({
         ...prev,
         ai: {
           ...prev.ai,
-          [functionName]: result.payload
+          [functionKey]: result.payload
         }
       }));
     } catch (err) {
-      console.error(`Error triggering ${functionName}:`, err);
+      console.error(`Error triggering ${functionKey}:`, err);
       throw err;
     }
   };
 
   // Truncate description
-  const truncateText = (text, maxLength = 200) => {
-    if (!text || text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
-  };
-
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h2 className="text-2xl font-bold text-ubs-gray-900 mb-6">{title}</h2>
@@ -145,7 +168,7 @@ const Section = ({
 
         <div>
           <label className="block text-sm font-medium text-ubs-gray-700 mb-1">
-            Description (Optional - for AI functions)
+            Context (Optional - overrides default input)
           </label>
           <textarea
             value={description}
@@ -176,12 +199,12 @@ const Section = ({
       {searchResult && !loading && (
         <div className="space-y-4">
           {/* Result card */}
-          <div className="border border-ubs-gray-200 rounded-lg p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
+          <div className="border border-ubs-gray-200 rounded-lg p-4 space-y-4">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-2">
                 <Badge text={searchResult[idField]} variant="primary" size="lg" />
-                {searchResult.ai_taxonomy_present && (
-                  <Badge text="AI Computed" variant="success" size="sm" className="ml-2" />
+                {primaryFunction && searchMeta?.aiStatus?.[primaryFunction] && (
+                  <Badge text="AI Computed" variant="success" size="sm" />
                 )}
               </div>
               <button
@@ -192,41 +215,66 @@ const Section = ({
               </button>
             </div>
 
-            <div className="mb-3">
-              <p className="text-sm text-ubs-gray-600 mb-1">Description:</p>
-              <p className="text-ubs-gray-800">{truncateText(searchResult.description)}</p>
-            </div>
-
-            {searchResult.nfr_taxonomy && (
-              <div className="mb-3">
-                <p className="text-sm text-ubs-gray-600 mb-1">NFR Taxonomy:</p>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-ubs-gray-600 mb-1">Title:</p>
+                <p className="text-ubs-gray-800">{searchMeta?.titleValue || '—'}</p>
+              </div>
+              {typeField && (
+                <div>
+                  <p className="text-sm text-ubs-gray-600 mb-1">Type:</p>
+                  {searchMeta?.typeValue ? (
+                    <Badge text={searchMeta.typeValue} size="sm" />
+                  ) : (
+                    <p className="text-ubs-gray-500 text-sm">—</p>
+                  )}
+                </div>
+              )}
+              <div>
+                <p className="text-sm text-ubs-gray-600 mb-1">Risk Theme:</p>
                 <div className="flex flex-wrap gap-2">
-                  {searchResult.nfr_taxonomy.split('|').filter(t => t).map((tax, idx) => (
-                    <Badge key={idx} text={tax} variant="info" size="sm" />
-                  ))}
+                  {searchMeta?.themeValue && <Badge text={searchMeta.themeValue} variant="info" size="sm" />}
+                  {searchMeta?.subthemeValue && <Badge text={searchMeta.subthemeValue} size="sm" />}
                 </div>
               </div>
-            )}
+            </div>
 
-            {/* AI Taxonomy button/result */}
-            {!searchResult.ai_taxonomy_present && !aiResults.taxonomy && (
-              <button
-                onClick={() => handleTriggerAI('taxonomy', api.triggerAITaxonomy)}
-                disabled={aiLoading.taxonomy}
-                className={`mt-3 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  aiLoading.taxonomy
-                    ? 'bg-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
-                    : 'bg-ubs-red text-white hover:bg-ubs-dark-red active:scale-95'
-                }`}
-              >
-                {aiLoading.taxonomy ? 'Computing AI Taxonomy...' : 'Compute AI Taxonomy'}
-              </button>
-            )}
-
-            {aiResults.taxonomy && (
-              <div className="mt-4">
-                <p className="text-sm font-medium text-ubs-gray-700 mb-2">AI Taxonomy Result:</p>
-                <JsonBlock data={aiResults.taxonomy.payload} />
+            {functionKeys.length > 0 && (
+              <div className="space-y-4">
+                {functionKeys.map((fnKey) => {
+                  const isComputed = !!searchMeta?.aiStatus?.[fnKey];
+                  const isLoadingFn = aiLoading[fnKey];
+                  const label = formatFunctionLabel(fnKey);
+                  const result = aiResults[fnKey];
+                  return (
+                    <div key={fnKey} className="border border-ubs-gray-100 rounded-md p-3 bg-ubs-gray-50">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-semibold text-ubs-gray-700">{label}</h4>
+                        <div className="flex items-center gap-2">
+                          {isComputed && !isLoadingFn && (
+                            <Badge text="Computed" variant="success" size="sm" />
+                          )}
+                          <button
+                            onClick={() => handleTriggerAI(fnKey)}
+                            disabled={isLoadingFn}
+                            className={`px-3 py-1 text-xs font-medium transition-colors ${
+                              isLoadingFn
+                                ? 'bg-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
+                                : 'bg-ubs-red text-white hover:bg-ubs-dark-red active:scale-95'
+                            }`}
+                          >
+                            {isLoadingFn ? 'Computing...' : isComputed ? 'Recompute' : 'Compute'}
+                          </button>
+                        </div>
+                      </div>
+                      {result && result.payload && (
+                        <div className="mt-3">
+                          <JsonBlock data={result.payload} />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -240,6 +288,9 @@ const Section = ({
         title={`${title} Details`}
         data={drawerData}
         onTriggerFunction={handleDrawerTriggerFunction}
+        aiFunctions={functionKeys}
+        functionLabels={functionLabels}
+        meta={{ idField, titleField, typeField, themeField, subthemeField }}
       />
     </div>
   );

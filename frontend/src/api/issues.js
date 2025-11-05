@@ -1,8 +1,34 @@
 // API service for issues dataset
 import axiosClient from './axiosClient';
 
+const triggerIssueTaxonomy = async (issueId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/issues/${issueId}/issue-taxonomy`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerRootCause = async (issueId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/issues/${issueId}/root-cause`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerEnrichment = async (issueId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/issues/${issueId}/enrichment`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
 const issuesAPI = {
-  // Search issues by ID
   search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/issues', {
       params: { id, limit }
@@ -10,53 +36,11 @@ const issuesAPI = {
     return response.data;
   },
 
-  // Get issue details
   getDetails: async (issueId) => {
     const response = await axiosClient.get(`/api/issues/${issueId}/details`);
     return response.data;
   },
 
-  // Trigger AI taxonomy
-  triggerAITaxonomy: async (issueId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/issues/${issueId}/ai-taxonomy`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI root causes
-  triggerAIRootCauses: async (issueId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/issues/${issueId}/ai-root-causes`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI enrichment
-  triggerAIEnrichment: async (issueId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/issues/${issueId}/ai-enrichment`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger similar issues
-  triggerSimilarIssues: async (issueId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/issues/${issueId}/similar-issues`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // List all issues
   list: async (offset = 0, limit = 100) => {
     const response = await axiosClient.get('/api/issues/list', {
       params: { offset, limit }
@@ -64,12 +48,18 @@ const issuesAPI = {
     return response.data;
   },
 
-  // Search by taxonomy
-  searchByTaxonomy: async (taxonomyToken, limit = 100) => {
-    const response = await axiosClient.get(`/api/issues/taxonomy/${taxonomyToken}`, {
-      params: { limit }
-    });
-    return response.data;
+  aiTriggers: {
+    issue_taxonomy: triggerIssueTaxonomy,
+    root_cause: triggerRootCause,
+    enrichment: triggerEnrichment
+  },
+
+  meta: {
+    primaryFunction: 'issue_taxonomy',
+    titleField: 'issue_title',
+    typeField: 'issues_type',
+    themeField: 'risk_theme',
+    subthemeField: 'risk_subtheme'
   }
 };
 

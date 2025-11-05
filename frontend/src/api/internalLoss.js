@@ -1,8 +1,34 @@
 // API service for internal loss dataset
 import axiosClient from './axiosClient';
 
+const triggerIssueTaxonomy = async (eventId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/internal-loss/${eventId}/issue-taxonomy`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerRootCause = async (eventId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/internal-loss/${eventId}/root-cause`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerEnrichment = async (eventId, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/internal-loss/${eventId}/enrichment`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
 const internalLossAPI = {
-  // Search internal losses by ID
   search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/internal-loss', {
       params: { id, limit }
@@ -10,53 +36,11 @@ const internalLossAPI = {
     return response.data;
   },
 
-  // Get internal loss details
-  getDetails: async (lossId) => {
-    const response = await axiosClient.get(`/api/internal-loss/${lossId}/details`);
+  getDetails: async (eventId) => {
+    const response = await axiosClient.get(`/api/internal-loss/${eventId}/details`);
     return response.data;
   },
 
-  // Trigger AI taxonomy
-  triggerAITaxonomy: async (lossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/internal-loss/${lossId}/ai-taxonomy`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI root causes
-  triggerAIRootCauses: async (lossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/internal-loss/${lossId}/ai-root-causes`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI enrichment
-  triggerAIEnrichment: async (lossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/internal-loss/${lossId}/ai-enrichment`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger similar internal losses
-  triggerSimilarInternalLoss: async (lossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/internal-loss/${lossId}/similar-internal-loss`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // List all internal losses
   list: async (offset = 0, limit = 100) => {
     const response = await axiosClient.get('/api/internal-loss/list', {
       params: { offset, limit }
@@ -64,12 +48,18 @@ const internalLossAPI = {
     return response.data;
   },
 
-  // Search by taxonomy
-  searchByTaxonomy: async (taxonomyToken, limit = 100) => {
-    const response = await axiosClient.get(`/api/internal-loss/taxonomy/${taxonomyToken}`, {
-      params: { limit }
-    });
-    return response.data;
+  aiTriggers: {
+    issue_taxonomy: triggerIssueTaxonomy,
+    root_cause: triggerRootCause,
+    enrichment: triggerEnrichment
+  },
+
+  meta: {
+    primaryFunction: 'issue_taxonomy',
+    titleField: 'event_title',
+    typeField: 'event_type',
+    themeField: 'risk_theme',
+    subthemeField: 'risk_subtheme'
   }
 };
 

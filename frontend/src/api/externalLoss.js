@@ -1,8 +1,34 @@
 // API service for external loss dataset
 import axiosClient from './axiosClient';
 
+const triggerIssueTaxonomy = async (referenceIdCode, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/external-loss/${referenceIdCode}/issue-taxonomy`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerRootCause = async (referenceIdCode, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/external-loss/${referenceIdCode}/root-cause`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
+const triggerEnrichment = async (referenceIdCode, description = null, refresh = false) => {
+  const response = await axiosClient.post(
+    `/api/external-loss/${referenceIdCode}/enrichment`,
+    { description },
+    { params: { refresh } }
+  );
+  return response.data;
+};
+
 const externalLossAPI = {
-  // Search external losses by ID
   search: async (id, limit = 100) => {
     const response = await axiosClient.get('/api/external-loss', {
       params: { id, limit }
@@ -10,53 +36,11 @@ const externalLossAPI = {
     return response.data;
   },
 
-  // Get external loss details
-  getDetails: async (extLossId) => {
-    const response = await axiosClient.get(`/api/external-loss/${extLossId}/details`);
+  getDetails: async (referenceIdCode) => {
+    const response = await axiosClient.get(`/api/external-loss/${referenceIdCode}/details`);
     return response.data;
   },
 
-  // Trigger AI taxonomy
-  triggerAITaxonomy: async (extLossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/external-loss/${extLossId}/ai-taxonomy`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI root causes
-  triggerAIRootCauses: async (extLossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/external-loss/${extLossId}/ai-root-causes`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger AI enrichment
-  triggerAIEnrichment: async (extLossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/external-loss/${extLossId}/ai-enrichment`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // Trigger similar external losses
-  triggerSimilarExternalLoss: async (extLossId, description = null, refresh = false) => {
-    const response = await axiosClient.post(
-      `/api/external-loss/${extLossId}/similar-external-loss`,
-      { description },
-      { params: { refresh } }
-    );
-    return response.data;
-  },
-
-  // List all external losses
   list: async (offset = 0, limit = 100) => {
     const response = await axiosClient.get('/api/external-loss/list', {
       params: { offset, limit }
@@ -64,12 +48,18 @@ const externalLossAPI = {
     return response.data;
   },
 
-  // Search by taxonomy
-  searchByTaxonomy: async (taxonomyToken, limit = 100) => {
-    const response = await axiosClient.get(`/api/external-loss/taxonomy/${taxonomyToken}`, {
-      params: { limit }
-    });
-    return response.data;
+  aiTriggers: {
+    issue_taxonomy: triggerIssueTaxonomy,
+    root_cause: triggerRootCause,
+    enrichment: triggerEnrichment
+  },
+
+  meta: {
+    primaryFunction: 'issue_taxonomy',
+    titleField: 'description_of_event',
+    typeField: 'parent_name',
+    themeField: 'risk_theme',
+    subthemeField: 'risk_subtheme'
   }
 };
 

@@ -1,5 +1,5 @@
 // DataTable component with pagination
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Badge from './Badge';
 import DetailDrawer from './DetailDrawer';
 
@@ -18,21 +18,30 @@ const DataTable = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerData, setDrawerData] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
   const [aiLoading, setAiLoading] = useState({});
+
+  const { meta = {}, aiTriggers = {} } = api;
+  const primaryFunction = meta.primaryFunction || Object.keys(aiTriggers)[0] || null;
+  const titleField = meta.titleField || 'title';
+  const typeField = meta.typeField || 'category';
+  const themeField = meta.themeField || 'risk_theme';
+  const subthemeField = meta.subthemeField || 'risk_subtheme';
+  const functionLabels = meta.functionLabels || {};
+
+  const formatFunctionLabel = (key) => {
+    if (!key) return '';
+    if (functionLabels[key]) {
+      return functionLabels[key];
+    }
+    return key
+      .split('_')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  };
 
   const itemsPerPage = 20;
 
-  // Load data when component mounts or page changes
-  useEffect(() => {
-    if (searchTerm) {
-      handleSearch();
-    } else {
-      loadData();
-    }
-  }, [currentPage, api, searchTerm, title, idField]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -47,9 +56,9 @@ const DataTable = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [api, currentPage]);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     if (!searchTerm.trim()) {
       loadData();
       return;
@@ -70,10 +79,18 @@ const DataTable = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [api, loadData, searchTerm]);
+
+  // Load data when component mounts or page/search criteria change
+  useEffect(() => {
+    if (searchTerm) {
+      handleSearch();
+    } else {
+      loadData();
+    }
+  }, [searchTerm, loadData, handleSearch]);
 
   const handleViewDetails = async (item) => {
-    setSelectedItem(item);
     setLoading(true);
 
     try {
@@ -88,58 +105,59 @@ const DataTable = ({
     }
   };
 
-  const handleTriggerAI = async (item, functionName, functionCall) => {
+  const handleTriggerAI = async (item) => {
+    if (!primaryFunction) return;
+
     const itemId = item[idField];
-    const key = `${itemId}_${functionName}`;
+    const key = `${itemId}_${primaryFunction}`;
+    const triggerFunc = aiTriggers[primaryFunction];
+    if (!triggerFunc) return;
+
+    const contextValue = item.record?.[titleField] || item[titleField] || '';
 
     setAiLoading(prev => ({ ...prev, [key]: true }));
 
     try {
-      const result = await functionCall(itemId, item.description, false);
-      // Refresh the item data
+      const result = await triggerFunc(itemId, contextValue, false);
       const updatedData = [...data];
       const index = updatedData.findIndex(d => d[idField] === itemId);
       if (index !== -1) {
-        updatedData[index] = { ...updatedData[index], ai_taxonomy_present: true };
+        const currentStatus = updatedData[index].ai_status || {};
+        updatedData[index] = {
+          ...updatedData[index],
+          ai_status: { ...currentStatus, [primaryFunction]: true }
+        };
         setData(updatedData);
       }
       return result;
     } catch (err) {
-      console.error(`Error triggering ${functionName}:`, err);
-      setError(err.response?.data?.detail || `Failed to compute ${functionName}`);
+      console.error(`Error triggering ${primaryFunction}:`, err);
+      setError(err.response?.data?.detail || `Failed to compute ${formatFunctionLabel(primaryFunction)}`);
     } finally {
       setAiLoading(prev => ({ ...prev, [key]: false }));
     }
   };
 
-  const handleDrawerTriggerFunction = async (functionName, desc) => {
+  const handleDrawerTriggerFunction = async (functionKey, desc) => {
     if (!drawerData) return;
 
     const itemId = drawerData.raw[idField];
-    const functionMap = {
-      'taxonomy': api.triggerAITaxonomy,
-      'root_causes': api.triggerAIRootCauses,
-      'enrichment': api.triggerAIEnrichment,
-      'similar_controls': api.triggerSimilarControls,
-      'similar_external_loss': api.triggerSimilarExternalLoss,
-      'similar_internal_loss': api.triggerSimilarInternalLoss,
-      'similar_issues': api.triggerSimilarIssues,
-    };
-
-    const functionCall = functionMap[functionName];
-    if (!functionCall) return;
+    const triggerFunc = aiTriggers[functionKey];
+    if (!triggerFunc) return;
+    const contextValue =
+      desc || drawerData.raw?.record?.[titleField] || drawerData.raw?.[titleField] || '';
 
     try {
-      const result = await functionCall(itemId, desc, false);
+      const result = await triggerFunc(itemId, contextValue, false);
       setDrawerData(prev => ({
         ...prev,
         ai: {
           ...prev.ai,
-          [functionName]: result.payload
+          [functionKey]: result.payload
         }
       }));
     } catch (err) {
-      console.error(`Error triggering ${functionName}:`, err);
+      console.error(`Error triggering ${functionKey}:`, err);
       throw err;
     }
   };
@@ -289,10 +307,15 @@ const DataTable = ({
                   ID
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-ubs-gray-600 uppercase tracking-wider">
-                  Description
+                  Title
                 </th>
+                {typeField && (
+                  <th className="px-6 py-3 text-left text-xs font-medium text-ubs-gray-600 uppercase tracking-wider">
+                    Type
+                  </th>
+                )}
                 <th className="px-6 py-3 text-left text-xs font-medium text-ubs-gray-600 uppercase tracking-wider">
-                  NFR Taxonomy
+                  Risk Theme
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-ubs-gray-600 uppercase tracking-wider">
                   AI Status
@@ -303,10 +326,15 @@ const DataTable = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-ubs-gray-200">
-              {data.map((item, index) => {
+              {data.map((item) => {
                 const itemId = item[idField];
-                const aiKey = `${itemId}_taxonomy`;
+                const aiKey = `${itemId}_${primaryFunction}`;
                 const isAiLoading = aiLoading[aiKey];
+                const aiStatus = primaryFunction ? item.ai_status?.[primaryFunction] : false;
+                const titleValue = item[titleField] || item.title || '';
+                const typeValue = typeField ? (item[typeField] ?? item.category ?? '') : null;
+                const themeValue = item[themeField] || item.risk_theme || '';
+                const subthemeValue = item[subthemeField] || item.risk_subtheme || '';
 
                 return (
                   <tr key={itemId} className="hover:bg-ubs-gray-50">
@@ -314,30 +342,39 @@ const DataTable = ({
                       <Badge text={itemId} variant="primary" />
                     </td>
                     <td className="px-6 py-4 text-sm text-ubs-gray-900">
-                      {truncateText(item.description)}
+                      {truncateText(titleValue)}
                     </td>
+                    {typeField && (
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-ubs-gray-700">
+                        {typeValue ? <Badge text={typeValue} size="sm" /> : '—'}
+                      </td>
+                    )}
                     <td className="px-6 py-4">
                       <div className="flex flex-wrap gap-1">
-                        {item.nfr_taxonomy && item.nfr_taxonomy.split('|').filter(t => t).map((tax, idx) => (
-                          <Badge key={idx} text={tax} variant="info" size="sm" />
-                        ))}
+                        {themeValue && <Badge text={themeValue} variant="info" size="sm" />}
+                        {subthemeValue && <Badge text={subthemeValue} size="sm" />}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {item.ai_taxonomy_present ? (
-                        <Badge text="Computed" variant="success" size="sm" />
+                      {primaryFunction ? (
+                        aiStatus ? (
+                          <Badge text="Computed" variant="success" size="sm" />
+                        ) : (
+                          <button
+                            onClick={() => handleTriggerAI(item)}
+                            disabled={isAiLoading}
+                            className={`px-3 py-1 text-xs font-medium transition-colors ${
+                              isAiLoading
+                                ? 'bg-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
+                                : 'bg-ubs-red text-white hover:bg-ubs-dark-red'
+                            }`}
+                            aria-label={`Compute ${formatFunctionLabel(primaryFunction)}`}
+                          >
+                            {isAiLoading ? 'Computing...' : 'Compute'}
+                          </button>
+                        )
                       ) : (
-                        <button
-                          onClick={() => handleTriggerAI(item, 'taxonomy', api.triggerAITaxonomy)}
-                          disabled={isAiLoading}
-                          className={`px-3 py-1 text-xs font-medium transition-colors ${
-                            isAiLoading
-                              ? 'bg-ubs-gray-200 text-ubs-gray-400 cursor-not-allowed'
-                              : 'bg-ubs-red text-white hover:bg-ubs-dark-red'
-                          }`}
-                        >
-                          {isAiLoading ? 'Computing...' : 'Compute'}
-                        </button>
+                        <span className="text-xs text-ubs-gray-500">No AI functions</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -404,6 +441,9 @@ const DataTable = ({
         title={`${title} Details`}
         data={drawerData}
         onTriggerFunction={handleDrawerTriggerFunction}
+        aiFunctions={Object.keys(aiTriggers)}
+        functionLabels={functionLabels}
+        meta={{ idField, titleField, typeField, themeField, subthemeField }}
       />
     </div>
   );

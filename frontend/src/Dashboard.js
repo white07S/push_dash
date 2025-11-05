@@ -33,7 +33,7 @@ const Dashboard = ({ sessionId, userId }) => {
           <DataTable
             title="External Loss"
             api={externalLossAPI}
-            idField="ext_loss_id"
+            idField="reference_id_code"
             sessionId={sessionId}
             userId={userId}
           />
@@ -43,7 +43,7 @@ const Dashboard = ({ sessionId, userId }) => {
           <DataTable
             title="Internal Loss"
             api={internalLossAPI}
-            idField="loss_id"
+            idField="event_id"
             sessionId={sessionId}
             userId={userId}
           />

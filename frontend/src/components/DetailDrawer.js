@@ -3,55 +3,73 @@ import React, { useEffect, useState } from 'react';
 import JsonBlock from './JsonBlock';
 import Badge from './Badge';
 
-const DetailDrawer = ({ isOpen, onClose, title, data, onTriggerFunction }) => {
+const DetailDrawer = ({
+  isOpen,
+  onClose,
+  title,
+  data,
+  onTriggerFunction,
+  aiFunctions = [],
+  functionLabels = {},
+  meta = {}
+}) => {
   const [loading, setLoading] = useState({});
 
-  // Close drawer on Escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
+  const {
+    idField = 'id',
+    titleField = 'title',
+    typeField = 'category',
+    themeField = 'risk_theme',
+    subthemeField = 'risk_subtheme'
+  } = meta;
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when drawer is open
-      document.body.style.overflow = 'hidden';
+  const raw = data?.raw || {};
+  const record = raw.record || {};
+  const idValue = raw[idField] || record[idField] || '';
+  const titleValue = record[titleField] || raw[titleField] || '';
+  const typeValue = typeField ? (record[typeField] ?? raw[typeField]) : null;
+  const themeValue = record[themeField] || raw[themeField] || '';
+  const subthemeValue = record[subthemeField] || raw[subthemeField] || '';
+
+  const aiKeys = aiFunctions.length ? aiFunctions : Object.keys(data?.ai || {});
+
+  const labelForFunction = (key) => {
+    if (!key) return '';
+    if (functionLabels[key]) {
+      return functionLabels[key];
     }
+    return key
+      .split('_')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  };
 
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  const handleTriggerFunction = async (functionName) => {
+  const handleTriggerFunction = async (functionKey) => {
     if (!onTriggerFunction) return;
 
-    setLoading(prev => ({ ...prev, [functionName]: true }));
+    const contextValue = record[titleField] || raw[titleField] || '';
+    setLoading(prev => ({ ...prev, [functionKey]: true }));
     try {
-      await onTriggerFunction(functionName, data?.raw?.description);
+      await onTriggerFunction(functionKey, contextValue);
     } catch (error) {
-      console.error(`Error triggering ${functionName}:`, error);
+      console.error(`Error triggering ${functionKey}:`, error);
     } finally {
-      setLoading(prev => ({ ...prev, [functionName]: false }));
+      setLoading(prev => ({ ...prev, [functionKey]: false }));
     }
   };
 
-  const renderAISection = (functionName, displayName, aiData) => {
-    const isLoading = loading[functionName];
+  const renderAISection = (functionKey, aiData) => {
+    const displayName = labelForFunction(functionKey);
+    const isLoading = loading[functionKey];
     const hasData = aiData !== null && aiData !== undefined;
 
     return (
-      <div className="border-t border-ubs-gray-200 pt-4 mt-4">
+      <div className="border-t border-ubs-gray-200 pt-4 mt-4" key={functionKey}>
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-lg font-semibold text-ubs-gray-800">{displayName}</h3>
           {!hasData && onTriggerFunction && (
             <button
-              onClick={() => handleTriggerFunction(functionName)}
+              onClick={() => handleTriggerFunction(functionKey)}
               disabled={isLoading}
               className={`px-4 py-1.5 text-sm font-medium transition-colors ${
                 isLoading
@@ -73,6 +91,27 @@ const DetailDrawer = ({ isOpen, onClose, title, data, onTriggerFunction }) => {
       </div>
     );
   };
+
+  // Close drawer on Escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
 
   return (
     <>
@@ -103,94 +142,62 @@ const DetailDrawer = ({ isOpen, onClose, title, data, onTriggerFunction }) => {
             <>
               {/* Raw Data Section */}
               <div>
-                <h3 className="text-lg font-semibold text-ubs-gray-800 mb-3">Raw Data</h3>
+                <h3 className="text-lg font-semibold text-ubs-gray-800 mb-3">Summary</h3>
 
-                {/* Key fields */}
                 <div className="mb-4 space-y-2">
-                  {data.raw?.control_id && (
+                  {idValue && (
                     <div>
-                      <span className="text-ubs-gray-600">Control ID: </span>
-                      <Badge text={data.raw.control_id} variant="primary" />
+                      <span className="text-ubs-gray-600">ID: </span>
+                      <Badge text={idValue} variant="primary" />
                     </div>
                   )}
-                  {data.raw?.ext_loss_id && (
+                  {titleValue && (
                     <div>
-                      <span className="text-ubs-gray-600">External Loss ID: </span>
-                      <Badge text={data.raw.ext_loss_id} variant="primary" />
+                      <span className="text-ubs-gray-600">Title: </span>
+                      <span className="text-ubs-gray-800">{titleValue}</span>
                     </div>
                   )}
-                  {data.raw?.loss_id && (
+                  {typeField && (
                     <div>
-                      <span className="text-ubs-gray-600">Internal Loss ID: </span>
-                      <Badge text={data.raw.loss_id} variant="primary" />
+                      <span className="text-ubs-gray-600">Type: </span>
+                      {typeValue ? <Badge text={typeValue} size="sm" /> : <span className="text-ubs-gray-500">—</span>}
                     </div>
                   )}
-                  {data.raw?.issue_id && (
+                  {(themeValue || subthemeValue) && (
                     <div>
-                      <span className="text-ubs-gray-600">Issue ID: </span>
-                      <Badge text={data.raw.issue_id} variant="primary" />
+                      <span className="text-ubs-gray-600">Risk Theme: </span>
+                      <div className="mt-1 flex flex-wrap gap-2">
+                        {themeValue && <Badge text={themeValue} variant="info" size="sm" />}
+                        {subthemeValue && <Badge text={subthemeValue} size="sm" />}
+                      </div>
                     </div>
                   )}
                 </div>
 
-                {/* Description */}
-                {data.raw?.description && (
-                  <div className="mb-4">
-                    <span className="text-ubs-gray-600">Description:</span>
-                    <p className="mt-1 text-ubs-gray-800 bg-ubs-gray-50 p-3 max-h-40 overflow-y-auto">
-                      {data.raw.description}
-                    </p>
-                  </div>
-                )}
-
-                {/* NFR Taxonomy */}
-                {data.raw?.nfr_taxonomy && (
-                  <div className="mb-4">
-                    <span className="text-ubs-gray-600">NFR Taxonomy:</span>
-                    <div className="mt-1 flex flex-wrap gap-2">
-                      {data.raw.nfr_taxonomy.split('|').filter(t => t).map((taxonomy, index) => (
-                        <Badge key={index} text={taxonomy} variant="info" size="sm" />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {/* Full raw data */}
-                {data.raw?.raw_data && (
+                {record && Object.keys(record).length > 0 && (
                   <div className="mb-4">
                     <span className="text-ubs-gray-600">Complete Data:</span>
                     <div className="mt-2">
-                      <JsonBlock data={data.raw.raw_data} />
+                      <JsonBlock data={record} />
                     </div>
                   </div>
                 )}
               </div>
 
               {/* AI Results Section */}
-              {data.ai && (
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-ubs-gray-800 mb-3">AI Analysis</h3>
-
-                  {/* AI Taxonomy */}
-                  {renderAISection('taxonomy', 'AI Taxonomy', data.ai.taxonomy)}
-
-                  {/* Root Causes */}
-                  {renderAISection('root_causes', 'Root Cause Analysis', data.ai.root_causes)}
-
-                  {/* Enrichment */}
-                  {renderAISection('enrichment', 'AI Enrichment', data.ai.enrichment)}
-
-                  {/* Similar Items */}
-                  {data.ai.similar_controls !== undefined &&
-                    renderAISection('similar_controls', 'Similar Controls', data.ai.similar_controls)}
-                  {data.ai.similar_external_loss !== undefined &&
-                    renderAISection('similar_external_loss', 'Similar External Losses', data.ai.similar_external_loss)}
-                  {data.ai.similar_internal_loss !== undefined &&
-                    renderAISection('similar_internal_loss', 'Similar Internal Losses', data.ai.similar_internal_loss)}
-                  {data.ai.similar_issues !== undefined &&
-                    renderAISection('similar_issues', 'Similar Issues', data.ai.similar_issues)}
-                </div>
-              )}
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-ubs-gray-800 mb-3">AI Analysis</h3>
+                {aiKeys.length === 0 && (
+                  <div className="bg-ubs-gray-50 p-4 text-ubs-gray-500 italic">
+                    No AI functions configured
+                  </div>
+                )}
+                {aiKeys.map((fnKey) => {
+                  const aiData = data.ai?.[fnKey] || null;
+                  return renderAISection(fnKey, aiData);
+                })}
+              </div>
             </>
           ) : (
             <div className="text-center text-ubs-gray-500 py-8">
