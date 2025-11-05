@@ -78,8 +78,8 @@ class CSVIngester:
             if field not in row:
                 return False, f"Missing required field: {field}"
 
-            if field == config.subtheme_field:
-                # Subtheme is optional when derived from combined theme values
+            if field in (config.theme_field, config.subtheme_field):
+                # Allow empty risk theme/subtheme entries
                 continue
 
             if not row[field]:
