@@ -1,151 +1,151 @@
-control_id,key_control,control_title,risk_theme,risk_subtheme
-CTRL-2025-15050,Yes,Transaction Monitoring Ruleset,Third-Party Vendor,General
-CTRL-2025-91966,Yes,Transaction Monitoring Ruleset,Technology Change,Change Collision
-CTRL-2025-45479,No,Privileged Access Review,Model Risk,Use-Case Misalignment
-CTRL-2025-19154,Yes,Vendor SLA Monitoring,Fraud & Financial Crime,Card-Not-Present
-CTRL-2025-31194,No,Privileged Access Review,Regulatory Compliance,MiFID II Breach
-CTRL-2025-17785,Yes,Model Performance Backtesting,Cybersecurity,Phishing
-CTRL-2025-76776,No,Daily Reconciliation Review,Fraud & Financial Crime,Check Fraud
-CTRL-2025-21779,Yes,Release Change Approval,Model Risk,Use-Case Misalignment
-CTRL-2025-87949,Yes,Vendor SLA Monitoring,Conduct & Culture,Inappropriate Communication
-CTRL-2025-46958,Yes,Vendor SLA Monitoring,Third-Party Vendor,General
-CTRL-2025-71874,Yes,Release Change Approval,Model Risk,Concept Drift
-CTRL-2025-88604,Yes,Daily Reconciliation Review,Regulatory Compliance,Record Retention
-CTRL-2025-33309,Yes,Disaster Recovery Drill,Fraud & Financial Crime,Check Fraud
-CTRL-2025-43711,No,Disaster Recovery Drill,Model Risk,Calibration Error
-CTRL-2025-97205,Yes,Daily Reconciliation Review,AML Sanctions,General
-CTRL-2025-84802,No,Sanctions Screening Tuning,Cybersecurity,Data Breach
-CTRL-2025-88100,No,Model Performance Backtesting,Cybersecurity,Ransomware
-CTRL-2025-69716,Yes,Transaction Monitoring Ruleset,Fraud & Financial Crime,Check Fraud
-CTRL-2025-27391,Yes,Sanctions Screening Tuning,Operational Resilience,Disaster Recovery
-CTRL-2025-54034,Yes,Daily Reconciliation Review,Fraud & Financial Crime,Account Takeover
-CTRL-2025-46514,No,Transaction Monitoring Ruleset,Third-Party Vendor,General
-CTRL-2025-77103,Yes,Transaction Monitoring Ruleset,Model Risk,Calibration Error
-CTRL-2025-38578,Yes,Sanctions Screening Tuning,Fraud & Financial Crime,Internal Fraud
-CTRL-2025-67680,Yes,Model Performance Backtesting,Fraud & Financial Crime,Account Takeover
-CTRL-2025-99634,No,Sanctions Screening Tuning,Technology Change,Change Collision
-CTRL-2025-24505,Yes,Transaction Monitoring Ruleset,Regulatory Compliance,Reporting Error
-CTRL-2025-74731,No,Daily Reconciliation Review,Regulatory Compliance,MiFID II Breach
-CTRL-2025-12672,No,Vendor SLA Monitoring,Cybersecurity,Phishing
-CTRL-2025-54764,No,Privileged Access Review,Regulatory Compliance,MiFID II Breach
-CTRL-2025-16875,No,Daily Reconciliation Review,Operational Resilience,BCP Gap
-CTRL-2025-86151,No,Disaster Recovery Drill,Operational Resilience,Single Point of Failure
-CTRL-2025-25580,No,Transaction Monitoring Ruleset,Operational Resilience,BCP Gap
-CTRL-2025-20639,Yes,Vendor SLA Monitoring,Fraud & Financial Crime,Internal Fraud
-CTRL-2025-27297,No,Sanctions Screening Tuning,Data Quality  Integrity,General
-CTRL-2025-37599,Yes,KYC Periodic Refresh,Fraud & Financial Crime,Card-Not-Present
-CTRL-2025-38695,No,Privileged Access Review,Data Quality  Integrity,General
-CTRL-2025-72522,Yes,KYC Periodic Refresh,AML Sanctions,General
-CTRL-2025-44213,Yes,Vendor SLA Monitoring,Operational Resilience,Capacity/Scaling
-CTRL-2025-34053,Yes,Disaster Recovery Drill,Third-Party Vendor,General
-CTRL-2025-84365,No,Daily Reconciliation Review,Data Quality  Integrity,General
-CTRL-2025-76784,No,Daily Reconciliation Review,Technology Change,Config Drift
-CTRL-2025-10026,No,Vendor SLA Monitoring,Data Quality  Integrity,General
-CTRL-2025-24336,Yes,Model Performance Backtesting,Conduct & Culture,Conflicts of Interest
-CTRL-2025-83943,Yes,Transaction Monitoring Ruleset,AML Sanctions,General
-CTRL-2025-17967,Yes,Daily Reconciliation Review,Technology Change,Config Drift
-CTRL-2025-26399,No,Sanctions Screening Tuning,Regulatory Compliance,KYC/CDD Gap
-CTRL-2025-48227,No,Release Change Approval,AML Sanctions,General
-CTRL-2025-93053,Yes,Vendor SLA Monitoring,Regulatory Compliance,Reporting Error
-CTRL-2025-66239,Yes,Model Performance Backtesting,Regulatory Compliance,KYC/CDD Gap
-CTRL-2025-14927,Yes,Sanctions Screening Tuning,Conduct & Culture,Conflicts of Interest
-CTRL-2025-46265,Yes,Data Quality Dashboard Check,AML Sanctions,General
-CTRL-2025-10021,No,Vendor SLA Monitoring,AML Sanctions,General
-CTRL-2025-10825,No,Disaster Recovery Drill,Cybersecurity,Ransomware
-CTRL-2025-16591,Yes,Model Performance Backtesting,Cybersecurity,Ransomware
-CTRL-2025-34253,No,Daily Reconciliation Review,Regulatory Compliance,MiFID II Breach
-CTRL-2025-92345,No,Data Quality Dashboard Check,Operational Resilience,Single Point of Failure
-CTRL-2025-21011,No,Daily Reconciliation Review,Third-Party Vendor,General
-CTRL-2025-15292,No,KYC Periodic Refresh,Model Risk,Calibration Error
-CTRL-2025-18592,No,Privileged Access Review,Data Quality  Integrity,General
-CTRL-2025-20194,No,Transaction Monitoring Ruleset,Cybersecurity,Unauthorized Access
-CTRL-2025-67855,No,Transaction Monitoring Ruleset,Third-Party Vendor,General
-CTRL-2025-61465,Yes,KYC Periodic Refresh,Fraud & Financial Crime,Internal Fraud
-CTRL-2025-56301,No,Sanctions Screening Tuning,AML Sanctions,General
-CTRL-2025-51740,No,Transaction Monitoring Ruleset,Technology Change,Release Regression
-CTRL-2025-80702,No,Vendor SLA Monitoring,Conduct & Culture,Insider Trading
-CTRL-2025-71921,Yes,Model Performance Backtesting,Regulatory Compliance,Reporting Error
-CTRL-2025-82718,Yes,Model Performance Backtesting,Fraud & Financial Crime,Internal Fraud
-CTRL-2025-60083,Yes,KYC Periodic Refresh,Fraud & Financial Crime,Check Fraud
-CTRL-2025-97427,Yes,KYC Periodic Refresh,AML Sanctions,General
-CTRL-2025-97598,No,Model Performance Backtesting,Third-Party Vendor,General
-CTRL-2025-96950,Yes,Model Performance Backtesting,Conduct & Culture,Sales Practice
-CTRL-2025-31134,No,Disaster Recovery Drill,Fraud & Financial Crime,Account Takeover
-CTRL-2025-70938,Yes,KYC Periodic Refresh,Third-Party Vendor,General
-CTRL-2025-87820,Yes,Model Performance Backtesting,Technology Change,Failed Deployment
-CTRL-2025-81826,Yes,Model Performance Backtesting,Model Risk,Use-Case Misalignment
-CTRL-2025-18256,Yes,Transaction Monitoring Ruleset,Operational Resilience,Disaster Recovery
-CTRL-2025-98250,No,Model Performance Backtesting,Technology Change,Change Collision
-CTRL-2025-98726,No,Vendor SLA Monitoring,Model Risk,Calibration Error
-CTRL-2025-42660,Yes,Model Performance Backtesting,Conduct & Culture,Conflicts of Interest
-CTRL-2025-28492,No,Data Quality Dashboard Check,Data Quality  Integrity,General
-CTRL-2025-36190,No,Disaster Recovery Drill,Technology Change,Config Drift
-CTRL-2025-73808,No,Daily Reconciliation Review,Third-Party Vendor,General
-CTRL-2025-58763,Yes,KYC Periodic Refresh,Third-Party Vendor,General
-CTRL-2025-46847,Yes,Privileged Access Review,Operational Resilience,Single Point of Failure
-CTRL-2025-95113,No,KYC Periodic Refresh,Regulatory Compliance,Reporting Error
-CTRL-2025-84087,No,Vendor SLA Monitoring,Model Risk,Calibration Error
-CTRL-2025-21182,No,Privileged Access Review,AML Sanctions,General
-CTRL-2025-72538,No,Disaster Recovery Drill,Conduct & Culture,Conflicts of Interest
-CTRL-2025-19888,No,Data Quality Dashboard Check,Cybersecurity,Data Breach
-CTRL-2025-41561,Yes,Release Change Approval,Operational Resilience,BCP Gap
-CTRL-2025-16612,Yes,Daily Reconciliation Review,AML Sanctions,General
-CTRL-2025-53064,No,Daily Reconciliation Review,Operational Resilience,Single Point of Failure
-CTRL-2025-30324,Yes,Data Quality Dashboard Check,Third-Party Vendor,General
-CTRL-2025-52635,No,Vendor SLA Monitoring,AML Sanctions,General
-CTRL-2025-64375,No,Daily Reconciliation Review,Regulatory Compliance,Reporting Error
-CTRL-2025-50562,Yes,Model Performance Backtesting,Fraud & Financial Crime,Check Fraud
-CTRL-2025-42877,Yes,Sanctions Screening Tuning,AML Sanctions,General
-CTRL-2025-78049,No,Disaster Recovery Drill,Model Risk,Calibration Error
-CTRL-2025-92818,No,Disaster Recovery Drill,Model Risk,Validation Finding
-CTRL-2025-46613,Yes,KYC Periodic Refresh,Technology Change,Failed Deployment
-CTRL-2025-22322,No,Disaster Recovery Drill,AML Sanctions,General
-CTRL-2025-29307,No,Disaster Recovery Drill,Operational Resilience,Disaster Recovery
-CTRL-2025-38371,No,Data Quality Dashboard Check,Data Quality  Integrity,General
-CTRL-2025-23009,No,Transaction Monitoring Ruleset,Regulatory Compliance,Record Retention
-CTRL-2025-50477,No,Disaster Recovery Drill,Operational Resilience,Single Point of Failure
-CTRL-2025-50138,Yes,Data Quality Dashboard Check,Data Quality  Integrity,General
-CTRL-2025-36317,Yes,Disaster Recovery Drill,Regulatory Compliance,Reporting Error
-CTRL-2025-94366,Yes,Disaster Recovery Drill,Data Quality  Integrity,General
-CTRL-2025-91434,No,Privileged Access Review,Cybersecurity,Phishing
-CTRL-2025-67695,Yes,Release Change Approval,Cybersecurity,Phishing
-CTRL-2025-36447,Yes,Privileged Access Review,Technology Change,Release Regression
-CTRL-2025-71358,Yes,Data Quality Dashboard Check,Third-Party Vendor,General
-CTRL-2025-31097,Yes,Data Quality Dashboard Check,Operational Resilience,BCP Gap
-CTRL-2025-31651,Yes,Vendor SLA Monitoring,Operational Resilience,BCP Gap
-CTRL-2025-88719,Yes,Daily Reconciliation Review,Technology Change,Change Collision
-CTRL-2025-31619,Yes,Model Performance Backtesting,Operational Resilience,Single Point of Failure
-CTRL-2025-37556,Yes,Daily Reconciliation Review,Model Risk,Concept Drift
-CTRL-2025-73921,No,Disaster Recovery Drill,Regulatory Compliance,Reporting Error
-CTRL-2025-36805,Yes,Release Change Approval,Technology Change,Config Drift
-CTRL-2025-54755,Yes,Sanctions Screening Tuning,Regulatory Compliance,Record Retention
-CTRL-2025-30487,Yes,Sanctions Screening Tuning,Conduct & Culture,Sales Practice
-CTRL-2025-49794,No,Data Quality Dashboard Check,Third-Party Vendor,General
-CTRL-2025-20415,No,Model Performance Backtesting,Model Risk,Use-Case Misalignment
-CTRL-2025-99472,Yes,Privileged Access Review,Third-Party Vendor,General
-CTRL-2025-70423,No,Model Performance Backtesting,AML Sanctions,General
-CTRL-2025-98855,Yes,Vendor SLA Monitoring,Technology Change,Release Regression
-CTRL-2025-43367,Yes,Sanctions Screening Tuning,Model Risk,Calibration Error
-CTRL-2025-47798,No,Privileged Access Review,Fraud & Financial Crime,Card-Not-Present
-CTRL-2025-60337,No,Daily Reconciliation Review,Cybersecurity,Ransomware
-CTRL-2025-80674,No,KYC Periodic Refresh,Technology Change,Config Drift
-CTRL-2025-39990,Yes,Privileged Access Review,Regulatory Compliance,KYC/CDD Gap
-CTRL-2025-48933,Yes,Disaster Recovery Drill,Conduct & Culture,Sales Practice
-CTRL-2025-40660,No,Data Quality Dashboard Check,Fraud & Financial Crime,Check Fraud
-CTRL-2025-76334,Yes,KYC Periodic Refresh,Technology Change,Config Drift
-CTRL-2025-54891,No,Sanctions Screening Tuning,Cybersecurity,Data Breach
-CTRL-2025-58006,No,Transaction Monitoring Ruleset,Model Risk,Calibration Error
-CTRL-2025-77669,No,Data Quality Dashboard Check,AML Sanctions,General
-CTRL-2025-39356,No,Data Quality Dashboard Check,Model Risk,Concept Drift
-CTRL-2025-92517,Yes,Privileged Access Review,AML Sanctions,General
-CTRL-2025-16349,Yes,Daily Reconciliation Review,Model Risk,Concept Drift
-CTRL-2025-95424,Yes,Data Quality Dashboard Check,Regulatory Compliance,Reporting Error
-CTRL-2025-36899,No,Model Performance Backtesting,Technology Change,Change Collision
-CTRL-2025-10660,Yes,Transaction Monitoring Ruleset,Cybersecurity,Ransomware
-CTRL-2025-15065,No,Vendor SLA Monitoring,Cybersecurity,Data Breach
-CTRL-2025-79449,Yes,Vendor SLA Monitoring,Fraud & Financial Crime,Internal Fraud
-CTRL-2025-22918,Yes,Model Performance Backtesting,Technology Change,Config Drift
-CTRL-2025-18435,Yes,Privileged Access Review,AML Sanctions,General
-CTRL-2025-29151,Yes,KYC Periodic Refresh,AML Sanctions,General
-CTRL-2025-16069,No,Daily Reconciliation Review,Conduct & Culture,Sales Practice
-CTRL-2025-14984,No,KYC Periodic Refresh,Third-Party Vendor,General
+control_id,key_control,control_title,risk_theme
+CTRL-2025-44639,Yes,Sanctions Screening Tuning,"AML Sanctions, Evasion Typology"
+CTRL-2025-88696,Yes,Privileged Access Review,"Model Risk, Concept Drift"
+CTRL-2025-42961,No,Transaction Monitoring Ruleset,"Fraud and Financial Crime, Internal Fraud"
+CTRL-2025-83135,No,Data Quality Dashboard Check,"Conduct and Culture, Inappropriate Communication"
+CTRL-2025-40529,Yes,Daily Reconciliation Review,"Cybersecurity, Data Breach"
+CTRL-2025-84034,Yes,Vendor SLA Monitoring,"Cybersecurity, Data Breach"
+CTRL-2025-40430,Yes,Privileged Access Review,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-74575,Yes,Sanctions Screening Tuning,"Cybersecurity, Phishing"
+CTRL-2025-20719,Yes,Model Performance Backtesting,"AML Sanctions, Name Screening Miss"
+CTRL-2025-62496,Yes,Daily Reconciliation Review,"Data Quality Integrity, Reference Data Error"
+CTRL-2025-50971,Yes,Privileged Access Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-94540,No,Sanctions Screening Tuning,"AML Sanctions, Alert Backlog"
+CTRL-2025-64981,No,Vendor SLA Monitoring,"Operational Resilience, Single Point of Failure"
+CTRL-2025-10444,No,Disaster Recovery Drill,"Model Risk, Validation Finding"
+CTRL-2025-54148,No,Privileged Access Review,"Technology Change, Change Collision"
+CTRL-2025-90365,No,Sanctions Screening Tuning,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-16368,Yes,Vendor SLA Monitoring,"Data Quality Integrity, Missing Values"
+CTRL-2025-99460,Yes,Sanctions Screening Tuning,"Third Party Vendor, Data Processing Risk"
+CTRL-2025-43720,No,Privileged Access Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-24502,Yes,Transaction Monitoring Ruleset,"AML Sanctions, Alert Backlog"
+CTRL-2025-68173,No,KYC Periodic Refresh,"Cybersecurity, Ransomware"
+CTRL-2025-82588,No,Model Performance Backtesting,"Operational Resilience, Disaster Recovery"
+CTRL-2025-10404,No,Disaster Recovery Drill,"Model Risk, Use Case Misalignment"
+CTRL-2025-10301,Yes,KYC Periodic Refresh,"Operational Resilience, Disaster Recovery"
+CTRL-2025-19782,No,Daily Reconciliation Review,"Conduct and Culture, Inappropriate Communication"
+CTRL-2025-83833,No,Model Performance Backtesting,"Conduct and Culture, Insider Trading"
+CTRL-2025-57872,Yes,Data Quality Dashboard Check,"Conduct and Culture, Inappropriate Communication"
+CTRL-2025-93574,No,Model Performance Backtesting,"Technology Change, Change Collision"
+CTRL-2025-60615,Yes,Release Change Approval,"Model Risk, Concept Drift"
+CTRL-2025-65327,Yes,Daily Reconciliation Review,"AML Sanctions, Name Screening Miss"
+CTRL-2025-29055,No,Disaster Recovery Drill,"Technology Change, Change Collision"
+CTRL-2025-77932,No,Transaction Monitoring Ruleset,"Data Quality Integrity, Duplication"
+CTRL-2025-64169,Yes,Data Quality Dashboard Check,"Data Quality Integrity, Lineage Gap"
+CTRL-2025-57306,Yes,Disaster Recovery Drill,"Cybersecurity, Phishing"
+CTRL-2025-91621,No,Disaster Recovery Drill,"AML Sanctions, Name Screening Miss"
+CTRL-2025-24706,Yes,Sanctions Screening Tuning,"Fraud and Financial Crime, Card Not Present"
+CTRL-2025-33023,No,Data Quality Dashboard Check,"Conduct and Culture, Insider Trading"
+CTRL-2025-15050,Yes,Transaction Monitoring Ruleset,"Third Party Vendor, Outage"
+CTRL-2025-91966,Yes,Transaction Monitoring Ruleset,"Technology Change, Change Collision"
+CTRL-2025-45479,No,Privileged Access Review,"Model Risk, Use Case Misalignment"
+CTRL-2025-19154,Yes,Vendor SLA Monitoring,"Fraud and Financial Crime, Card Not Present"
+CTRL-2025-31194,No,Privileged Access Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-17785,Yes,Model Performance Backtesting,"Cybersecurity, Phishing"
+CTRL-2025-76776,No,Daily Reconciliation Review,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-21779,Yes,Release Change Approval,"Model Risk, Use Case Misalignment"
+CTRL-2025-87949,Yes,Vendor SLA Monitoring,"Conduct and Culture, Inappropriate Communication"
+CTRL-2025-46958,Yes,Vendor SLA Monitoring,"Third Party Vendor, Onboarding Gap"
+CTRL-2025-71874,Yes,Release Change Approval,"Model Risk, Concept Drift"
+CTRL-2025-88604,Yes,Daily Reconciliation Review,"Regulatory Compliance, Record Retention"
+CTRL-2025-33309,Yes,Disaster Recovery Drill,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-43711,No,Disaster Recovery Drill,"Model Risk, Calibration Error"
+CTRL-2025-97205,Yes,Daily Reconciliation Review,"AML Sanctions, Name Screening Miss"
+CTRL-2025-84802,No,Sanctions Screening Tuning,"Cybersecurity, Data Breach"
+CTRL-2025-88100,No,Model Performance Backtesting,"Cybersecurity, Ransomware"
+CTRL-2025-69716,Yes,Transaction Monitoring Ruleset,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-27391,Yes,Sanctions Screening Tuning,"Operational Resilience, Disaster Recovery"
+CTRL-2025-54034,Yes,Daily Reconciliation Review,"Fraud and Financial Crime, Account Takeover"
+CTRL-2025-46514,No,Transaction Monitoring Ruleset,"Third Party Vendor, SLA Breach"
+CTRL-2025-77103,Yes,Transaction Monitoring Ruleset,"Model Risk, Calibration Error"
+CTRL-2025-38578,Yes,Sanctions Screening Tuning,"Fraud and Financial Crime, Internal Fraud"
+CTRL-2025-67680,Yes,Model Performance Backtesting,"Fraud and Financial Crime, Account Takeover"
+CTRL-2025-99634,No,Sanctions Screening Tuning,"Technology Change, Change Collision"
+CTRL-2025-24505,Yes,Transaction Monitoring Ruleset,"Regulatory Compliance, Reporting Error"
+CTRL-2025-74731,No,Daily Reconciliation Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-12672,No,Vendor SLA Monitoring,"Cybersecurity, Phishing"
+CTRL-2025-54764,No,Privileged Access Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-16875,No,Daily Reconciliation Review,"Operational Resilience, BCP Gap"
+CTRL-2025-86151,No,Disaster Recovery Drill,"Operational Resilience, Single Point of Failure"
+CTRL-2025-25580,No,Transaction Monitoring Ruleset,"Operational Resilience, BCP Gap"
+CTRL-2025-20639,Yes,Vendor SLA Monitoring,"Fraud and Financial Crime, Internal Fraud"
+CTRL-2025-27297,No,Sanctions Screening Tuning,"Data Quality Integrity, Missing Values"
+CTRL-2025-37599,Yes,KYC Periodic Refresh,"Fraud and Financial Crime, Card Not Present"
+CTRL-2025-38695,No,Privileged Access Review,"Data Quality Integrity, Lineage Gap"
+CTRL-2025-72522,Yes,KYC Periodic Refresh,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-44213,Yes,Vendor SLA Monitoring,"Operational Resilience, Capacity Scaling"
+CTRL-2025-34053,Yes,Disaster Recovery Drill,"Third Party Vendor, Outage"
+CTRL-2025-84365,No,Daily Reconciliation Review,"Data Quality Integrity, Missing Values"
+CTRL-2025-76784,No,Daily Reconciliation Review,"Technology Change, Config Drift"
+CTRL-2025-10026,No,Vendor SLA Monitoring,"Data Quality Integrity, Reference Data Error"
+CTRL-2025-24336,Yes,Model Performance Backtesting,"Conduct and Culture, Conflicts of Interest"
+CTRL-2025-83943,Yes,Transaction Monitoring Ruleset,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-17967,Yes,Daily Reconciliation Review,"Technology Change, Config Drift"
+CTRL-2025-26399,No,Sanctions Screening Tuning,"Regulatory Compliance, KYC CDD Gap"
+CTRL-2025-48227,No,Release Change Approval,"AML Sanctions, Evasion Typology"
+CTRL-2025-93053,Yes,Vendor SLA Monitoring,"Regulatory Compliance, Reporting Error"
+CTRL-2025-66239,Yes,Model Performance Backtesting,"Regulatory Compliance, KYC CDD Gap"
+CTRL-2025-14927,Yes,Sanctions Screening Tuning,"Conduct and Culture, Conflicts of Interest"
+CTRL-2025-46265,Yes,Data Quality Dashboard Check,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-10021,No,Vendor SLA Monitoring,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-10825,No,Disaster Recovery Drill,"Cybersecurity, Ransomware"
+CTRL-2025-16591,Yes,Model Performance Backtesting,"Cybersecurity, Ransomware"
+CTRL-2025-34253,No,Daily Reconciliation Review,"Regulatory Compliance, MiFID II Breach"
+CTRL-2025-92345,No,Data Quality Dashboard Check,"Operational Resilience, Single Point of Failure"
+CTRL-2025-21011,No,Daily Reconciliation Review,"Third Party Vendor, Onboarding Gap"
+CTRL-2025-15292,No,KYC Periodic Refresh,"Model Risk, Calibration Error"
+CTRL-2025-18592,No,Privileged Access Review,"Data Quality Integrity, Missing Values"
+CTRL-2025-20194,No,Transaction Monitoring Ruleset,"Cybersecurity, Unauthorized Access"
+CTRL-2025-67855,No,Transaction Monitoring Ruleset,"Third Party Vendor, Data Processing Risk"
+CTRL-2025-61465,Yes,KYC Periodic Refresh,"Fraud and Financial Crime, Internal Fraud"
+CTRL-2025-56301,No,Sanctions Screening Tuning,"AML Sanctions, Evasion Typology"
+CTRL-2025-51740,No,Transaction Monitoring Ruleset,"Technology Change, Release Regression"
+CTRL-2025-80702,No,Vendor SLA Monitoring,"Conduct and Culture, Insider Trading"
+CTRL-2025-71921,Yes,Model Performance Backtesting,"Regulatory Compliance, Reporting Error"
+CTRL-2025-82718,Yes,Model Performance Backtesting,"Fraud and Financial Crime, Internal Fraud"
+CTRL-2025-60083,Yes,KYC Periodic Refresh,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-97427,Yes,KYC Periodic Refresh,"AML Sanctions, Evasion Typology"
+CTRL-2025-97598,No,Model Performance Backtesting,"Third Party Vendor, Onboarding Gap"
+CTRL-2025-96950,Yes,Model Performance Backtesting,"Conduct and Culture, Sales Practice"
+CTRL-2025-31134,No,Disaster Recovery Drill,"Fraud and Financial Crime, Account Takeover"
+CTRL-2025-70938,Yes,KYC Periodic Refresh,"Third Party Vendor, SLA Breach"
+CTRL-2025-87820,Yes,Model Performance Backtesting,"Technology Change, Failed Deployment"
+CTRL-2025-81826,Yes,Model Performance Backtesting,"Model Risk, Use Case Misalignment"
+CTRL-2025-18256,Yes,Transaction Monitoring Ruleset,"Operational Resilience, Disaster Recovery"
+CTRL-2025-98250,No,Model Performance Backtesting,"Technology Change, Change Collision"
+CTRL-2025-98726,No,Vendor SLA Monitoring,"Model Risk, Calibration Error"
+CTRL-2025-42660,Yes,Model Performance Backtesting,"Conduct and Culture, Conflicts of Interest"
+CTRL-2025-28492,No,Data Quality Dashboard Check,"Data Quality Integrity, Missing Values"
+CTRL-2025-36190,No,Disaster Recovery Drill,"Technology Change, Config Drift"
+CTRL-2025-73808,No,Daily Reconciliation Review,"Third Party Vendor, Outage"
+CTRL-2025-58763,Yes,KYC Periodic Refresh,"Third Party Vendor, SLA Breach"
+CTRL-2025-46847,Yes,Privileged Access Review,"Operational Resilience, Single Point of Failure"
+CTRL-2025-95113,No,KYC Periodic Refresh,"Regulatory Compliance, Reporting Error"
+CTRL-2025-84087,No,Vendor SLA Monitoring,"Model Risk, Calibration Error"
+CTRL-2025-21182,No,Privileged Access Review,"AML Sanctions, Name Screening Miss"
+CTRL-2025-72538,No,Disaster Recovery Drill,"Conduct and Culture, Conflicts of Interest"
+CTRL-2025-19888,No,Data Quality Dashboard Check,"Cybersecurity, Data Breach"
+CTRL-2025-41561,Yes,Release Change Approval,"Operational Resilience, BCP Gap"
+CTRL-2025-16612,Yes,Daily Reconciliation Review,"AML Sanctions, Name Screening Miss"
+CTRL-2025-53064,No,Daily Reconciliation Review,"Operational Resilience, Single Point of Failure"
+CTRL-2025-30324,Yes,Data Quality Dashboard Check,"Third Party Vendor, SLA Breach"
+CTRL-2025-52635,No,Vendor SLA Monitoring,"AML Sanctions, Name Screening Miss"
+CTRL-2025-64375,No,Daily Reconciliation Review,"Regulatory Compliance, Reporting Error"
+CTRL-2025-50562,Yes,Model Performance Backtesting,"Fraud and Financial Crime, Check Fraud"
+CTRL-2025-42877,Yes,Sanctions Screening Tuning,"AML Sanctions, Sanctions Hit Handling"
+CTRL-2025-78049,No,Disaster Recovery Drill,"Model Risk, Calibration Error"
+CTRL-2025-92818,No,Disaster Recovery Drill,"Model Risk, Validation Finding"
+CTRL-2025-46613,Yes,KYC Periodic Refresh,"Technology Change, Failed Deployment"
+CTRL-2025-22322,No,Disaster Recovery Drill,"AML Sanctions, Alert Backlog"
+CTRL-2025-29307,No,Disaster Recovery Drill,"Operational Resilience, Disaster Recovery"
+CTRL-2025-38371,No,Data Quality Dashboard Check,"Data Quality Integrity, Missing Values"
+CTRL-2025-23009,No,Transaction Monitoring Ruleset,"Regulatory Compliance, Record Retention"
+CTRL-2025-50477,No,Disaster Recovery Drill,"Operational Resilience, Single Point of Failure"
+CTRL-2025-50138,Yes,Data Quality Dashboard Check,"Data Quality Integrity, Reference Data Error"
+CTRL-2025-36317,Yes,Disaster Recovery Drill,"Regulatory Compliance, Reporting Error"
+CTRL-2025-94366,Yes,Disaster Recovery Drill,"Data Quality Integrity, Reference Data Error"
+CTRL-2025-91434,No,Privileged Access Review,"Cybersecurity, Phishing"
+CTRL-2025-67695,Yes,Release Change Approval,"Cybersecurity, Phishing"
+CTRL-2025-36447,Yes,Privileged Access Review,"Technology Change, Release Regression"
+CTRL-2025-71358,Yes,Data Quality Dashboard Check,"Third Party Vendor, Outage"
+CTRL-2025-31097,Yes,Data Quality Dashboard Check,"Operational Resilience, BCP Gap"

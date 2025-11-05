@@ -59,7 +59,12 @@ const issuesAPI = {
     titleField: 'issue_title',
     typeField: 'issues_type',
     themeField: 'risk_theme',
-    subthemeField: 'risk_subtheme'
+    subthemeField: 'risk_subtheme',
+    functionLabels: {
+      issue_taxonomy: 'Issue Taxonomy',
+      root_cause: 'Root Cause',
+      enrichment: 'Enrichment'
+    }
   }
 };
 

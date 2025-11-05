@@ -59,7 +59,12 @@ const internalLossAPI = {
     titleField: 'event_title',
     typeField: 'event_type',
     themeField: 'risk_theme',
-    subthemeField: 'risk_subtheme'
+    subthemeField: 'risk_subtheme',
+    functionLabels: {
+      issue_taxonomy: 'Loss Taxonomy',
+      root_cause: 'Root Cause',
+      enrichment: 'Enrichment'
+    }
   }
 };
 

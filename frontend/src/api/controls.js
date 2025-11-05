@@ -59,7 +59,12 @@ const controlsAPI = {
     titleField: 'control_title',
     typeField: 'key_control',
     themeField: 'risk_theme',
-    subthemeField: 'risk_subtheme'
+    subthemeField: 'risk_subtheme',
+    functionLabels: {
+      controls_taxonomy: 'Controls Taxonomy',
+      root_cause: 'Root Cause',
+      enrichment: 'Enrichment'
+    }
   }
 };
 

@@ -3,7 +3,7 @@ import csv
 import json
 import os
 import logging
-from typing import Dict, List, Any, Generator, Tuple
+from typing import Dict, List, Any, Generator, Tuple, Optional
 from datetime import datetime
 
 from db import get_db
@@ -22,20 +22,67 @@ class CSVIngester:
         self.dataset_configs = DATASET_CONFIG
 
     def _required_fields(self, config: DatasetConfig) -> List[str]:
-        """Return a list of required CSV columns for the dataset."""
+        """Return required fields after normalization."""
         fields = [
             config.key_field,
             config.title_field,
-            config.theme_field,
-            config.subtheme_field
+            config.theme_field
         ]
+
+        if config.category_field:
+            fields.append(config.category_field)
+
+        if config.subtheme_field:
+            fields.append(config.subtheme_field)
+
         return fields
+
+    def _split_theme(self, value: str, delimiter: Optional[str]) -> Tuple[str, str]:
+        """Split a combined risk theme string into primary and secondary parts."""
+        if not value:
+            return "", ""
+
+        if delimiter:
+            parts = [part.strip() for part in value.split(delimiter) if part.strip()]
+            if not parts:
+                return "", ""
+            if len(parts) == 1:
+                return parts[0], ""
+            return parts[0], ", ".join(parts[1:])
+
+        return value.strip(), ""
+
+    def _prepare_row(self, row: Dict[str, Any], config: DatasetConfig) -> Dict[str, Any]:
+        """Normalize and enrich a raw CSV row."""
+        normalized = {k: (v.strip() if isinstance(v, str) else v) for k, v in row.items()}
+
+        if config.category_field and config.category_field not in normalized:
+            normalized[config.category_field] = ''
+
+        original_theme = normalized.get(config.theme_field, '') or ''
+        primary_theme, secondary_theme = self._split_theme(original_theme, config.theme_delimiter)
+        normalized[config.theme_field] = primary_theme
+
+        if config.subtheme_field:
+            normalized[config.subtheme_field] = secondary_theme
+
+        if original_theme and original_theme != primary_theme and config.theme_delimiter:
+            normalized[f"{config.theme_field}_original"] = original_theme
+
+        return normalized
 
     def validate_row(self, row: Dict[str, Any], config: DatasetConfig) -> Tuple[bool, str]:
         """Validate a CSV row."""
         # Check required fields
         for field in self._required_fields(config):
-            if field not in row or not row[field]:
+            if field not in row:
+                return False, f"Missing required field: {field}"
+
+            if field == config.subtheme_field:
+                # Subtheme is optional when derived from combined theme values
+                continue
+
+            if not row[field]:
                 return False, f"Missing required field: {field}"
 
         # Check for duplicate ID (this would be handled by DB constraint as well)
@@ -72,20 +119,22 @@ class CSVIngester:
         batch_data = []
 
         for row in rows:
-            is_valid, error_msg = self.validate_row(row, config)
+            normalized_row = self._prepare_row(row, config)
+
+            is_valid, error_msg = self.validate_row(normalized_row, config)
             if not is_valid:
                 failed += 1
-                errors.append(f"{row.get(key_field, 'unknown')}: {error_msg}")
+                errors.append(f"{normalized_row.get(key_field, 'unknown')}: {error_msg}")
                 continue
 
-            key_value = row[key_field]
-            title_value = row.get(config.title_field, '')
-            category_value = row.get(config.category_field, '') if config.category_field else ''
-            risk_theme = row.get(config.theme_field, '')
-            risk_subtheme = row.get(config.subtheme_field, '')
+            key_value = normalized_row[key_field]
+            title_value = normalized_row.get(config.title_field, '')
+            category_value = normalized_row.get(config.category_field, '') if config.category_field else ''
+            risk_theme = normalized_row.get(config.theme_field, '')
+            risk_subtheme = normalized_row.get(config.subtheme_field, '') if config.subtheme_field else ''
 
             # Store entire row as JSON for raw_data column
-            raw_data = json.dumps(row)
+            raw_data = json.dumps(normalized_row)
 
             batch_data.append((
                 key_value,

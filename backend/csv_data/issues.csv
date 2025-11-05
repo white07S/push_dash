@@ -1,201 +1,201 @@
-issue_id,issues_type,issue_title,risk_theme,risk_subtheme
-ISS-2025-50322,Incident Post-Mortem Action,Incident Post-Mortem Action: Timeout latency report gap – Pilot,AML Sanctions,General
-ISS-2025-62263,Risk Assessment Action,Risk Assessment Action: Reference threshold feed gap,Technology Change,Config Drift
-ISS-2025-56290,Regulatory Finding,Regulatory Finding: Alert investigation report gap,Fraud & Financial Crime,Internal Fraud
-ISS-2025-89245,Regulatory Finding,Regulatory Finding: Onboarding latency report gap,AML Sanctions,General
-ISS-2025-17055,Process Gap,Process Gap: Retry control control gap – v2,Conduct & Culture,Conflicts of Interest
-ISS-2025-53724,Process Gap,Process Gap: Gateway spike report gap – v2,Cybersecurity,Ransomware
-ISS-2025-38003,Incident Post-Mortem Action,Incident Post-Mortem Action: Batch migration report gap,Technology Change,Config Drift
-ISS-2025-86514,Incident Post-Mortem Action,Incident Post-Mortem Action: Retry spike control gap,AML Sanctions,General
-ISS-2025-84576,Incident Post-Mortem Action,Incident Post-Mortem Action: Queue investigation report gap,Conduct & Culture,Inappropriate Communication
-ISS-2025-35148,Policy Exception,Policy Exception: Breach integration process gap – Phase 1,Operational Resilience,Single Point of Failure
-ISS-2025-17334,Policy Exception,Policy Exception: Timeout reconciliation control gap (Interim),Conduct & Culture,Conflicts of Interest
-ISS-2025-35103,Regulatory Finding,Regulatory Finding: Batch threshold report gap,Conduct & Culture,Conflicts of Interest
-ISS-2025-61504,Regulatory Finding,Regulatory Finding: Security timeout process gap – Pilot,Regulatory Compliance,Record Retention
-ISS-2025-92467,Incident Post-Mortem Action,Incident Post-Mortem Action: Dataset integration feed gap,AML Sanctions,General
-ISS-2025-51304,Policy Exception,Policy Exception: Retry spike feed gap – v2,Data Quality  Integrity,General
-ISS-2025-59834,Process Gap,Process Gap: Dataset reference feed gap,Technology Change,Failed Deployment
-ISS-2025-54891,Risk Assessment Action,Risk Assessment Action: Customer override control gap – Phase 1,Regulatory Compliance,MiFID II Breach
-ISS-2025-14868,Regulatory Finding,Regulatory Finding: Retry security feed gap,Fraud & Financial Crime,Internal Fraud
-ISS-2025-37848,Process Gap,Process Gap: Control gateway process gap (Remediation),Model Risk,Use-Case Misalignment
-ISS-2025-87458,Audit Finding,Audit Finding: Timeout payment process gap,Data Quality  Integrity,General
-ISS-2025-95105,Audit Finding,Audit Finding: Automated latency control gap,Cybersecurity,Data Breach
-ISS-2025-94906,Regulatory Finding,Regulatory Finding: Investigation automated process gap (Interim),AML Sanctions,General
-ISS-2025-13284,Regulatory Finding,Regulatory Finding: Breach alert report gap,Cybersecurity,Data Breach
-ISS-2025-92603,Risk Assessment Action,Risk Assessment Action: Payment latency control gap,Technology Change,Failed Deployment
-ISS-2025-42182,Risk Assessment Action,Risk Assessment Action: Spike payment feed gap,Third-Party Vendor,General
-ISS-2025-19683,Process Gap,Process Gap: Policy reconciliation feed gap (Interim),Cybersecurity,Data Breach
-ISS-2025-17759,Risk Assessment Action,Risk Assessment Action: Policy threshold feed gap (Interim),Fraud & Financial Crime,Card-Not-Present
-ISS-2025-64306,Risk Assessment Action,Risk Assessment Action: Migration integration report gap – Phase 1,Model Risk,Validation Finding
-ISS-2025-17415,Audit Finding,Audit Finding: Batch policy control gap,Operational Resilience,Capacity/Scaling
-ISS-2025-75108,Audit Finding,Audit Finding: Override control feed gap – Phase 1,Fraud & Financial Crime,Card-Not-Present
-ISS-2025-20542,Policy Exception,Policy Exception: Reconciliation payment process gap – v2,Regulatory Compliance,KYC/CDD Gap
-ISS-2025-46899,Regulatory Finding,Regulatory Finding: Automated integration report gap – Pilot,Third-Party Vendor,General
-ISS-2025-53328,Audit Finding,Audit Finding: Override misconfiguration report gap,Cybersecurity,Data Breach
-ISS-2025-62206,Incident Post-Mortem Action,Incident Post-Mortem Action: Automated integration feed gap,Third-Party Vendor,General
-ISS-2025-20799,Policy Exception,Policy Exception: Migration batch feed gap,Cybersecurity,Data Breach
-ISS-2025-98281,Incident Post-Mortem Action,Incident Post-Mortem Action: Queue customer feed gap,Data Quality  Integrity,General
-ISS-2025-96853,Policy Exception,Policy Exception: Latency gateway feed gap (Interim),Data Quality  Integrity,General
-ISS-2025-71906,Regulatory Finding,Regulatory Finding: Misconfiguration threshold process gap – v2,Operational Resilience,Capacity/Scaling
-ISS-2025-36842,Risk Assessment Action,Risk Assessment Action: Dataset queue process gap,Operational Resilience,BCP Gap
-ISS-2025-26207,Process Gap,Process Gap: Batch automated process gap,Regulatory Compliance,KYC/CDD Gap
-ISS-2025-62910,Risk Assessment Action,Risk Assessment Action: Batch queue feed gap,Operational Resilience,Disaster Recovery
-ISS-2025-79509,Process Gap,Process Gap: Breach threshold process gap,Fraud & Financial Crime,Account Takeover
-ISS-2025-15674,Policy Exception,Policy Exception: Workflow misconfiguration report gap,Cybersecurity,Ransomware
-ISS-2025-14526,Audit Finding,Audit Finding: Misconfiguration payment report gap,Operational Resilience,Capacity/Scaling
-ISS-2025-77816,Process Gap,Process Gap: Reconciliation reference report gap (Remediation),Data Quality  Integrity,General
-ISS-2025-37225,Policy Exception,Policy Exception: Timeout reference feed gap,Cybersecurity,Data Breach
-ISS-2025-87596,Risk Assessment Action,Risk Assessment Action: Security alert feed gap,Model Risk,Use-Case Misalignment
-ISS-2025-94309,Regulatory Finding,Regulatory Finding: Investigation spike report gap – Pilot,Regulatory Compliance,Record Retention
-ISS-2025-26910,Risk Assessment Action,Risk Assessment Action: Retry gateway process gap (Remediation),AML Sanctions,General
-ISS-2025-82229,Risk Assessment Action,Risk Assessment Action: Latency alert report gap,Model Risk,Validation Finding
-ISS-2025-23414,Policy Exception,Policy Exception: Alert alert feed gap,Cybersecurity,Unauthorized Access
-ISS-2025-17263,Process Gap,Process Gap: Customer batch control gap,Cybersecurity,Ransomware
-ISS-2025-90839,Incident Post-Mortem Action,Incident Post-Mortem Action: Integration security report gap,AML Sanctions,General
-ISS-2025-90103,Audit Finding,Audit Finding: Security workflow report gap,Data Quality  Integrity,General
-ISS-2025-67297,Risk Assessment Action,Risk Assessment Action: Spike retry feed gap,Technology Change,Failed Deployment
-ISS-2025-34061,Process Gap,Process Gap: Reconciliation control process gap – v2,Technology Change,Change Collision
-ISS-2025-93630,Incident Post-Mortem Action,Incident Post-Mortem Action: Security onboarding process gap – v2,Technology Change,Failed Deployment
-ISS-2025-61554,Regulatory Finding,Regulatory Finding: Automated workflow process gap,Operational Resilience,Single Point of Failure
-ISS-2025-47004,Policy Exception,Policy Exception: Manual manual report gap,Fraud & Financial Crime,Internal Fraud
-ISS-2025-62948,Incident Post-Mortem Action,Incident Post-Mortem Action: Policy integration report gap,Conduct & Culture,Sales Practice
-ISS-2025-81150,Process Gap,Process Gap: Control override feed gap,AML Sanctions,General
-ISS-2025-79862,Risk Assessment Action,Risk Assessment Action: Integration workflow process gap,Regulatory Compliance,Record Retention
-ISS-2025-54560,Incident Post-Mortem Action,Incident Post-Mortem Action: Exception migration feed gap (Interim),Operational Resilience,Capacity/Scaling
-ISS-2025-32220,Audit Finding,Audit Finding: Gateway reference process gap – Pilot,Fraud & Financial Crime,Check Fraud
-ISS-2025-24599,Audit Finding,Audit Finding: Gateway misconfiguration control gap,Conduct & Culture,Sales Practice
-ISS-2025-22497,Process Gap,Process Gap: Queue reconciliation feed gap,Third-Party Vendor,General
-ISS-2025-78414,Process Gap,Process Gap: Policy timeout control gap (Remediation),Cybersecurity,Phishing
-ISS-2025-80527,Process Gap,Process Gap: Batch queue process gap – v2,AML Sanctions,General
-ISS-2025-15296,Incident Post-Mortem Action,Incident Post-Mortem Action: Validation exception control gap – Phase 1,Operational Resilience,Single Point of Failure
-ISS-2025-22680,Risk Assessment Action,Risk Assessment Action: Workflow workflow process gap (Interim),Cybersecurity,Ransomware
-ISS-2025-78424,Audit Finding,Audit Finding: Breach onboarding control gap – Pilot,Model Risk,Concept Drift
-ISS-2025-46137,Regulatory Finding,Regulatory Finding: Automated breach process gap,Technology Change,Failed Deployment
-ISS-2025-78838,Risk Assessment Action,Risk Assessment Action: Reference onboarding feed gap – v2,Conduct & Culture,Conflicts of Interest
-ISS-2025-69914,Audit Finding,Audit Finding: Queue misconfiguration feed gap,Operational Resilience,Disaster Recovery
-ISS-2025-58170,Risk Assessment Action,Risk Assessment Action: Workflow policy process gap,Regulatory Compliance,Record Retention
-ISS-2025-48998,Regulatory Finding,Regulatory Finding: Investigation onboarding process gap,Cybersecurity,Unauthorized Access
-ISS-2025-80133,Regulatory Finding,Regulatory Finding: Investigation breach report gap – Pilot,Regulatory Compliance,MiFID II Breach
-ISS-2025-72861,Audit Finding,Audit Finding: Exception customer report gap,AML Sanctions,General
-ISS-2025-28848,Process Gap,Process Gap: Gateway customer report gap (Interim),AML Sanctions,General
-ISS-2025-98638,Risk Assessment Action,Risk Assessment Action: Alert manual report gap,Operational Resilience,Capacity/Scaling
-ISS-2025-92392,Process Gap,Process Gap: Retry manual report gap,Data Quality  Integrity,General
-ISS-2025-58902,Risk Assessment Action,Risk Assessment Action: Queue migration feed gap – v2,Regulatory Compliance,Reporting Error
-ISS-2025-34488,Process Gap,Process Gap: Customer automated report gap,Technology Change,Config Drift
-ISS-2025-47817,Audit Finding,Audit Finding: Validation breach control gap,AML Sanctions,General
-ISS-2025-26731,Regulatory Finding,Regulatory Finding: Onboarding reconciliation report gap,Technology Change,Release Regression
-ISS-2025-60147,Incident Post-Mortem Action,Incident Post-Mortem Action: Reconciliation automated report gap,Conduct & Culture,Conflicts of Interest
-ISS-2025-76777,Risk Assessment Action,Risk Assessment Action: Batch dataset report gap – Pilot,Data Quality  Integrity,General
-ISS-2025-96012,Process Gap,Process Gap: Exception reference control gap,Data Quality  Integrity,General
-ISS-2025-69201,Policy Exception,Policy Exception: Control exception feed gap,Fraud & Financial Crime,Card-Not-Present
-ISS-2025-89828,Audit Finding,Audit Finding: Manual override control gap (Interim),Data Quality  Integrity,General
-ISS-2025-92175,Process Gap,Process Gap: Payment spike report gap,Cybersecurity,Phishing
-ISS-2025-79749,Incident Post-Mortem Action,Incident Post-Mortem Action: Latency spike report gap (Remediation),Operational Resilience,Capacity/Scaling
-ISS-2025-93175,Risk Assessment Action,Risk Assessment Action: Integration dataset feed gap – v2,Operational Resilience,BCP Gap
-ISS-2025-40565,Risk Assessment Action,Risk Assessment Action: Misconfiguration retry process gap (Interim),Model Risk,Use-Case Misalignment
-ISS-2025-51745,Incident Post-Mortem Action,Incident Post-Mortem Action: Payment alert control gap (Interim),Data Quality  Integrity,General
-ISS-2025-39060,Process Gap,Process Gap: Alert reference feed gap – v2,Cybersecurity,Ransomware
-ISS-2025-14966,Risk Assessment Action,Risk Assessment Action: Threshold customer feed gap – Phase 1,Third-Party Vendor,General
-ISS-2025-24701,Risk Assessment Action,Risk Assessment Action: Reconciliation control control gap,Fraud & Financial Crime,Check Fraud
-ISS-2025-11237,Risk Assessment Action,Risk Assessment Action: Latency exception feed gap – Pilot,Model Risk,Calibration Error
-ISS-2025-42790,Audit Finding,Audit Finding: Customer override control gap (Interim),Cybersecurity,Ransomware
-ISS-2025-56940,Audit Finding,Audit Finding: Validation reference feed gap (Remediation),Fraud & Financial Crime,Account Takeover
-ISS-2025-31367,Risk Assessment Action,Risk Assessment Action: Gateway customer process gap (Interim),Cybersecurity,Phishing
-ISS-2025-45387,Risk Assessment Action,Risk Assessment Action: Integration onboarding feed gap – Phase 1,Operational Resilience,Disaster Recovery
-ISS-2025-62486,Risk Assessment Action,Risk Assessment Action: Integration policy feed gap – v2,Data Quality  Integrity,General
-ISS-2025-19547,Risk Assessment Action,Risk Assessment Action: Payment override report gap,Conduct & Culture,Conflicts of Interest
-ISS-2025-78994,Audit Finding,Audit Finding: Validation integration control gap (Interim),Operational Resilience,Capacity/Scaling
-ISS-2025-44319,Risk Assessment Action,Risk Assessment Action: Validation policy control gap – v2,Third-Party Vendor,General
-ISS-2025-27685,Audit Finding,Audit Finding: Spike breach process gap (Remediation),Operational Resilience,Single Point of Failure
-ISS-2025-75646,Policy Exception,Policy Exception: Payment exception feed gap – Pilot,Fraud & Financial Crime,Account Takeover
-ISS-2025-52311,Policy Exception,Policy Exception: Alert batch process gap,Cybersecurity,Data Breach
-ISS-2025-87781,Incident Post-Mortem Action,Incident Post-Mortem Action: Onboarding spike control gap – v2,Model Risk,Calibration Error
-ISS-2025-25485,Regulatory Finding,Regulatory Finding: Security batch control gap,Regulatory Compliance,MiFID II Breach
-ISS-2025-83561,Process Gap,Process Gap: Investigation gateway feed gap,AML Sanctions,General
-ISS-2025-89314,Incident Post-Mortem Action,Incident Post-Mortem Action: Customer exception feed gap,Data Quality  Integrity,General
-ISS-2025-28791,Process Gap,Process Gap: Customer dataset report gap,Operational Resilience,Capacity/Scaling
-ISS-2025-70100,Process Gap,Process Gap: Workflow misconfiguration report gap,Data Quality  Integrity,General
-ISS-2025-46072,Incident Post-Mortem Action,Incident Post-Mortem Action: Integration dataset process gap – v2,Technology Change,Release Regression
-ISS-2025-26431,Audit Finding,Audit Finding: Customer validation process gap,Regulatory Compliance,Record Retention
-ISS-2025-68366,Regulatory Finding,Regulatory Finding: Manual batch process gap,Technology Change,Config Drift
-ISS-2025-45763,Policy Exception,Policy Exception: Validation automated feed gap,Regulatory Compliance,Record Retention
-ISS-2025-96095,Audit Finding,Audit Finding: Customer override report gap – v2,Technology Change,Config Drift
-ISS-2025-56216,Risk Assessment Action,Risk Assessment Action: Workflow security report gap – Pilot,AML Sanctions,General
-ISS-2025-73881,Incident Post-Mortem Action,Incident Post-Mortem Action: Control integration report gap,Operational Resilience,BCP Gap
-ISS-2025-41479,Incident Post-Mortem Action,Incident Post-Mortem Action: Customer latency control gap,AML Sanctions,General
-ISS-2025-32406,Audit Finding,Audit Finding: Override timeout feed gap,Fraud & Financial Crime,Account Takeover
-ISS-2025-14947,Audit Finding,Audit Finding: Automated breach report gap,AML Sanctions,General
-ISS-2025-99677,Policy Exception,Policy Exception: Security spike report gap (Interim),Data Quality  Integrity,General
-ISS-2025-67097,Process Gap,Process Gap: Control payment control gap (Interim),Operational Resilience,Single Point of Failure
-ISS-2025-99191,Policy Exception,Policy Exception: Queue alert process gap (Interim),Fraud & Financial Crime,Check Fraud
-ISS-2025-78861,Audit Finding,Audit Finding: Latency automated feed gap – v2,Cybersecurity,Ransomware
-ISS-2025-72481,Risk Assessment Action,Risk Assessment Action: Alert timeout report gap,Model Risk,Concept Drift
-ISS-2025-52059,Incident Post-Mortem Action,Incident Post-Mortem Action: Spike retry process gap,Regulatory Compliance,Record Retention
-ISS-2025-36389,Audit Finding,Audit Finding: Migration batch report gap – Phase 1,Data Quality  Integrity,General
-ISS-2025-75837,Audit Finding,Audit Finding: Timeout policy report gap,Fraud & Financial Crime,Check Fraud
-ISS-2025-18967,Risk Assessment Action,Risk Assessment Action: Gateway queue report gap (Interim),Third-Party Vendor,General
-ISS-2025-15689,Policy Exception,Policy Exception: Dataset spike report gap (Interim),Cybersecurity,Data Breach
-ISS-2025-12063,Incident Post-Mortem Action,Incident Post-Mortem Action: Workflow control process gap (Interim),Cybersecurity,Data Breach
-ISS-2025-39975,Process Gap,Process Gap: Gateway security feed gap,Fraud & Financial Crime,Account Takeover
-ISS-2025-28768,Regulatory Finding,Regulatory Finding: Batch policy feed gap (Interim),Third-Party Vendor,General
-ISS-2025-35579,Incident Post-Mortem Action,Incident Post-Mortem Action: Manual manual process gap,Data Quality  Integrity,General
-ISS-2025-62482,Process Gap,Process Gap: Investigation validation feed gap,Operational Resilience,Capacity/Scaling
-ISS-2025-73106,Audit Finding,Audit Finding: Workflow breach process gap,Fraud & Financial Crime,Card-Not-Present
-ISS-2025-36585,Risk Assessment Action,Risk Assessment Action: Workflow validation control gap (Remediation),AML Sanctions,General
-ISS-2025-22495,Policy Exception,Policy Exception: Timeout customer feed gap (Interim),Fraud & Financial Crime,Card-Not-Present
-ISS-2025-55193,Process Gap,Process Gap: Threshold payment control gap – Phase 1,Cybersecurity,Ransomware
-ISS-2025-15270,Risk Assessment Action,Risk Assessment Action: Timeout breach process gap (Remediation),Operational Resilience,Single Point of Failure
-ISS-2025-24761,Process Gap,Process Gap: Onboarding workflow process gap,Fraud & Financial Crime,Check Fraud
-ISS-2025-72361,Audit Finding,Audit Finding: Latency integration process gap – v2,Operational Resilience,BCP Gap
-ISS-2025-26292,Risk Assessment Action,Risk Assessment Action: Onboarding timeout report gap,Conduct & Culture,Inappropriate Communication
-ISS-2025-46930,Policy Exception,Policy Exception: Reference timeout control gap – Pilot,Operational Resilience,Single Point of Failure
-ISS-2025-43475,Regulatory Finding,Regulatory Finding: Security override report gap,Data Quality  Integrity,General
-ISS-2025-25214,Incident Post-Mortem Action,Incident Post-Mortem Action: Retry control process gap,Operational Resilience,Disaster Recovery
-ISS-2025-96891,Incident Post-Mortem Action,Incident Post-Mortem Action: Automated integration feed gap,Fraud & Financial Crime,Internal Fraud
-ISS-2025-74683,Incident Post-Mortem Action,Incident Post-Mortem Action: Onboarding onboarding feed gap,Data Quality  Integrity,General
-ISS-2025-28358,Policy Exception,Policy Exception: Manual misconfiguration feed gap,AML Sanctions,General
-ISS-2025-83413,Incident Post-Mortem Action,Incident Post-Mortem Action: Validation override process gap,Operational Resilience,BCP Gap
-ISS-2025-97797,Risk Assessment Action,Risk Assessment Action: Breach customer feed gap,Technology Change,Config Drift
-ISS-2025-36859,Regulatory Finding,Regulatory Finding: Payment alert control gap – Pilot,Data Quality  Integrity,General
-ISS-2025-49486,Process Gap,Process Gap: Migration workflow control gap – Pilot,AML Sanctions,General
-ISS-2025-10393,Regulatory Finding,Regulatory Finding: Control customer process gap,Cybersecurity,Ransomware
-ISS-2025-66982,Incident Post-Mortem Action,Incident Post-Mortem Action: Reconciliation workflow control gap (Remediation),Cybersecurity,Data Breach
-ISS-2025-73444,Audit Finding,Audit Finding: Payment queue report gap,Technology Change,Change Collision
-ISS-2025-43895,Process Gap,Process Gap: Integration retry control gap,Fraud & Financial Crime,Account Takeover
-ISS-2025-43923,Risk Assessment Action,Risk Assessment Action: Threshold investigation report gap,Model Risk,Calibration Error
-ISS-2025-92124,Incident Post-Mortem Action,Incident Post-Mortem Action: Manual integration process gap,Data Quality  Integrity,General
-ISS-2025-81488,Regulatory Finding,Regulatory Finding: Validation exception control gap,Fraud & Financial Crime,Account Takeover
-ISS-2025-21684,Audit Finding,Audit Finding: Timeout retry feed gap,Third-Party Vendor,General
-ISS-2025-97902,Risk Assessment Action,Risk Assessment Action: Integration workflow process gap,Technology Change,Failed Deployment
-ISS-2025-67950,Audit Finding,Audit Finding: Investigation alert process gap,Conduct & Culture,Conflicts of Interest
-ISS-2025-78016,Incident Post-Mortem Action,Incident Post-Mortem Action: Gateway manual report gap (Remediation),Technology Change,Failed Deployment
-ISS-2025-78362,Risk Assessment Action,Risk Assessment Action: Reference misconfiguration report gap,Fraud & Financial Crime,Internal Fraud
-ISS-2025-58218,Policy Exception,Policy Exception: Payment reconciliation process gap (Remediation),Regulatory Compliance,KYC/CDD Gap
-ISS-2025-41585,Policy Exception,Policy Exception: Breach timeout control gap – Phase 1,Fraud & Financial Crime,Check Fraud
-ISS-2025-35354,Policy Exception,Policy Exception: Onboarding threshold control gap – Phase 1,Data Quality  Integrity,General
-ISS-2025-16983,Risk Assessment Action,Risk Assessment Action: Breach exception feed gap,Third-Party Vendor,General
-ISS-2025-32564,Audit Finding,Audit Finding: Dataset queue process gap – v2,Cybersecurity,Ransomware
-ISS-2025-80052,Regulatory Finding,Regulatory Finding: Control investigation feed gap,Fraud & Financial Crime,Check Fraud
-ISS-2025-75573,Audit Finding,Audit Finding: Exception policy feed gap – Phase 1,AML Sanctions,General
-ISS-2025-83922,Risk Assessment Action,Risk Assessment Action: Exception policy control gap – Pilot,Data Quality  Integrity,General
-ISS-2025-42961,Audit Finding,Audit Finding: Retry gateway control gap (Remediation),Data Quality  Integrity,General
-ISS-2025-17408,Regulatory Finding,Regulatory Finding: Investigation timeout feed gap,Conduct & Culture,Inappropriate Communication
-ISS-2025-84034,Risk Assessment Action,Risk Assessment Action: Batch control control gap,Regulatory Compliance,KYC/CDD Gap
-ISS-2025-40430,Process Gap,Process Gap: Policy control process gap,Fraud & Financial Crime,Check Fraud
-ISS-2025-55018,Incident Post-Mortem Action,Incident Post-Mortem Action: Queue queue control gap – Phase 1,Cybersecurity,Phishing
-ISS-2025-50971,Policy Exception,Policy Exception: Alert reference report gap (Interim),Conduct & Culture,Inappropriate Communication
-ISS-2025-51159,Incident Post-Mortem Action,Incident Post-Mortem Action: Misconfiguration override report gap,AML Sanctions,General
-ISS-2025-28547,Incident Post-Mortem Action,Incident Post-Mortem Action: Timeout security report gap (Remediation),Technology Change,Change Collision
-ISS-2025-58227,Audit Finding,Audit Finding: Security alert report gap,Model Risk,Calibration Error
-ISS-2025-81808,Audit Finding,Audit Finding: Automated customer report gap,Model Risk,Validation Finding
-ISS-2025-19363,Audit Finding,Audit Finding: Latency validation report gap,Cybersecurity,Ransomware
-ISS-2025-94956,Policy Exception,Policy Exception: Latency onboarding report gap,Regulatory Compliance,Reporting Error
-ISS-2025-50934,Incident Post-Mortem Action,Incident Post-Mortem Action: Queue queue feed gap (Interim),Technology Change,Change Collision
-ISS-2025-55607,Regulatory Finding,Regulatory Finding: Automated reconciliation feed gap (Remediation),Fraud & Financial Crime,Card-Not-Present
-ISS-2025-68991,Risk Assessment Action,Risk Assessment Action: Payment dataset control gap – v2,AML Sanctions,General
-ISS-2025-87816,Risk Assessment Action,Risk Assessment Action: Retry latency process gap,Technology Change,Failed Deployment
-ISS-2025-94645,Policy Exception,Policy Exception: Reconciliation alert feed gap,Cybersecurity,Phishing
-ISS-2025-82852,Risk Assessment Action,Risk Assessment Action: Investigation latency control gap – Pilot,Technology Change,Config Drift
-ISS-2025-86838,Process Gap,Process Gap: Alert automated control gap,Operational Resilience,Capacity/Scaling
-ISS-2025-20925,Incident Post-Mortem Action,Incident Post-Mortem Action: Control automated feed gap,Regulatory Compliance,MiFID II Breach
-ISS-2025-33023,Policy Exception,Policy Exception: Validation timeout feed gap,Model Risk,Concept Drift
+issue_id,issues_type,issue_title,risk_theme
+ISS-2025-53619,Incident Post-Mortem Action,Incident Post-Mortem Action: Control override process gap,"AML Sanctions, Evasion Typology"
+ISS-2025-57824,Audit Finding,Audit Finding: Reconciliation manual process gap,"Technology Change, Failed Deployment"
+ISS-2025-97572,Risk Assessment Action,Risk Assessment Action: Reconciliation migration control gap,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-56290,Regulatory Finding,Regulatory Finding: Reference override report gap,"Data Quality Integrity, Reference Data Error"
+ISS-2025-89245,Regulatory Finding,Regulatory Finding: Onboarding spike report gap,"AML Sanctions, Name Screening Miss"
+ISS-2025-17055,Process Gap,Process Gap: Security payment control gap – v2,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-51193,Process Gap,Process Gap: Gateway misconfiguration process gap – v2,"Cybersecurity, Ransomware"
+ISS-2025-82798,Regulatory Finding,Regulatory Finding: Control reference process gap,"Cybersecurity, Unauthorized Access"
+ISS-2025-16610,Incident Post-Mortem Action,Incident Post-Mortem Action: Spike timeout process gap,"Operational Resilience, Disaster Recovery"
+ISS-2025-95747,Policy Exception,Policy Exception: Reference timeout feed gap,"Conduct and Culture, Insider Trading"
+ISS-2025-32297,Audit Finding,Audit Finding: Payment manual process gap,"Data Quality Integrity, Lineage Gap"
+ISS-2025-82684,Process Gap,Process Gap: Queue security report gap,"Data Quality Integrity, Missing Values"
+ISS-2025-17334,Audit Finding,Audit Finding: Policy manual control gap (Interim),"Regulatory Compliance, Record Retention"
+ISS-2025-94376,Regulatory Finding,Regulatory Finding: Payment customer report gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-66307,Risk Assessment Action,Risk Assessment Action: Customer customer process gap – v2,"AML Sanctions, Evasion Typology"
+ISS-2025-91906,Process Gap,Process Gap: Onboarding manual report gap (Interim),"Model Risk, Calibration Error"
+ISS-2025-88636,Risk Assessment Action,Risk Assessment Action: Retry policy report gap – v2,"Technology Change, Config Drift"
+ISS-2025-57014,Audit Finding,Audit Finding: Validation security report gap,"Third Party Vendor, Onboarding Gap"
+ISS-2025-41026,Regulatory Finding,Regulatory Finding: Control reconciliation feed gap – Pilot,"Third Party Vendor, Data Processing Risk"
+ISS-2025-74451,Regulatory Finding,Regulatory Finding: Manual automated report gap – Pilot,"Technology Change, Release Regression"
+ISS-2025-24900,Process Gap,Process Gap: Batch integration feed gap (Remediation),"Model Risk, Use Case Misalignment"
+ISS-2025-46276,Policy Exception,Policy Exception: Retry reference process gap – Pilot,"Third Party Vendor, Data Processing Risk"
+ISS-2025-87458,Risk Assessment Action,Risk Assessment Action: Integration investigation process gap,"AML Sanctions, Name Screening Miss"
+ISS-2025-95105,Audit Finding,Audit Finding: Automated latency process gap – Phase 1,"Cybersecurity, Data Breach"
+ISS-2025-31276,Regulatory Finding,Regulatory Finding: Override override control gap (Interim),"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-98241,Risk Assessment Action,Risk Assessment Action: Batch manual feed gap (Remediation),"Third Party Vendor, Outage"
+ISS-2025-23429,Policy Exception,Policy Exception: Manual exception report gap,"Operational Resilience, Single Point of Failure"
+ISS-2025-23964,Risk Assessment Action,Risk Assessment Action: Automated misconfiguration process gap (Interim),"Regulatory Compliance, Reporting Error"
+ISS-2025-17716,Incident Post-Mortem Action,Incident Post-Mortem Action: Breach reconciliation process gap,"Fraud and Financial Crime, Account Takeover"
+ISS-2025-70511,Risk Assessment Action,Risk Assessment Action: Reference exception report gap,"Technology Change, Config Drift"
+ISS-2025-59629,Policy Exception,Policy Exception: Payment payment process gap – v2,"Conduct and Culture, Sales Practice"
+ISS-2025-62199,Risk Assessment Action,Risk Assessment Action: Onboarding batch control gap,"Cybersecurity, Phishing"
+ISS-2025-15068,Process Gap,Process Gap: Manual automated feed gap – Pilot,"Operational Resilience, Single Point of Failure"
+ISS-2025-59032,Incident Post-Mortem Action,Incident Post-Mortem Action: Batch payment control gap,"Data Quality Integrity, Missing Values"
+ISS-2025-34840,Regulatory Finding,Regulatory Finding: Retry spike control gap (Interim),"Technology Change, Change Collision"
+ISS-2025-20542,Process Gap,Process Gap: Payment security process gap – v2,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-46899,Regulatory Finding,Regulatory Finding: Automated exception report gap – Pilot,"Third Party Vendor, Outage"
+ISS-2025-86610,Audit Finding,Audit Finding: Dataset threshold control gap,"Cybersecurity, Data Breach"
+ISS-2025-18115,Risk Assessment Action,Risk Assessment Action: Customer gateway control gap,"AML Sanctions, Evasion Typology"
+ISS-2025-15358,Policy Exception,Policy Exception: Reference reconciliation control gap,"Technology Change, Change Collision"
+ISS-2025-90571,Risk Assessment Action,Risk Assessment Action: Queue payment report gap,"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-14234,Policy Exception,Policy Exception: Queue control report gap,"Conduct and Culture, Sales Practice"
+ISS-2025-96853,Policy Exception,Policy Exception: Onboarding reference feed gap (Interim),"Regulatory Compliance, KYC CDD Gap"
+ISS-2025-31429,Regulatory Finding,Regulatory Finding: Threshold payment report gap,"Operational Resilience, Capacity Scaling"
+ISS-2025-46830,Audit Finding,Audit Finding: Reference security control gap,"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-29031,Process Gap,Process Gap: Override gateway process gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-26207,Policy Exception,Policy Exception: Investigation automated control gap – Pilot,"Regulatory Compliance, KYC CDD Gap"
+ISS-2025-85007,Risk Assessment Action,Risk Assessment Action: Payment override feed gap,"Operational Resilience, Disaster Recovery"
+ISS-2025-57233,Policy Exception,Policy Exception: Customer reference process gap,"Technology Change, Change Collision"
+ISS-2025-47533,Risk Assessment Action,Risk Assessment Action: Onboarding gateway report gap,"Third Party Vendor, SLA Breach"
+ISS-2025-94180,Policy Exception,Policy Exception: Workflow exception report gap – Phase 1,"Data Quality Integrity, Lineage Gap"
+ISS-2025-16541,Incident Post-Mortem Action,Incident Post-Mortem Action: Workflow batch report gap,"Model Risk, Calibration Error"
+ISS-2025-77816,Regulatory Finding,Regulatory Finding: Migration retry report gap (Remediation),"Regulatory Compliance, Record Retention"
+ISS-2025-37225,Policy Exception,Policy Exception: Control customer feed gap,"Cybersecurity, Data Breach"
+ISS-2025-87596,Risk Assessment Action,Risk Assessment Action: Policy policy feed gap,"Model Risk, Use Case Misalignment"
+ISS-2025-26942,Regulatory Finding,Regulatory Finding: Override reconciliation process gap – Pilot,"Regulatory Compliance, Record Retention"
+ISS-2025-27138,Risk Assessment Action,Risk Assessment Action: Timeout workflow control gap (Interim),"Operational Resilience, Single Point of Failure"
+ISS-2025-55472,Process Gap,Process Gap: Timeout gateway process gap,"Data Quality Integrity, Reference Data Error"
+ISS-2025-70002,Audit Finding,Audit Finding: Payment reconciliation feed gap,"Technology Change, Release Regression"
+ISS-2025-13575,Policy Exception,Policy Exception: Control onboarding process gap – Phase 1,"Cybersecurity, Phishing"
+ISS-2025-51627,Incident Post-Mortem Action,Incident Post-Mortem Action: Timeout policy control gap,"Cybersecurity, Phishing"
+ISS-2025-50354,Process Gap,Process Gap: Misconfiguration policy report gap,"Regulatory Compliance, MiFID II Breach"
+ISS-2025-61842,Audit Finding,Audit Finding: Manual spike control gap,"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-19435,Regulatory Finding,Regulatory Finding: Reconciliation onboarding feed gap,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-87111,Risk Assessment Action,Risk Assessment Action: Manual timeout process gap – v2,"Third Party Vendor, SLA Breach"
+ISS-2025-44374,Regulatory Finding,Regulatory Finding: Spike payment control gap,"Data Quality Integrity, Lineage Gap"
+ISS-2025-61554,Policy Exception,Policy Exception: Breach misconfiguration process gap,"Data Quality Integrity, Reference Data Error"
+ISS-2025-44753,Policy Exception,Policy Exception: Validation automated process gap,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-13468,Audit Finding,Audit Finding: Dataset queue process gap,"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-92142,Regulatory Finding,Regulatory Finding: Policy security control gap,"Data Quality Integrity, Reference Data Error"
+ISS-2025-71725,Regulatory Finding,Regulatory Finding: Integration override report gap (Interim),"Conduct and Culture, Sales Practice"
+ISS-2025-54560,Regulatory Finding,Regulatory Finding: Security queue feed gap (Interim),"Model Risk, Calibration Error"
+ISS-2025-32220,Audit Finding,Audit Finding: Gateway integration process gap – Pilot,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-83359,Audit Finding,Audit Finding: Gateway retry report gap – Phase 1,"Conduct and Culture, Sales Practice"
+ISS-2025-86518,Risk Assessment Action,Risk Assessment Action: Manual migration process gap (Remediation),"Fraud and Financial Crime, Account Takeover"
+ISS-2025-84572,Policy Exception,Policy Exception: Reference automated process gap,"Technology Change, Release Regression"
+ISS-2025-16611,Incident Post-Mortem Action,Incident Post-Mortem Action: Migration dataset feed gap,"Cybersecurity, Unauthorized Access"
+ISS-2025-80527,Incident Post-Mortem Action,Incident Post-Mortem Action: Threshold dataset process gap – v2,"Third Party Vendor, SLA Breach"
+ISS-2025-68083,Incident Post-Mortem Action,Incident Post-Mortem Action: Dataset queue report gap,"Operational Resilience, Single Point of Failure"
+ISS-2025-21116,Policy Exception,Policy Exception: Batch customer report gap,"Operational Resilience, BCP Gap"
+ISS-2025-57541,Process Gap,Process Gap: Override migration process gap (Interim),"Regulatory Compliance, KYC CDD Gap"
+ISS-2025-66334,Process Gap,Process Gap: Breach workflow feed gap – Phase 1,"Operational Resilience, BCP Gap"
+ISS-2025-59738,Regulatory Finding,Regulatory Finding: Misconfiguration manual report gap,"Third Party Vendor, Data Processing Risk"
+ISS-2025-74982,Process Gap,Process Gap: Threshold timeout report gap,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-84284,Regulatory Finding,Regulatory Finding: Override workflow feed gap,"Conduct and Culture, Sales Practice"
+ISS-2025-45022,Audit Finding,Audit Finding: Reference batch report gap – Phase 1,"Regulatory Compliance, MiFID II Breach"
+ISS-2025-45309,Audit Finding,Audit Finding: Dataset misconfiguration process gap,"Model Risk, Concept Drift"
+ISS-2025-80133,Risk Assessment Action,Risk Assessment Action: Threshold onboarding report gap,"Technology Change, Config Drift"
+ISS-2025-93955,Audit Finding,Audit Finding: Queue integration process gap,"AML Sanctions, Name Screening Miss"
+ISS-2025-56740,Risk Assessment Action,Risk Assessment Action: Retry control feed gap (Interim),"Model Risk, Calibration Error"
+ISS-2025-96329,Process Gap,Process Gap: Investigation misconfiguration feed gap,"Operational Resilience, Disaster Recovery"
+ISS-2025-51927,Risk Assessment Action,Risk Assessment Action: Misconfiguration investigation report gap – v2,"Cybersecurity, Unauthorized Access"
+ISS-2025-37432,Risk Assessment Action,Risk Assessment Action: Batch breach process gap – v2,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-37911,Risk Assessment Action,Risk Assessment Action: Integration security report gap (Interim),"Conduct and Culture, Sales Practice"
+ISS-2025-53778,Incident Post-Mortem Action,Incident Post-Mortem Action: Security alert process gap,"Third Party Vendor, SLA Breach"
+ISS-2025-69842,Policy Exception,Policy Exception: Migration control report gap – Phase 1,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-26731,Regulatory Finding,Regulatory Finding: Threshold reference report gap,"Operational Resilience, Capacity Scaling"
+ISS-2025-63405,Incident Post-Mortem Action,Incident Post-Mortem Action: Exception timeout control gap – Pilot,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-44815,Regulatory Finding,Regulatory Finding: Breach payment feed gap,"Technology Change, Failed Deployment"
+ISS-2025-24263,Audit Finding,Audit Finding: Timeout alert control gap (Remediation),"Fraud and Financial Crime, Check Fraud"
+ISS-2025-69201,Policy Exception,Policy Exception: Gateway policy process gap (Remediation),"Model Risk, Validation Finding"
+ISS-2025-89828,Audit Finding,Audit Finding: Reference misconfiguration control gap (Interim),"Data Quality Integrity, Duplication"
+ISS-2025-45483,Process Gap,Process Gap: Gateway alert process gap,"Cybersecurity, Phishing"
+ISS-2025-28730,Risk Assessment Action,Risk Assessment Action: Workflow timeout feed gap,"Model Risk, Calibration Error"
+ISS-2025-50866,Audit Finding,Audit Finding: Automated onboarding feed gap,"Model Risk, Concept Drift"
+ISS-2025-83361,Regulatory Finding,Regulatory Finding: Exception onboarding report gap,"Cybersecurity, Phishing"
+ISS-2025-40565,Process Gap,Process Gap: Security threshold process gap (Interim),"Technology Change, Failed Deployment"
+ISS-2025-51745,Incident Post-Mortem Action,Incident Post-Mortem Action: Gateway exception control gap (Interim),"Data Quality Integrity, Missing Values"
+ISS-2025-98895,Process Gap,Process Gap: Exception override process gap,"Cybersecurity, Ransomware"
+ISS-2025-57723,Process Gap,Process Gap: Security onboarding process gap,"Technology Change, Release Regression"
+ISS-2025-14966,Risk Assessment Action,Risk Assessment Action: Dataset retry report gap,"Operational Resilience, Disaster Recovery"
+ISS-2025-24701,Risk Assessment Action,Risk Assessment Action: Queue payment control gap,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-63531,Risk Assessment Action,Risk Assessment Action: Spike breach feed gap,"Model Risk, Calibration Error"
+ISS-2025-13943,Risk Assessment Action,Risk Assessment Action: Automated customer report gap – v2,"Operational Resilience, BCP Gap"
+ISS-2025-49382,Process Gap,Process Gap: Validation workflow control gap,"Conduct and Culture, Sales Practice"
+ISS-2025-27337,Audit Finding,Audit Finding: Exception retry report gap – Phase 1,"Regulatory Compliance, Record Retention"
+ISS-2025-44270,Process Gap,Process Gap: Reconciliation batch process gap,"Third Party Vendor, SLA Breach"
+ISS-2025-45387,Risk Assessment Action,Risk Assessment Action: Onboarding workflow feed gap – Phase 1,"Model Risk, Concept Drift"
+ISS-2025-62486,Risk Assessment Action,Risk Assessment Action: Investigation migration feed gap – v2,"Data Quality Integrity, Reference Data Error"
+ISS-2025-19547,Risk Assessment Action,Risk Assessment Action: Gateway workflow report gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-60775,Audit Finding,Audit Finding: Dataset breach report gap,"Operational Resilience, Capacity Scaling"
+ISS-2025-25261,Process Gap,Process Gap: Investigation dataset control gap,"Third Party Vendor, Outage"
+ISS-2025-36423,Audit Finding,Audit Finding: Workflow threshold process gap,"Third Party Vendor, Data Processing Risk"
+ISS-2025-17107,Process Gap,Process Gap: Payment latency control gap (Remediation),"Conduct and Culture, Insider Trading"
+ISS-2025-65559,Policy Exception,Policy Exception: Reference alert control gap,"Model Risk, Use Case Misalignment"
+ISS-2025-52311,Incident Post-Mortem Action,Incident Post-Mortem Action: Batch reconciliation process gap,"Cybersecurity, Data Breach"
+ISS-2025-77183,Incident Post-Mortem Action,Incident Post-Mortem Action: Workflow threshold process gap (Interim),"Model Risk, Calibration Error"
+ISS-2025-81623,Audit Finding,Audit Finding: Queue policy process gap – Phase 1,"AML Sanctions, Alert Backlog"
+ISS-2025-59204,Process Gap,Process Gap: Override migration process gap,"Fraud and Financial Crime, Card Not Present"
+ISS-2025-66655,Incident Post-Mortem Action,Incident Post-Mortem Action: Gateway policy process gap,"Data Quality Integrity, Lineage Gap"
+ISS-2025-28791,Regulatory Finding,Regulatory Finding: Spike onboarding report gap,"Technology Change, Failed Deployment"
+ISS-2025-95611,Process Gap,Process Gap: Misconfiguration customer report gap – Pilot,"Data Quality Integrity, Lineage Gap"
+ISS-2025-46072,Regulatory Finding,Regulatory Finding: Validation payment process gap – v2,"Model Risk, Use Case Misalignment"
+ISS-2025-63546,Audit Finding,Audit Finding: Customer reference report gap (Interim),"Regulatory Compliance, Record Retention"
+ISS-2025-70327,Policy Exception,Policy Exception: Exception customer feed gap,"Third Party Vendor, Onboarding Gap"
+ISS-2025-45763,Policy Exception,Policy Exception: Policy policy feed gap,"Cybersecurity, Phishing"
+ISS-2025-96095,Audit Finding,Audit Finding: Onboarding spike report gap – v2,"Technology Change, Config Drift"
+ISS-2025-56216,Risk Assessment Action,Risk Assessment Action: Misconfiguration investigation report gap – Pilot,"AML Sanctions, Evasion Typology"
+ISS-2025-73881,Incident Post-Mortem Action,Incident Post-Mortem Action: Breach workflow report gap,"Operational Resilience, BCP Gap"
+ISS-2025-95447,Incident Post-Mortem Action,Incident Post-Mortem Action: Customer reconciliation process gap – Phase 1,"AML Sanctions, Alert Backlog"
+ISS-2025-32406,Process Gap,Process Gap: Threshold reference report gap – Pilot,"Third Party Vendor, SLA Breach"
+ISS-2025-14947,Audit Finding,Audit Finding: Automated misconfiguration report gap (Remediation),"AML Sanctions, Alert Backlog"
+ISS-2025-47589,Policy Exception,Policy Exception: Control override process gap,"Data Quality Integrity, Duplication"
+ISS-2025-21803,Risk Assessment Action,Risk Assessment Action: Workflow misconfiguration process gap,"Regulatory Compliance, KYC CDD Gap"
+ISS-2025-24004,Audit Finding,Audit Finding: Batch customer feed gap,"AML Sanctions, Name Screening Miss"
+ISS-2025-27261,Policy Exception,Policy Exception: Timeout investigation feed gap,"AML Sanctions, Sanctions Hit Handling"
+ISS-2025-38162,Risk Assessment Action,Risk Assessment Action: Spike investigation control gap (Interim),"Conduct and Culture, Inappropriate Communication"
+ISS-2025-44976,Audit Finding,Audit Finding: Latency security process gap,"Cybersecurity, Data Breach"
+ISS-2025-79565,Policy Exception,Policy Exception: Retry spike feed gap,"Model Risk, Calibration Error"
+ISS-2025-18306,Audit Finding,Audit Finding: Alert automated report gap,"Regulatory Compliance, MiFID II Breach"
+ISS-2025-98514,Policy Exception,Policy Exception: Gateway customer control gap – v2,"Operational Resilience, Capacity Scaling"
+ISS-2025-92027,Incident Post-Mortem Action,Incident Post-Mortem Action: Timeout override process gap,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-15483,Incident Post-Mortem Action,Incident Post-Mortem Action: Reconciliation threshold process gap – Phase 1,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-15689,Process Gap,Process Gap: Batch workflow process gap,"Conduct and Culture, Inappropriate Communication"
+ISS-2025-12063,Incident Post-Mortem Action,Incident Post-Mortem Action: Misconfiguration threshold process gap (Interim),"Cybersecurity, Data Breach"
+ISS-2025-39975,Process Gap,Process Gap: Gateway timeout feed gap,"Fraud and Financial Crime, Account Takeover"
+ISS-2025-28768,Regulatory Finding,Regulatory Finding: Payment dataset feed gap (Interim),"Third Party Vendor, Outage"
+ISS-2025-35579,Incident Post-Mortem Action,Incident Post-Mortem Action: Validation validation process gap,"Data Quality Integrity, Missing Values"
+ISS-2025-62482,Process Gap,Process Gap: Override migration feed gap,"Operational Resilience, Capacity Scaling"
+ISS-2025-91012,Audit Finding,Audit Finding: Misconfiguration security control gap (Remediation),"Fraud and Financial Crime, Card Not Present"
+ISS-2025-36585,Audit Finding,Audit Finding: Integration latency control gap (Remediation),"Technology Change, Failed Deployment"
+ISS-2025-46828,Policy Exception,Policy Exception: Control misconfiguration process gap,"Fraud and Financial Crime, Card Not Present"
+ISS-2025-12422,Policy Exception,Policy Exception: Onboarding latency report gap (Remediation),"Third Party Vendor, SLA Breach"
+ISS-2025-85824,Audit Finding,Audit Finding: Workflow breach report gap,"Conduct and Culture, Inappropriate Communication"
+ISS-2025-43114,Process Gap,Process Gap: Control reconciliation control gap (Interim),"Operational Resilience, Disaster Recovery"
+ISS-2025-49951,Risk Assessment Action,Risk Assessment Action: Spike gateway report gap,"Operational Resilience, Disaster Recovery"
+ISS-2025-72361,Incident Post-Mortem Action,Incident Post-Mortem Action: Security security process gap – v2,"Regulatory Compliance, MiFID II Breach"
+ISS-2025-99775,Risk Assessment Action,Risk Assessment Action: Onboarding misconfiguration process gap,"Conduct and Culture, Inappropriate Communication"
+ISS-2025-46930,Audit Finding,Audit Finding: Validation automated control gap – Pilot,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-80077,Regulatory Finding,Regulatory Finding: Control breach report gap,"Data Quality Integrity, Reference Data Error"
+ISS-2025-20020,Audit Finding,Audit Finding: Latency control process gap,"Data Quality Integrity, Lineage Gap"
+ISS-2025-92171,Risk Assessment Action,Risk Assessment Action: Alert security control gap (Remediation),"Fraud and Financial Crime, Card Not Present"
+ISS-2025-66485,Incident Post-Mortem Action,Incident Post-Mortem Action: Workflow override process gap – v2,"Data Quality Integrity, Reference Data Error"
+ISS-2025-60999,Policy Exception,Policy Exception: Reference gateway report gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-29241,Incident Post-Mortem Action,Incident Post-Mortem Action: Integration timeout control gap,"Regulatory Compliance, MiFID II Breach"
+ISS-2025-96042,Incident Post-Mortem Action,Incident Post-Mortem Action: Customer investigation process gap (Remediation),"Third Party Vendor, Onboarding Gap"
+ISS-2025-78467,Regulatory Finding,Regulatory Finding: Payment reconciliation feed gap – Pilot,"Data Quality Integrity, Duplication"
+ISS-2025-34292,Incident Post-Mortem Action,Incident Post-Mortem Action: Exception spike report gap – Phase 1,"Operational Resilience, Disaster Recovery"
+ISS-2025-67614,Audit Finding,Audit Finding: Batch manual process gap (Interim),"Cybersecurity, Unauthorized Access"
+ISS-2025-51083,Policy Exception,Policy Exception: Investigation automated feed gap,"Third Party Vendor, Data Processing Risk"
+ISS-2025-72584,Policy Exception,Policy Exception: Onboarding batch feed gap (Remediation),"Operational Resilience, BCP Gap"
+ISS-2025-73444,Risk Assessment Action,Risk Assessment Action: Timeout override report gap,"Data Quality Integrity, Missing Values"
+ISS-2025-82286,Process Gap,Process Gap: Automated security control gap,"Fraud and Financial Crime, Account Takeover"
+ISS-2025-71825,Risk Assessment Action,Risk Assessment Action: Security workflow report gap,"Operational Resilience, Single Point of Failure"
+ISS-2025-33734,Audit Finding,Audit Finding: Alert automated feed gap,"Operational Resilience, BCP Gap"
+ISS-2025-81488,Process Gap,Process Gap: Exception dataset feed gap (Remediation),"Fraud and Financial Crime, Card Not Present"
+ISS-2025-64674,Audit Finding,Audit Finding: Security investigation control gap,"Third Party Vendor, Outage"
+ISS-2025-95093,Audit Finding,Audit Finding: Breach dataset report gap (Interim),"Fraud and Financial Crime, Check Fraud"
+ISS-2025-39406,Audit Finding,Audit Finding: Override reconciliation feed gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-45452,Regulatory Finding,Regulatory Finding: Threshold security control gap (Interim),"Third Party Vendor, Onboarding Gap"
+ISS-2025-55095,Regulatory Finding,Regulatory Finding: Timeout investigation control gap (Remediation),"Fraud and Financial Crime, Account Takeover"
+ISS-2025-19455,Process Gap,Process Gap: Gateway gateway process gap (Interim),"Data Quality Integrity, Duplication"
+ISS-2025-99006,Policy Exception,Policy Exception: Retry batch control gap,"Conduct and Culture, Conflicts of Interest"
+ISS-2025-28397,Regulatory Finding,Regulatory Finding: Batch onboarding report gap,"Fraud and Financial Crime, Check Fraud"
+ISS-2025-35354,Risk Assessment Action,Risk Assessment Action: Reconciliation workflow control gap – Phase 1,"Fraud and Financial Crime, Internal Fraud"
+ISS-2025-33677,Risk Assessment Action,Risk Assessment Action: Manual reference feed gap,"Third Party Vendor, Data Processing Risk"
+ISS-2025-29773,Process Gap,Process Gap: Misconfiguration onboarding feed gap,"Cybersecurity, Phishing"
+ISS-2025-80052,Policy Exception,Policy Exception: Retry retry feed gap,"Data Quality Integrity, Duplication"
+ISS-2025-75573,Audit Finding,Audit Finding: Queue override feed gap – Phase 1,"AML Sanctions, Name Screening Miss"
+ISS-2025-43938,Risk Assessment Action,Risk Assessment Action: Retry payment control gap – Pilot,"Data Quality Integrity, Missing Values"

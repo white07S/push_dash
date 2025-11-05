@@ -28,7 +28,6 @@ class BaseDAO:
             "title": row[1],
             "category": row[2],
             "risk_theme": row[3],
-            "risk_subtheme": row[4],
             "record": record,
             "ai_status": self._get_ai_presence(row[0]),
         }
@@ -38,7 +37,8 @@ class BaseDAO:
         if self.config.category_field:
             item[self.config.category_field] = record.get(self.config.category_field, row[2])
         item[self.config.theme_field] = record.get(self.config.theme_field, row[3])
-        item[self.config.subtheme_field] = record.get(self.config.subtheme_field, row[4])
+        if self.config.subtheme_field:
+            item[self.config.subtheme_field] = record.get(self.config.subtheme_field, row[4])
 
         return item
 
@@ -109,7 +109,6 @@ class BaseDAO:
             "title": row[1],
             "category": row[2],
             "risk_theme": row[3],
-            "risk_subtheme": row[4],
             "record": record,
         }
 
@@ -117,7 +116,8 @@ class BaseDAO:
         if self.config.category_field:
             raw_payload[self.config.category_field] = record.get(self.config.category_field, row[2])
         raw_payload[self.config.theme_field] = record.get(self.config.theme_field, row[3])
-        raw_payload[self.config.subtheme_field] = record.get(self.config.subtheme_field, row[4])
+        if self.config.subtheme_field:
+            raw_payload[self.config.subtheme_field] = record.get(self.config.subtheme_field, row[4])
 
         return {
             "raw": raw_payload,

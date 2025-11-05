@@ -14,10 +14,11 @@ class DatasetConfig:
     key_field: str
     title_field: str
     theme_field: str
-    subtheme_field: str
+    subtheme_field: Optional[str]
     description_field: str
     ai_functions: List[str]
     category_field: Optional[str] = None
+    theme_delimiter: Optional[str] = ","
 
 
 DATASET_CONFIG: Dict[str, DatasetConfig] = {
@@ -74,4 +75,3 @@ def get_dataset_config(dataset: str) -> DatasetConfig:
         return DATASET_CONFIG[dataset]
     except KeyError as exc:  # pragma: no cover - defensive
         raise ValueError(f"Unknown dataset '{dataset}'") from exc
-
