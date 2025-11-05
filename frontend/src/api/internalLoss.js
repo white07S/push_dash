@@ -1,28 +1,28 @@
 // API service for internal loss dataset
 import axiosClient from './axiosClient';
 
-const triggerIssueTaxonomy = async (eventId, description = null, refresh = false) => {
+const triggerIssueTaxonomy = async (eventId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/internal-loss/${eventId}/issue-taxonomy`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerRootCause = async (eventId, description = null, refresh = false) => {
+const triggerRootCause = async (eventId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/internal-loss/${eventId}/root-cause`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerEnrichment = async (eventId, description = null, refresh = false) => {
+const triggerEnrichment = async (eventId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/internal-loss/${eventId}/enrichment`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;

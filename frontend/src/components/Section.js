@@ -14,7 +14,6 @@ const Section = ({
   userId
 }) => {
   const [searchId, setSearchId] = useState('');
-  const [description, setDescription] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -102,13 +101,11 @@ const Section = ({
     if (!triggerFunc) return;
 
     const itemId = searchResult[idField];
-    const contextValue =
-      description || searchResult.record?.[titleField] || searchResult[titleField] || '';
 
     setAiLoading(prev => ({ ...prev, [functionKey]: true }));
 
     try {
-      const result = await triggerFunc(itemId, contextValue, false);
+      const result = await triggerFunc(itemId);
       setAiResults(prev => ({ ...prev, [functionKey]: result }));
       setSearchResult(prev => ({
         ...prev,
@@ -126,17 +123,15 @@ const Section = ({
   };
 
   // Handle AI function trigger in drawer
-  const handleDrawerTriggerFunction = async (functionKey, desc) => {
+  const handleDrawerTriggerFunction = async (functionKey) => {
     if (!drawerData) return;
 
     const itemId = drawerData.raw[idField];
     const triggerFunc = aiTriggers[functionKey];
     if (!triggerFunc) return;
-    const contextValue =
-      desc || drawerData.raw?.record?.[titleField] || drawerData.raw?.[titleField] || '';
 
     try {
-      const result = await triggerFunc(itemId, contextValue, false);
+      const result = await triggerFunc(itemId);
       // Update drawer data with new AI results
       setDrawerData(prev => ({
         ...prev,
@@ -151,7 +146,6 @@ const Section = ({
     }
   };
 
-  // Truncate description
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h2 className="text-2xl font-bold text-ubs-gray-900 mb-6">{title}</h2>
@@ -166,18 +160,6 @@ const Section = ({
           disabled={loading}
         />
 
-        <div>
-          <label className="block text-sm font-medium text-ubs-gray-700 mb-1">
-            Context (Optional - overrides default input)
-          </label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter description override for AI functions..."
-            className="w-full px-4 py-2 border border-ubs-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ubs-red focus:border-transparent resize-none"
-            rows={3}
-          />
-        </div>
       </div>
 
       {/* Error display */}

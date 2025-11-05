@@ -46,11 +46,9 @@ const DetailDrawer = ({
 
   const handleTriggerFunction = async (functionKey) => {
     if (!onTriggerFunction) return;
-
-    const contextValue = record[titleField] || raw[titleField] || '';
     setLoading(prev => ({ ...prev, [functionKey]: true }));
     try {
-      await onTriggerFunction(functionKey, contextValue);
+      await onTriggerFunction(functionKey);
     } catch (error) {
       console.error(`Error triggering ${functionKey}:`, error);
     } finally {

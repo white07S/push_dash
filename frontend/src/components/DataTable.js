@@ -113,12 +113,10 @@ const DataTable = ({
     const triggerFunc = aiTriggers[primaryFunction];
     if (!triggerFunc) return;
 
-    const contextValue = item.record?.[titleField] || item[titleField] || '';
-
     setAiLoading(prev => ({ ...prev, [key]: true }));
 
     try {
-      const result = await triggerFunc(itemId, contextValue, false);
+      const result = await triggerFunc(itemId);
       const updatedData = [...data];
       const index = updatedData.findIndex(d => d[idField] === itemId);
       if (index !== -1) {
@@ -138,17 +136,15 @@ const DataTable = ({
     }
   };
 
-  const handleDrawerTriggerFunction = async (functionKey, desc) => {
+  const handleDrawerTriggerFunction = async (functionKey) => {
     if (!drawerData) return;
 
     const itemId = drawerData.raw[idField];
     const triggerFunc = aiTriggers[functionKey];
     if (!triggerFunc) return;
-    const contextValue =
-      desc || drawerData.raw?.record?.[titleField] || drawerData.raw?.[titleField] || '';
 
     try {
-      const result = await triggerFunc(itemId, contextValue, false);
+      const result = await triggerFunc(itemId);
       setDrawerData(prev => ({
         ...prev,
         ai: {

@@ -1,28 +1,28 @@
 // API service for issues dataset
 import axiosClient from './axiosClient';
 
-const triggerIssueTaxonomy = async (issueId, description = null, refresh = false) => {
+const triggerIssueTaxonomy = async (issueId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/issues/${issueId}/issue-taxonomy`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerRootCause = async (issueId, description = null, refresh = false) => {
+const triggerRootCause = async (issueId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/issues/${issueId}/root-cause`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerEnrichment = async (issueId, description = null, refresh = false) => {
+const triggerEnrichment = async (issueId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/issues/${issueId}/enrichment`,
-    { description },
+    null,
     { params: { refresh } }
   );
   return response.data;
