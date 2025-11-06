@@ -1,4 +1,5 @@
 """Resolver utility for cache-or-compute pattern."""
+import inspect
 import json
 import logging
 from datetime import datetime
@@ -76,7 +77,7 @@ class FunctionResolver:
         self.db.execute(query, (id_value, json.dumps(payload), created_at))
 
     # ---------------------------------------------------------------- operations
-    def resolve(
+    async def resolve(
         self,
         dataset: str,
         func: str,
@@ -132,6 +133,8 @@ class FunctionResolver:
         compute_func = self.function_map[dataset][func]
         try:
             payload = compute_func(id, session_id, raw_record)
+            if inspect.isawaitable(payload):
+                payload = await payload
         except Exception as exc:  # pragma: no cover - logging side-effect
             logger.error("Error computing %s for %s: %s", func, id, exc)
             raise RuntimeError(f"Failed to compute {func}: {exc}") from exc

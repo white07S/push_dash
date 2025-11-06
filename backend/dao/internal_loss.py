@@ -12,39 +12,39 @@ class InternalLossDAO(BaseDAO):
     def get_details(self, event_id: str) -> Optional[Dict[str, Any]]:
         return super().get_details(event_id)
 
-    def trigger_issue_taxonomy(
+    async def trigger_issue_taxonomy(
         self,
         event_id: str,
         session_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
-        return self.trigger_ai_function(
+        return await self.trigger_ai_function(
             event_id,
             "issue_taxonomy",
             session_id,
             refresh,
         )
 
-    def trigger_root_cause(
+    async def trigger_root_cause(
         self,
         event_id: str,
         session_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
-        return self.trigger_ai_function(
+        return await self.trigger_ai_function(
             event_id,
             "root_cause",
             session_id,
             refresh,
         )
 
-    def trigger_enrichment(
+    async def trigger_enrichment(
         self,
         event_id: str,
         session_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
-        return self.trigger_ai_function(
+        return await self.trigger_ai_function(
             event_id,
             "enrichment",
             session_id,

@@ -1,4 +1,6 @@
 """Batch utilities for bulk processing of AI functions and data operations."""
+import asyncio
+import inspect
 import json
 import logging
 import time
@@ -160,6 +162,8 @@ class BatchProcessor:
         for id_val, raw_record in batch:
             try:
                 result = compute_func(id_val, session_id, raw_record)
+                if inspect.isawaitable(result):
+                    result = asyncio.run(result)
                 query = f"""
                     INSERT OR REPLACE INTO {ai_table}
                     ({key_field}, payload, created_at)

@@ -124,7 +124,7 @@ class BaseDAO:
             "ai": ai_payloads,
         }
 
-    def trigger_ai_function(
+    async def trigger_ai_function(
         self,
         id_value: str,
         function_name: str,
@@ -132,7 +132,7 @@ class BaseDAO:
         refresh: bool = False
     ) -> Dict[str, Any]:
         """Trigger an AI function for an item."""
-        return self.resolver.resolve(
+        return await self.resolver.resolve(
             dataset=self.dataset_name,
             func=function_name,
             id=id_value,

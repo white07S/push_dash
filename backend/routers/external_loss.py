@@ -69,7 +69,7 @@ async def trigger_issue_taxonomy(
 ):
     """Trigger AI taxonomy generation for an external loss."""
     try:
-        result = dao.trigger_issue_taxonomy(reference_id_code, session_id, refresh)
+        result = await dao.trigger_issue_taxonomy(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -85,7 +85,7 @@ async def trigger_root_cause(
 ):
     """Trigger AI root cause analysis for an external loss."""
     try:
-        result = dao.trigger_root_cause(reference_id_code, session_id, refresh)
+        result = await dao.trigger_root_cause(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -101,7 +101,7 @@ async def trigger_enrichment(
 ):
     """Trigger AI enrichment for an external loss."""
     try:
-        result = dao.trigger_enrichment(reference_id_code, session_id, refresh)
+        result = await dao.trigger_enrichment(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

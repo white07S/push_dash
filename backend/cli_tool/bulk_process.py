@@ -83,7 +83,7 @@ async def _process_single(
     refresh: bool,
 ) -> bool:
     try:
-        resolver.resolve(
+        await resolver.resolve(
             dataset=dataset,
             func=ai_function,
             id=identifier,

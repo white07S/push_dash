@@ -69,7 +69,7 @@ async def trigger_controls_taxonomy(
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
-        result = dao.trigger_controls_taxonomy(control_id, session_id, refresh)
+        result = await dao.trigger_controls_taxonomy(control_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -85,7 +85,7 @@ async def trigger_root_cause(
 ):
     """Trigger AI root cause analysis for a control."""
     try:
-        result = dao.trigger_root_cause(control_id, session_id, refresh)
+        result = await dao.trigger_root_cause(control_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -101,7 +101,7 @@ async def trigger_enrichment(
 ):
     """Trigger AI enrichment for a control."""
     try:
-        result = dao.trigger_enrichment(control_id, session_id, refresh)
+        result = await dao.trigger_enrichment(control_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
