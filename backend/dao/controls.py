@@ -16,12 +16,14 @@ class ControlsDAO(BaseDAO):
         self,
         control_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             control_id,
             "controls_taxonomy",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -29,12 +31,14 @@ class ControlsDAO(BaseDAO):
         self,
         control_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             control_id,
             "root_cause",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -42,11 +46,13 @@ class ControlsDAO(BaseDAO):
         self,
         control_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             control_id,
             "enrichment",
             session_id,
+            user_id,
             refresh,
         )

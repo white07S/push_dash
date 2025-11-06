@@ -80,6 +80,7 @@ async def _process_single(
     ai_function: str,
     identifier: str,
     session_id: str,
+    user_id: str,
     refresh: bool,
 ) -> bool:
     try:
@@ -88,6 +89,7 @@ async def _process_single(
             func=ai_function,
             id=identifier,
             session_id=session_id,
+            user_id=user_id,
             refresh=refresh,
         )
     except Exception as exc:  # pragma: no cover - logging side-effect
@@ -102,6 +104,7 @@ async def run_bulk_process(
     ai_function: str,
     batch_size: int,
     session_id: str,
+    user_id: str,
     refresh: bool,
     cache_dir: Path,
 ) -> None:
@@ -160,6 +163,7 @@ async def run_bulk_process(
                     ai_function,
                     identifier,
                     session_id,
+                    user_id,
                     refresh,
                 )
                 if success:
@@ -202,6 +206,11 @@ def parse_args() -> argparse.Namespace:
         help="Session identifier to forward to mock AI functions.",
     )
     parser.add_argument(
+        "--user-id",
+        default="bulk-cli-user",
+        help="User identifier to forward to mock AI functions.",
+    )
+    parser.add_argument(
         "--cache-dir",
         type=Path,
         default=DEFAULT_CACHE_DIR,
@@ -219,6 +228,7 @@ def main() -> None:
                 ai_function=args.ai_function,
                 batch_size=args.batch_size,
                 session_id=args.session_id,
+                user_id=args.user_id,
                 refresh=args.refresh,
                 cache_dir=args.cache_dir,
             )

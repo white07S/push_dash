@@ -16,12 +16,14 @@ class ExternalLossDAO(BaseDAO):
         self,
         reference_id_code: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             reference_id_code,
             "issue_taxonomy",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -29,12 +31,14 @@ class ExternalLossDAO(BaseDAO):
         self,
         reference_id_code: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             reference_id_code,
             "root_cause",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -42,11 +46,13 @@ class ExternalLossDAO(BaseDAO):
         self,
         reference_id_code: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             reference_id_code,
             "enrichment",
             session_id,
+            user_id,
             refresh,
         )

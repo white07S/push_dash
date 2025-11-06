@@ -16,12 +16,14 @@ class IssuesDAO(BaseDAO):
         self,
         issue_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             issue_id,
             "issue_taxonomy",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -29,12 +31,14 @@ class IssuesDAO(BaseDAO):
         self,
         issue_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             issue_id,
             "root_cause",
             session_id,
+            user_id,
             refresh,
         )
 
@@ -42,11 +46,13 @@ class IssuesDAO(BaseDAO):
         self,
         issue_id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         return await self.trigger_ai_function(
             issue_id,
             "enrichment",
             session_id,
+            user_id,
             refresh,
         )

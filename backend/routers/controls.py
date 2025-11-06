@@ -66,10 +66,11 @@ async def trigger_controls_taxonomy(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
-        result = await dao.trigger_controls_taxonomy(control_id, session_id, refresh)
+        result = await dao.trigger_controls_taxonomy(control_id, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -82,10 +83,11 @@ async def trigger_root_cause(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI root cause analysis for a control."""
     try:
-        result = await dao.trigger_root_cause(control_id, session_id, refresh)
+        result = await dao.trigger_root_cause(control_id, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -98,10 +100,11 @@ async def trigger_enrichment(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI enrichment for a control."""
     try:
-        result = await dao.trigger_enrichment(control_id, session_id, refresh)
+        result = await dao.trigger_enrichment(control_id, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

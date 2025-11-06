@@ -129,6 +129,7 @@ class BaseDAO:
         id_value: str,
         function_name: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False
     ) -> Dict[str, Any]:
         """Trigger an AI function for an item."""
@@ -137,6 +138,7 @@ class BaseDAO:
             func=function_name,
             id=id_value,
             session_id=session_id,
+            user_id=user_id,
             refresh=refresh,
         )
 

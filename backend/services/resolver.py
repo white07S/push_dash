@@ -83,6 +83,7 @@ class FunctionResolver:
         func: str,
         id: str,
         session_id: str,
+        user_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         """Resolve function result using cache-or-compute pattern."""
@@ -132,7 +133,7 @@ class FunctionResolver:
 
         compute_func = self.function_map[dataset][func]
         try:
-            payload = compute_func(id, session_id, raw_record)
+            payload = compute_func(id, session_id, user_id, raw_record)
             if inspect.isawaitable(payload):
                 payload = await payload
         except Exception as exc:  # pragma: no cover - logging side-effect

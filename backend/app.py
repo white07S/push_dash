@@ -207,6 +207,7 @@ async def batch_compute_ai_functions(
     force_recompute: bool = False,
     max_items: Optional[int] = None,
     session_id: str = Header("admin-session", alias="X-Session-Id"),
+    user_id: str = Header("admin-user", alias="X-User-Id"),
 ):
     """Batch compute AI functions for a dataset."""
     try:
@@ -261,6 +262,7 @@ async def batch_compute_ai_functions(
             compute_func=compute_func,
             ids=ids,
             session_id=session_id,
+            user_id=user_id,
             force_recompute=force_recompute
         )
 

@@ -66,10 +66,11 @@ async def trigger_issue_taxonomy(
     reference_id_code: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI taxonomy generation for an external loss."""
     try:
-        result = await dao.trigger_issue_taxonomy(reference_id_code, session_id, refresh)
+        result = await dao.trigger_issue_taxonomy(reference_id_code, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -82,10 +83,11 @@ async def trigger_root_cause(
     reference_id_code: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI root cause analysis for an external loss."""
     try:
-        result = await dao.trigger_root_cause(reference_id_code, session_id, refresh)
+        result = await dao.trigger_root_cause(reference_id_code, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -98,10 +100,11 @@ async def trigger_enrichment(
     reference_id_code: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
     session_id: str = Header(..., alias="X-Session-Id"),
+    user_id: str = Header(..., alias="X-User-Id"),
 ):
     """Trigger AI enrichment for an external loss."""
     try:
-        result = await dao.trigger_enrichment(reference_id_code, session_id, refresh)
+        result = await dao.trigger_enrichment(reference_id_code, session_id, user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
