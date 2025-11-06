@@ -1,28 +1,28 @@
 // API service for controls dataset
 import axiosClient from './axiosClient';
 
-const triggerControlsTaxonomy = async (controlId, refresh = false) => {
+const triggerControlsTaxonomy = async (controlId, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/controls/${controlId}/controls-taxonomy`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerRootCause = async (controlId, refresh = false) => {
+const triggerRootCause = async (controlId, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/controls/${controlId}/root-cause`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerEnrichment = async (controlId, refresh = false) => {
+const triggerEnrichment = async (controlId, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/controls/${controlId}/enrichment`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;

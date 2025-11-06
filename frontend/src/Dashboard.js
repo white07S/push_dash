@@ -1,18 +1,13 @@
 // Dashboard component with 4 dataset sections using tables
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DataTable from './components/DataTable';
 import controlsAPI from './api/controls';
 import externalLossAPI from './api/externalLoss';
 import internalLossAPI from './api/internalLoss';
 import issuesAPI from './api/issues';
-import { setSessionContext } from './api/axiosClient';
 
 const Dashboard = ({ sessionId, userId }) => {
   const [activeTab, setActiveTab] = useState('controls');
-
-  useEffect(() => {
-    setSessionContext(sessionId, userId);
-  }, [sessionId, userId]);
 
   const tabs = [
     { id: 'controls', label: 'Controls', color: 'text-blue-600' },

@@ -116,7 +116,7 @@ const DataTable = ({
     setAiLoading(prev => ({ ...prev, [key]: true }));
 
     try {
-      const result = await triggerFunc(itemId);
+      const result = await triggerFunc(itemId, sessionId, userId);
       const updatedData = [...data];
       const index = updatedData.findIndex(d => d[idField] === itemId);
       if (index !== -1) {
@@ -144,7 +144,7 @@ const DataTable = ({
     if (!triggerFunc) return;
 
     try {
-      const result = await triggerFunc(itemId);
+      const result = await triggerFunc(itemId, sessionId, userId);
       setDrawerData(prev => ({
         ...prev,
         ai: {

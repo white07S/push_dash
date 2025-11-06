@@ -14,20 +14,6 @@ const getBaseURL = () => {
   return `${protocol}//${hostname}:8000`;
 };
 
-let sessionContext = {
-  sessionId: 'session-123456',
-  userId: 'user-demo'
-};
-
-export const setSessionContext = (sessionId, userId) => {
-  if (sessionId) {
-    sessionContext.sessionId = sessionId;
-  }
-  if (userId) {
-    sessionContext.userId = userId;
-  }
-};
-
 const axiosClient = axios.create({
   baseURL: getBaseURL(),
   headers: {
@@ -36,13 +22,9 @@ const axiosClient = axios.create({
   timeout: 30000, // 30 seconds
 });
 
-// Request interceptor to inject session and user IDs
+// Request interceptor for logging
 axiosClient.interceptors.request.use(
   (config) => {
-    // Add session and user ID headers
-    config.headers['X-Session-Id'] = sessionContext.sessionId;
-    config.headers['X-User-Id'] = sessionContext.userId;
-
     console.log('API Request:', config.method.toUpperCase(), config.url);
     return config;
   },

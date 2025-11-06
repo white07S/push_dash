@@ -15,6 +15,11 @@ class TriggerResponse(BaseModel):
     payload: Any = Field(..., description="Result payload")
     created_at: str = Field(..., description="ISO-8601 timestamp")
 
+class TriggerRequest(BaseModel):
+    """Request payload for AI function trigger endpoints."""
+    session_id: str = Field(..., description="Session identifier")
+    user_id: str = Field(..., description="User identifier")
+
 class ErrorResponse(BaseModel):
     """Error response model."""
     detail: str = Field(..., description="Error detail message")

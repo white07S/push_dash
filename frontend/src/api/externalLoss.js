@@ -1,28 +1,28 @@
 // API service for external loss dataset
 import axiosClient from './axiosClient';
 
-const triggerIssueTaxonomy = async (referenceIdCode, refresh = false) => {
+const triggerIssueTaxonomy = async (referenceIdCode, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/external-loss/${referenceIdCode}/issue-taxonomy`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerRootCause = async (referenceIdCode, refresh = false) => {
+const triggerRootCause = async (referenceIdCode, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/external-loss/${referenceIdCode}/root-cause`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;
 };
 
-const triggerEnrichment = async (referenceIdCode, refresh = false) => {
+const triggerEnrichment = async (referenceIdCode, sessionId, userId, refresh = false) => {
   const response = await axiosClient.post(
     `/api/external-loss/${referenceIdCode}/enrichment`,
-    null,
+    { session_id: sessionId, user_id: userId },
     { params: { refresh } }
   );
   return response.data;

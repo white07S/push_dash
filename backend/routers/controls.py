@@ -1,5 +1,5 @@
 """API router for controls endpoints."""
-from fastapi import APIRouter, Header, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query
 import logging
 
 from dao.controls import ControlsDAO
@@ -8,7 +8,7 @@ from models.controls import (
     ControlsListItem,
     ControlsDetails
 )
-from models.shared import TriggerResponse, ErrorResponse
+from models.shared import TriggerRequest, TriggerResponse, ErrorResponse
 
 logger = logging.getLogger(__name__)
 
@@ -65,12 +65,11 @@ async def get_control_details(control_id: str):
 async def trigger_controls_taxonomy(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
-    session_id: str = Header(..., alias="X-Session-Id"),
-    user_id: str = Header(..., alias="X-User-Id"),
+    payload: TriggerRequest,
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
-        result = await dao.trigger_controls_taxonomy(control_id, session_id, user_id, refresh)
+        result = await dao.trigger_controls_taxonomy(control_id, payload.session_id, payload.user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -82,12 +81,11 @@ async def trigger_controls_taxonomy(
 async def trigger_root_cause(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
-    session_id: str = Header(..., alias="X-Session-Id"),
-    user_id: str = Header(..., alias="X-User-Id"),
+    payload: TriggerRequest,
 ):
     """Trigger AI root cause analysis for a control."""
     try:
-        result = await dao.trigger_root_cause(control_id, session_id, user_id, refresh)
+        result = await dao.trigger_root_cause(control_id, payload.session_id, payload.user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -99,12 +97,11 @@ async def trigger_root_cause(
 async def trigger_enrichment(
     control_id: str,
     refresh: bool = Query(False, description="Force recompute even if cached"),
-    session_id: str = Header(..., alias="X-Session-Id"),
-    user_id: str = Header(..., alias="X-User-Id"),
+    payload: TriggerRequest,
 ):
     """Trigger AI enrichment for a control."""
     try:
-        result = await dao.trigger_enrichment(control_id, session_id, user_id, refresh)
+        result = await dao.trigger_enrichment(control_id, payload.session_id, payload.user_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
