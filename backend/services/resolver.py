@@ -65,7 +65,7 @@ class FunctionResolver:
         table: str,
         key_field: str,
         id_value: str,
-        payload: Dict[str, Any],
+        payload: Any,
         created_at: str,
     ) -> None:
         """Store result in database."""
@@ -81,6 +81,7 @@ class FunctionResolver:
         dataset: str,
         func: str,
         id: str,
+        session_id: str,
         refresh: bool = False,
     ) -> Dict[str, Any]:
         """Resolve function result using cache-or-compute pattern."""
@@ -130,7 +131,7 @@ class FunctionResolver:
 
         compute_func = self.function_map[dataset][func]
         try:
-            payload = compute_func(id, raw_record)
+            payload = compute_func(id, session_id, raw_record)
         except Exception as exc:  # pragma: no cover - logging side-effect
             logger.error("Error computing %s for %s: %s", func, id, exc)
             raise RuntimeError(f"Failed to compute {func}: {exc}") from exc
@@ -204,4 +205,3 @@ def get_resolver() -> FunctionResolver:
     if _resolver_instance is None:
         _resolver_instance = FunctionResolver()
     return _resolver_instance
-

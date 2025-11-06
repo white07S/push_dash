@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Optional
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Header, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
@@ -205,7 +205,8 @@ async def batch_compute_ai_functions(
     dataset: str,
     function_name: str,
     force_recompute: bool = False,
-    max_items: Optional[int] = None
+    max_items: Optional[int] = None,
+    session_id: str = Header("admin-session", alias="X-Session-Id"),
 ):
     """Batch compute AI functions for a dataset."""
     try:
@@ -259,6 +260,7 @@ async def batch_compute_ai_functions(
             function_name=function_name,
             compute_func=compute_func,
             ids=ids,
+            session_id=session_id,
             force_recompute=force_recompute
         )
 

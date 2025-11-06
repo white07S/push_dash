@@ -1,5 +1,5 @@
 """API router for internal loss endpoints."""
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 import logging
 
 from dao.internal_loss import InternalLossDAO
@@ -64,11 +64,12 @@ async def get_internal_loss_details(event_id: str):
 @router.post("/{event_id}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI taxonomy generation for an internal loss."""
     try:
-        result = dao.trigger_issue_taxonomy(event_id, refresh)
+        result = dao.trigger_issue_taxonomy(event_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -79,11 +80,12 @@ async def trigger_issue_taxonomy(
 @router.post("/{event_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI root cause analysis for an internal loss."""
     try:
-        result = dao.trigger_root_cause(event_id, refresh)
+        result = dao.trigger_root_cause(event_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -94,11 +96,12 @@ async def trigger_root_cause(
 @router.post("/{event_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI enrichment for an internal loss."""
     try:
-        result = dao.trigger_enrichment(event_id, refresh)
+        result = dao.trigger_enrichment(event_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

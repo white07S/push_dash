@@ -30,9 +30,9 @@ class IssuesRawData(BaseModel):
 class IssuesAIResults(BaseModel):
     """AI results for an issue."""
 
-    issue_taxonomy: Optional[Dict[str, Any]] = None
-    root_cause: Optional[Dict[str, Any]] = None
-    enrichment: Optional[Dict[str, Any]] = None
+    issue_taxonomy: Optional[Any] = None
+    root_cause: Optional[Any] = None
+    enrichment: Optional[Any] = None
 
 
 class IssuesDetails(BaseModel):

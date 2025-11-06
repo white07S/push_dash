@@ -30,9 +30,9 @@ class ControlsRawData(BaseModel):
 class ControlsAIResults(BaseModel):
     """AI results for a control."""
 
-    controls_taxonomy: Optional[Dict[str, Any]] = None
-    root_cause: Optional[Dict[str, Any]] = None
-    enrichment: Optional[Dict[str, Any]] = None
+    controls_taxonomy: Optional[Any] = None
+    root_cause: Optional[Any] = None
+    enrichment: Optional[Any] = None
 
 
 class ControlsDetails(BaseModel):

@@ -5,14 +5,14 @@ from pydantic import BaseModel, Field
 
 class AIFunctionResult(BaseModel):
     """AI function result response."""
-    payload: Dict[str, Any] = Field(..., description="AI function result payload")
+    payload: Any = Field(..., description="AI function result payload")
     created_at: str = Field(..., description="ISO-8601 timestamp")
 
 class TriggerResponse(BaseModel):
     """Response for AI function trigger endpoints."""
     status: str = Field(..., description="Status (ok/error)")
     source: str = Field(..., description="Source (cache/computed)")
-    payload: Dict[str, Any] = Field(..., description="Result payload")
+    payload: Any = Field(..., description="Result payload")
     created_at: str = Field(..., description="ISO-8601 timestamp")
 
 class ErrorResponse(BaseModel):

@@ -25,8 +25,9 @@ class BatchProcessor:
         self,
         dataset: str,
         function_name: str,
-        compute_func: Callable[[str, Dict[str, Any]], Dict[str, Any]],
+        compute_func: Callable[[str, str, Dict[str, Any]], Any],
         ids: Optional[List[str]] = None,
+        session_id: str = "batch-processor",
         force_recompute: bool = False,
         progress_callback: Optional[Callable[[Dict[str, Any]], None]] = None
     ) -> Dict[str, Any]:
@@ -108,6 +109,7 @@ class BatchProcessor:
                     compute_func,
                     batch,
                     key_field,
+                    session_id,
                 )
                 futures.append(future)
 
@@ -140,9 +142,10 @@ class BatchProcessor:
         self,
         dataset: str,
         function_name: str,
-        compute_func: Callable[[str, Dict[str, Any]], Dict[str, Any]],
+        compute_func: Callable[[str, str, Dict[str, Any]], Any],
         batch: List[Tuple[str, Dict[str, Any]]],
         key_field: str,
+        session_id: str,
     ) -> Dict[str, Any]:
         """Process a single batch of items."""
         batch_results: Dict[str, Any] = {
@@ -156,7 +159,7 @@ class BatchProcessor:
 
         for id_val, raw_record in batch:
             try:
-                result = compute_func(id_val, raw_record)
+                result = compute_func(id_val, session_id, raw_record)
                 query = f"""
                     INSERT OR REPLACE INTO {ai_table}
                     ({key_field}, payload, created_at)

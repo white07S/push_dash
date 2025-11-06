@@ -1,5 +1,5 @@
 """API router for external loss endpoints."""
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 import logging
 
 from dao.external_loss import ExternalLossDAO
@@ -64,11 +64,12 @@ async def get_external_loss_details(reference_id_code: str):
 @router.post("/{reference_id_code}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     reference_id_code: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI taxonomy generation for an external loss."""
     try:
-        result = dao.trigger_issue_taxonomy(reference_id_code, refresh)
+        result = dao.trigger_issue_taxonomy(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -79,11 +80,12 @@ async def trigger_issue_taxonomy(
 @router.post("/{reference_id_code}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     reference_id_code: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI root cause analysis for an external loss."""
     try:
-        result = dao.trigger_root_cause(reference_id_code, refresh)
+        result = dao.trigger_root_cause(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -94,11 +96,12 @@ async def trigger_root_cause(
 @router.post("/{reference_id_code}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     reference_id_code: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI enrichment for an external loss."""
     try:
-        result = dao.trigger_enrichment(reference_id_code, refresh)
+        result = dao.trigger_enrichment(reference_id_code, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

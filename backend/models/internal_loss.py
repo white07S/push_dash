@@ -30,9 +30,9 @@ class InternalLossRawData(BaseModel):
 class InternalLossAIResults(BaseModel):
     """AI results for an internal loss."""
 
-    issue_taxonomy: Optional[Dict[str, Any]] = None
-    root_cause: Optional[Dict[str, Any]] = None
-    enrichment: Optional[Dict[str, Any]] = None
+    issue_taxonomy: Optional[Any] = None
+    root_cause: Optional[Any] = None
+    enrichment: Optional[Any] = None
 
 
 class InternalLossDetails(BaseModel):

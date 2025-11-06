@@ -79,10 +79,17 @@ async def _process_single(
     dataset: str,
     ai_function: str,
     identifier: str,
+    session_id: str,
     refresh: bool,
 ) -> bool:
     try:
-        resolver.resolve(dataset=dataset, func=ai_function, id=identifier, refresh=refresh)
+        resolver.resolve(
+            dataset=dataset,
+            func=ai_function,
+            id=identifier,
+            session_id=session_id,
+            refresh=refresh,
+        )
     except Exception as exc:  # pragma: no cover - logging side-effect
         logger.error("Failed to process %s/%s for %s: %s", dataset, ai_function, identifier, exc)
         return False
@@ -94,6 +101,7 @@ async def run_bulk_process(
     dataset: str,
     ai_function: str,
     batch_size: int,
+    session_id: str,
     refresh: bool,
     cache_dir: Path,
 ) -> None:
@@ -146,7 +154,14 @@ async def run_bulk_process(
     try:
         for batch in chunked(pending_ids, batch_size):
             for identifier in batch:
-                success = await _process_single(resolver, dataset, ai_function, identifier, refresh)
+                success = await _process_single(
+                    resolver,
+                    dataset,
+                    ai_function,
+                    identifier,
+                    session_id,
+                    refresh,
+                )
                 if success:
                     cache.mark(identifier)
                 else:
@@ -182,6 +197,11 @@ def parse_args() -> argparse.Namespace:
         help="Recompute even if cached data exists.",
     )
     parser.add_argument(
+        "--session-id",
+        default="bulk-cli-session",
+        help="Session identifier to forward to mock AI functions.",
+    )
+    parser.add_argument(
         "--cache-dir",
         type=Path,
         default=DEFAULT_CACHE_DIR,
@@ -198,6 +218,7 @@ def main() -> None:
                 dataset=args.dataset,
                 ai_function=args.ai_function,
                 batch_size=args.batch_size,
+                session_id=args.session_id,
                 refresh=args.refresh,
                 cache_dir=args.cache_dir,
             )

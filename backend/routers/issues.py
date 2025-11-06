@@ -1,5 +1,5 @@
 """API router for issues endpoints."""
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 import logging
 
 from dao.issues import IssuesDAO
@@ -64,11 +64,12 @@ async def get_issue_details(issue_id: str):
 @router.post("/{issue_id}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI taxonomy generation for an issue."""
     try:
-        result = dao.trigger_issue_taxonomy(issue_id, refresh)
+        result = dao.trigger_issue_taxonomy(issue_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -79,11 +80,12 @@ async def trigger_issue_taxonomy(
 @router.post("/{issue_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI root cause analysis for an issue."""
     try:
-        result = dao.trigger_root_cause(issue_id, refresh)
+        result = dao.trigger_root_cause(issue_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -94,11 +96,12 @@ async def trigger_root_cause(
 @router.post("/{issue_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached")
+    refresh: bool = Query(False, description="Force recompute even if cached"),
+    session_id: str = Header(..., alias="X-Session-Id"),
 ):
     """Trigger AI enrichment for an issue."""
     try:
-        result = dao.trigger_enrichment(issue_id, refresh)
+        result = dao.trigger_enrichment(issue_id, session_id, refresh)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
