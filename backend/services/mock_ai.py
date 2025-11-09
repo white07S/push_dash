@@ -1,4 +1,5 @@
 """Mock AI functions for testing and development."""
+import asyncio
 import hashlib
 import random
 from typing import Any, Dict, List
@@ -246,3 +247,26 @@ def get_internal_loss_root_cause(id: str, _session_id: str, _user_id: str, recor
 
 def get_internal_loss_enrichment(id: str, _session_id: str, _user_id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     return get_issues_enrichment(id, _session_id, _user_id, record)
+
+
+# ---------------------------------------------------------------------------
+# Slow response helpers
+
+async def get_delayed_enrichment(
+    id: str,
+    session_id: str,
+    user_id: str,
+    record: Dict[str, Any],
+    llm_client: Any | None = None,
+) -> Dict[str, Any]:
+    """Simulate a long-running enrichment call that waits for 20 seconds."""
+    await asyncio.sleep(20)
+    summary = _context_title(record) or f"record {id}"
+    return {
+        "summary": f"Delayed enrichment for '{summary}'",
+        "metadata": {
+            "session_id": session_id,
+            "user_id": user_id,
+            "llm_client": getattr(llm_client, "__class__", type(None)).__name__ if llm_client else None,
+        },
+    }

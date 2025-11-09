@@ -31,7 +31,7 @@ DATASET_CONFIG: Dict[str, DatasetConfig] = {
         theme_field="risk_theme",
         subtheme_field="risk_subtheme",
         description_field="issue_title",
-        ai_functions=["issue_taxonomy", "root_cause", "enrichment"],
+        ai_functions=["issue_taxonomy", "root_cause", "enrichment", "slow_enrichment"],
     ),
     "controls": DatasetConfig(
         csv_filename="controls.csv",
@@ -42,7 +42,7 @@ DATASET_CONFIG: Dict[str, DatasetConfig] = {
         theme_field="risk_theme",
         subtheme_field="risk_subtheme",
         description_field="control_title",
-        ai_functions=["controls_taxonomy", "root_cause", "enrichment"],
+        ai_functions=["controls_taxonomy", "root_cause", "enrichment", "slow_enrichment"],
     ),
     "external_loss": DatasetConfig(
         csv_filename="external_loss.csv",
@@ -53,7 +53,7 @@ DATASET_CONFIG: Dict[str, DatasetConfig] = {
         theme_field="risk_theme",
         subtheme_field="risk_subtheme",
         description_field="description_of_event",
-        ai_functions=["issue_taxonomy", "root_cause", "enrichment"],
+        ai_functions=["issue_taxonomy", "root_cause", "enrichment", "slow_enrichment"],
     ),
     "internal_loss": DatasetConfig(
         csv_filename="internal_loss.csv",
@@ -64,7 +64,7 @@ DATASET_CONFIG: Dict[str, DatasetConfig] = {
         theme_field="risk_theme",
         subtheme_field="risk_subtheme",
         description_field="event_title",
-        ai_functions=["issue_taxonomy", "root_cause", "enrichment"],
+        ai_functions=["issue_taxonomy", "root_cause", "enrichment", "slow_enrichment"],
     ),
 }
 

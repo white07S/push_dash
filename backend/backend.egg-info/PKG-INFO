@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: backend
+Version: 0.1.0
+Summary: React + FastAPI dashboard for NFR datasets
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.104.0
+Requires-Dist: uvicorn[standard]>=0.24.0
+Requires-Dist: pydantic>=2.4.0
+Requires-Dist: apsw>=3.44.0.0
+Requires-Dist: pandas>=2.1.0
+Requires-Dist: pyyaml>=6.0.1
+Requires-Dist: python-multipart>=0.0.6
+Requires-Dist: aiofiles>=23.2.0
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: tqdm>=4.66.0

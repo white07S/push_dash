@@ -64,8 +64,8 @@ async def get_internal_loss_details(event_id: str):
 @router.post("/{event_id}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI taxonomy generation for an internal loss."""
     try:
@@ -80,8 +80,8 @@ async def trigger_issue_taxonomy(
 @router.post("/{event_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI root cause analysis for an internal loss."""
     try:
@@ -96,8 +96,8 @@ async def trigger_root_cause(
 @router.post("/{event_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     event_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI enrichment for an internal loss."""
     try:

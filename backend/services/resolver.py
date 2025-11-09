@@ -3,11 +3,12 @@ import inspect
 import json
 import logging
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 
 from dataset_config import get_dataset_config
 from db import get_db
 from services import mock_ai
+from services.llm_client import create_mock_llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -15,8 +16,10 @@ logger = logging.getLogger(__name__)
 class FunctionResolver:
     """Resolve function results using cache-or-compute pattern."""
 
-    def __init__(self):
+    def __init__(self, llm_client_factory=None):
         self.db = get_db()
+        self._llm_client_factory = llm_client_factory or create_mock_llm_client
+        self._llm_clients: Dict[Tuple[str, str], Any] = {}
 
         # Map dataset and function names to mock AI functions
         self.function_map: Dict[str, Dict[str, Any]] = {
@@ -24,21 +27,25 @@ class FunctionResolver:
                 "controls_taxonomy": mock_ai.get_controls_taxonomy,
                 "root_cause": mock_ai.get_controls_root_cause,
                 "enrichment": mock_ai.get_controls_enrichment,
+                "slow_enrichment": mock_ai.get_delayed_enrichment,
             },
             "external_loss": {
                 "issue_taxonomy": mock_ai.get_external_loss_taxonomy,
                 "root_cause": mock_ai.get_external_loss_root_cause,
                 "enrichment": mock_ai.get_external_loss_enrichment,
+                "slow_enrichment": mock_ai.get_delayed_enrichment,
             },
             "internal_loss": {
                 "issue_taxonomy": mock_ai.get_internal_loss_taxonomy,
                 "root_cause": mock_ai.get_internal_loss_root_cause,
                 "enrichment": mock_ai.get_internal_loss_enrichment,
+                "slow_enrichment": mock_ai.get_delayed_enrichment,
             },
             "issues": {
                 "issue_taxonomy": mock_ai.get_issues_taxonomy,
                 "root_cause": mock_ai.get_issues_root_cause,
                 "enrichment": mock_ai.get_issues_enrichment,
+                "slow_enrichment": mock_ai.get_delayed_enrichment,
             },
         }
 
@@ -77,6 +84,18 @@ class FunctionResolver:
         self.db.execute(query, (id_value, json.dumps(payload), created_at))
 
     # ---------------------------------------------------------------- operations
+    def get_llm_client(self, session_id: str, user_id: str) -> Any:
+        """Return a cached LLM client instance for the session/user pair."""
+        key = (session_id, user_id)
+        if key not in self._llm_clients:
+            self._llm_clients[key] = self._llm_client_factory(session_id=session_id, user_id=user_id)
+        return self._llm_clients[key]
+
+    def set_llm_client_factory(self, factory) -> None:
+        """Override the LLM client factory and reset cached clients."""
+        self._llm_client_factory = factory or create_mock_llm_client
+        self._llm_clients.clear()
+
     async def resolve(
         self,
         dataset: str,
@@ -85,6 +104,7 @@ class FunctionResolver:
         session_id: str,
         user_id: str,
         refresh: bool = False,
+        llm_client: Any | None = None,
     ) -> Dict[str, Any]:
         """Resolve function result using cache-or-compute pattern."""
         if dataset not in self.function_map:
@@ -132,8 +152,13 @@ class FunctionResolver:
                 }
 
         compute_func = self.function_map[dataset][func]
+        signature = inspect.signature(compute_func)
+        kwargs: Dict[str, Any] = {}
+        if "llm_client" in signature.parameters:
+            kwargs["llm_client"] = llm_client or self.get_llm_client(session_id, user_id)
+
         try:
-            payload = compute_func(id, session_id, user_id, raw_record)
+            payload = compute_func(id, session_id, user_id, raw_record, **kwargs)
             if inspect.isawaitable(payload):
                 payload = await payload
         except Exception as exc:  # pragma: no cover - logging side-effect

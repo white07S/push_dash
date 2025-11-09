@@ -64,8 +64,8 @@ async def get_issue_details(issue_id: str):
 @router.post("/{issue_id}/issue-taxonomy", response_model=TriggerResponse)
 async def trigger_issue_taxonomy(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI taxonomy generation for an issue."""
     try:
@@ -80,8 +80,8 @@ async def trigger_issue_taxonomy(
 @router.post("/{issue_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI root cause analysis for an issue."""
     try:
@@ -96,8 +96,8 @@ async def trigger_root_cause(
 @router.post("/{issue_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     issue_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI enrichment for an issue."""
     try:

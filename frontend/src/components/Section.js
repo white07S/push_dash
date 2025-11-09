@@ -105,8 +105,8 @@ const Section = ({
     setAiLoading(prev => ({ ...prev, [functionKey]: true }));
 
     try {
-      const result = await triggerFunc(itemId);
-      setAiResults(prev => ({ ...prev, [functionKey]: result }));
+      const result = await triggerFunc(itemId, sessionId, userId);
+      setAiResults(prev => ({ ...prev, [functionKey]: result.payload }));
       setSearchResult(prev => ({
         ...prev,
         ai_status: {
@@ -131,7 +131,7 @@ const Section = ({
     if (!triggerFunc) return;
 
     try {
-      const result = await triggerFunc(itemId);
+      const result = await triggerFunc(itemId, sessionId, userId);
       // Update drawer data with new AI results
       setDrawerData(prev => ({
         ...prev,

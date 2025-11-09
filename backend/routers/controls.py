@@ -64,8 +64,8 @@ async def get_control_details(control_id: str):
 @router.post("/{control_id}/controls-taxonomy", response_model=TriggerResponse)
 async def trigger_controls_taxonomy(
     control_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI taxonomy generation for a control."""
     try:
@@ -80,8 +80,8 @@ async def trigger_controls_taxonomy(
 @router.post("/{control_id}/root-cause", response_model=TriggerResponse)
 async def trigger_root_cause(
     control_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI root cause analysis for a control."""
     try:
@@ -96,8 +96,8 @@ async def trigger_root_cause(
 @router.post("/{control_id}/enrichment", response_model=TriggerResponse)
 async def trigger_enrichment(
     control_id: str,
-    refresh: bool = Query(False, description="Force recompute even if cached"),
     payload: TriggerRequest,
+    refresh: bool = Query(False, description="Force recompute even if cached"),
 ):
     """Trigger AI enrichment for a control."""
     try:

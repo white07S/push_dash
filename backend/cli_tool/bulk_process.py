@@ -82,6 +82,7 @@ async def _process_single(
     session_id: str,
     user_id: str,
     refresh: bool,
+    llm_client,
 ) -> bool:
     try:
         await resolver.resolve(
@@ -91,6 +92,7 @@ async def _process_single(
             session_id=session_id,
             user_id=user_id,
             refresh=refresh,
+            llm_client=llm_client,
         )
     except Exception as exc:  # pragma: no cover - logging side-effect
         logger.error("Failed to process %s/%s for %s: %s", dataset, ai_function, identifier, exc)
@@ -115,6 +117,7 @@ async def run_bulk_process(
 
     db = get_db()
     resolver = get_resolver()
+    llm_client = resolver.get_llm_client(session_id, user_id)
 
     key_field = config.key_field
     id_rows = db.fetchall(f"SELECT {key_field} FROM {config.table} ORDER BY {key_field}")
@@ -156,17 +159,34 @@ async def run_bulk_process(
     failures: List[str] = []
     try:
         for batch in chunked(pending_ids, batch_size):
-            for identifier in batch:
-                success = await _process_single(
-                    resolver,
-                    dataset,
-                    ai_function,
-                    identifier,
-                    session_id,
-                    user_id,
-                    refresh,
+            tasks = [
+                asyncio.create_task(
+                    _process_single(
+                        resolver,
+                        dataset,
+                        ai_function,
+                        identifier,
+                        session_id,
+                        user_id,
+                        refresh,
+                        llm_client,
+                    )
                 )
-                if success:
+                for identifier in batch
+            ]
+
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for identifier, result in zip(batch, results):
+                if isinstance(result, Exception):
+                    logger.error(
+                        "Unexpected failure processing %s/%s for %s: %s",
+                        dataset,
+                        ai_function,
+                        identifier,
+                        result,
+                    )
+                    failures.append(identifier)
+                elif result:
                     cache.mark(identifier)
                 else:
                     failures.append(identifier)
@@ -193,7 +213,7 @@ def parse_args() -> argparse.Namespace:
         "--batch-size",
         type=int,
         default=25,
-        help="Number of records to process per batch.",
+        help="Number of records to process concurrently per batch.",
     )
     parser.add_argument(
         "--refresh",
