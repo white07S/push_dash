@@ -2,6 +2,7 @@
 import asyncio
 import hashlib
 import random
+import time
 from typing import Any, Dict, List
 
 
@@ -181,6 +182,7 @@ def get_controls_root_cause(id: str, _session_id: str, _user_id: str, record: Di
 
 def get_controls_enrichment(id: str, _session_id: str, _user_id: str, record: Dict[str, Any]) -> Dict[str, Any]:
     _seed_random(id)
+    time.sleep(20)
     title = record.get("control_title") or _context_title(record) or id
     return {
         "summary": f"Control '{title}' addresses the primary risk scenario derived from the record.",
