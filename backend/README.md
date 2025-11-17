@@ -17,19 +17,32 @@ On startup the backend will:
 PostgreSQL configuration
 ------------------------
 
-PostgreSQL is the default when available. Configure it via environment variables:
+PostgreSQL is the default when available. Configure it primarily via `backend/config.yaml`:
 
-- `POSTGRES_USER` (default: `preetam`)
-- `POSTGRES_PASSWORD` (default: `preetam123`)
-- `POSTGRES_DB` (default: `main`)
-- `POSTGRES_HOST` (default: `localhost`)
-- `POSTGRES_PORT` (default: `5432`)
+```yaml
+database:
+  backend: "postgres"  # or "sqlite"
+  path: "dashboard.db"
+  postgres:
+    host: "localhost"
+    port: 5432
+    user: "preetam"
+    password: "preetam123"
+    db: "main"
+    connect_timeout: 5
+```
 
 On a successful Postgres connection the backend will:
 
 - Ensure the schema `analytics` exists.
 - Set `search_path` to `analytics, public`.
 - Create all required tables and indexes in the `analytics` schema if they do not already exist.
+
+Environment variables can still override individual settings if needed:
+
+- `DB_BACKEND` (overrides `database.backend`)
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`,
+  `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_CONNECT_TIMEOUT`
 
 No separate migration scripts are required; the schema is created programmatically on startup.
 

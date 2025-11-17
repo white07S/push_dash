@@ -14,12 +14,20 @@ cors:
 
 database:
   path: "dashboard.db"
+  backend: "postgres"  # postgres | sqlite
   pragmas:
     journal_mode: "WAL"
     synchronous: "NORMAL"
     temp_store: "MEMORY"
     mmap_size: 268435456  # 256MB
     cache_size: -200000   # ~200MB
+  postgres:
+    host: "localhost"
+    port: 5432
+    user: "preetam"
+    password: "preetam123"
+    db: "main"
+    connect_timeout: 5  # seconds
 
 csv:
   directory: "csv_data"

@@ -10,10 +10,26 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 import apsw
+import yaml
 
 from dataset_config import DATASET_CONFIG
 
 logger = logging.getLogger(__name__)
+
+
+def _load_db_config() -> Dict[str, Any]:
+    """Load database configuration from config.yaml."""
+    config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                return yaml.safe_load(f) or {}
+        except Exception:  # pragma: no cover - defensive
+            logger.exception("Failed to load config.yaml for database configuration")
+    return {}
+
+
+_DB_CONFIG: Dict[str, Any] = _load_db_config()
 
 
 class _PGCursorResult:
@@ -26,9 +42,17 @@ class _PGCursorResult:
 class Database:
     """Database connection manager with PostgreSQL primary and SQLite fallback."""
 
-    def __init__(self, db_path: str = "dashboard.db"):
+    def __init__(self, db_path: Optional[str] = None):
         """Initialize database connection."""
-        self.db_path = db_path
+        self._config: Dict[str, Any] = _DB_CONFIG
+        self._db_cfg: Dict[str, Any] = self._config.get("database", {})
+
+        # Determine SQLite DB path
+        if db_path is None:
+            self.db_path = self._db_cfg.get("path", "dashboard.db")
+        else:
+            self.db_path = db_path
+
         self.connection = None  # Used for SQLite
         self.backend: Optional[str] = None  # "postgres" or "sqlite"
 
@@ -43,7 +67,11 @@ class Database:
     # ------------------------------------------------------------------ init
     def init_db(self) -> None:
         """Initialize database connection, preferring PostgreSQL with SQLite fallback."""
-        preferred = os.getenv("DB_BACKEND", "postgres").lower()
+        preferred = (
+            str(self._db_cfg.get("backend", os.getenv("DB_BACKEND", "postgres")))
+            .strip()
+            .lower()
+        )
 
         if preferred in ("postgres", "postgresql", "pg"):
             if self._init_postgres():
@@ -61,12 +89,16 @@ class Database:
             logger.warning("asyncpg is not installed; skipping PostgreSQL initialization")
             return False
 
-        user = os.getenv("POSTGRES_USER", "preetam")
-        password = os.getenv("POSTGRES_PASSWORD", "preetam123")
-        dbname = os.getenv("POSTGRES_DB", "main")
-        host = os.getenv("POSTGRES_HOST", "localhost")
-        port = int(os.getenv("POSTGRES_PORT", "5432"))
-        timeout = int(os.getenv("POSTGRES_CONNECT_TIMEOUT", "5"))
+        pg_cfg: Dict[str, Any] = self._db_cfg.get("postgres", {})
+
+        user = os.getenv("POSTGRES_USER", pg_cfg.get("user", "preetam"))
+        password = os.getenv("POSTGRES_PASSWORD", pg_cfg.get("password", "preetam123"))
+        dbname = os.getenv("POSTGRES_DB", pg_cfg.get("db", "main"))
+        host = os.getenv("POSTGRES_HOST", pg_cfg.get("host", "localhost"))
+        port = int(os.getenv("POSTGRES_PORT", pg_cfg.get("port", 5432)))
+        timeout = int(
+            os.getenv("POSTGRES_CONNECT_TIMEOUT", pg_cfg.get("connect_timeout", 5))
+        )
 
         # Start a dedicated event loop in a background thread for asyncpg
         loop = asyncio.new_event_loop()
@@ -132,12 +164,13 @@ class Database:
         self.backend = "sqlite"
 
         # Set SQLite pragmas for performance
+        pragmas_cfg: Dict[str, Any] = self._db_cfg.get("pragmas", {})
         pragmas = [
-            "PRAGMA journal_mode=WAL;",
-            "PRAGMA synchronous=NORMAL;",
-            "PRAGMA temp_store=MEMORY;",
-            "PRAGMA mmap_size=268435456;",  # 256MB
-            "PRAGMA cache_size=-200000;",  # ~200MB
+            f"PRAGMA journal_mode={pragmas_cfg.get('journal_mode', 'WAL')};",
+            f"PRAGMA synchronous={pragmas_cfg.get('synchronous', 'NORMAL')};",
+            f"PRAGMA temp_store={pragmas_cfg.get('temp_store', 'MEMORY')};",
+            f"PRAGMA mmap_size={int(pragmas_cfg.get('mmap_size', 268435456))};",
+            f"PRAGMA cache_size={int(pragmas_cfg.get('cache_size', -200000))};",
         ]
 
         cursor = self.connection.cursor()
