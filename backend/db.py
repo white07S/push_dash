@@ -1,10 +1,10 @@
 """Database connection and initialization."""
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
-import re
 import threading
 from datetime import datetime
 from typing import Any, Dict, List, Optional
@@ -16,14 +16,27 @@ from dataset_config import DATASET_CONFIG
 logger = logging.getLogger(__name__)
 
 
+class _PGCursorResult:
+    """Minimal cursor-like wrapper for asyncpg execute results."""
+
+    def __init__(self, rowcount: int):
+        self.rowcount = rowcount
+
+
 class Database:
     """Database connection manager with PostgreSQL primary and SQLite fallback."""
 
     def __init__(self, db_path: str = "dashboard.db"):
         """Initialize database connection."""
         self.db_path = db_path
-        self.connection = None
+        self.connection = None  # Used for SQLite
         self.backend: Optional[str] = None  # "postgres" or "sqlite"
+
+        # AsyncPG state (used when backend == "postgres")
+        self._loop: Optional[asyncio.AbstractEventLoop] = None
+        self._loop_thread: Optional[threading.Thread] = None
+        self._pg_pool: Any = None
+
         self._lock = threading.Lock()
         self.init_db()
 
@@ -41,11 +54,11 @@ class Database:
         self._init_sqlite()
 
     def _init_postgres(self) -> bool:
-        """Attempt to initialize a PostgreSQL connection. Returns True on success."""
+        """Attempt to initialize a PostgreSQL connection using asyncpg. Returns True on success."""
         try:
-            import psycopg2
+            import asyncpg  # type: ignore[import]
         except ImportError:
-            logger.warning("psycopg2 is not installed; skipping PostgreSQL initialization")
+            logger.warning("asyncpg is not installed; skipping PostgreSQL initialization")
             return False
 
         user = os.getenv("POSTGRES_USER", "preetam")
@@ -55,33 +68,63 @@ class Database:
         port = int(os.getenv("POSTGRES_PORT", "5432"))
         timeout = int(os.getenv("POSTGRES_CONNECT_TIMEOUT", "5"))
 
+        # Start a dedicated event loop in a background thread for asyncpg
+        loop = asyncio.new_event_loop()
+
+        def _run_loop() -> None:
+            asyncio.set_event_loop(loop)
+            loop.run_forever()
+
+        thread = threading.Thread(target=_run_loop, daemon=True)
+        thread.start()
+
+        self._loop = loop
+        self._loop_thread = thread
+
+        async def _setup() -> bool:
+            try:
+                pool = await asyncpg.create_pool(  # type: ignore[attr-defined]
+                    user=user,
+                    password=password,
+                    database=dbname,
+                    host=host,
+                    port=port,
+                    timeout=timeout,
+                )
+                self._pg_pool = pool
+
+                async with pool.acquire() as conn:
+                    # Ensure analytics schema exists and becomes the default search path
+                    await conn.execute("CREATE SCHEMA IF NOT EXISTS analytics;")
+                    await conn.execute("SET search_path TO analytics, public;")
+                    await self._create_tables_postgres(conn)
+
+                return True
+            except Exception as exc:  # pragma: no cover - defensive
+                logger.error("PostgreSQL (asyncpg) initialization failed: %s", exc)
+                return False
+
         try:
-            conn = psycopg2.connect(
-                dbname=dbname,
-                user=user,
-                password=password,
-                host=host,
-                port=port,
-                connect_timeout=timeout,
-            )
-            # Autocommit to match APSW behaviour
-            conn.autocommit = True
-            self.connection = conn
-            self.backend = "postgres"
-
-            with conn.cursor() as cursor:
-                # Ensure analytics schema exists and becomes the default search path
-                cursor.execute("CREATE SCHEMA IF NOT EXISTS analytics;")
-                cursor.execute("SET search_path TO analytics, public;")
-
-            self._create_tables_postgres()
-            logger.info("Connected to PostgreSQL database '%s' (schema: analytics)", dbname)
-            return True
+            fut = asyncio.run_coroutine_threadsafe(_setup(), loop)
+            ok = fut.result(timeout=timeout + 10)
         except Exception as exc:  # pragma: no cover - defensive
-            logger.error("PostgreSQL initialization failed: %s", exc)
-            self.connection = None
-            self.backend = None
+            logger.error("PostgreSQL (asyncpg) setup failed: %s", exc)
+            ok = False
+
+        if not ok:
+            # Tear down loop / pool if setup failed
+            self._pg_pool = None
+            if self._loop is not None:
+                self._loop.call_soon_threadsafe(self._loop.stop)
+            if self._loop_thread is not None:
+                self._loop_thread.join(timeout=5)
+            self._loop = None
+            self._loop_thread = None
             return False
+
+        self.backend = "postgres"
+        logger.info("Connected to PostgreSQL database '%s' (schema: analytics)", dbname)
+        return True
 
     def _init_sqlite(self) -> None:
         """Initialize SQLite (APSW) connection."""
@@ -181,16 +224,14 @@ class Database:
 
         # APSW is in autocommit mode by default, no commit needed
 
-    def _create_tables_postgres(self) -> None:
+    async def _create_tables_postgres(self, conn: Any) -> None:
         """Create all necessary tables for PostgreSQL."""
-        cursor = self.connection.cursor()
-
         for dataset, config in DATASET_CONFIG.items():
             key_field = config.key_field
             table = config.table
 
             # Create raw table for each dataset
-            cursor.execute(
+            await conn.execute(
                 f"""
                 CREATE TABLE IF NOT EXISTS {table} (
                     {key_field} TEXT PRIMARY KEY,
@@ -205,14 +246,14 @@ class Database:
             )
 
             # Create index on risk theme for filtering
-            cursor.execute(
+            await conn.execute(
                 f"""
                 CREATE INDEX IF NOT EXISTS idx_{dataset}_risk_theme
                 ON {table}(risk_theme)
                 """
             )
 
-            cursor.execute(
+            await conn.execute(
                 f"""
                 CREATE INDEX IF NOT EXISTS idx_{dataset}_risk_subtheme
                 ON {table}(risk_subtheme)
@@ -223,7 +264,7 @@ class Database:
             for func in config.ai_functions:
                 table_name = f"{dataset}_{func}"
 
-                cursor.execute(
+                await conn.execute(
                     f"""
                     CREATE TABLE IF NOT EXISTS {table_name} (
                         {key_field} TEXT PRIMARY KEY,
@@ -318,20 +359,75 @@ class Database:
 
         return f"{base}{conflict}"
 
-    def _adapt_query_for_postgres(self, query: str) -> str:
+    def _replace_placeholders(self, query: str, param_count: int) -> str:
+        """Convert SQLite-style ? placeholders to asyncpg-style $1, $2, ..."""
+        if param_count <= 0 or "?" not in query:
+            return query
+
+        adapted = query
+        for idx in range(1, param_count + 1):
+            adapted = adapted.replace("?", f"${idx}", 1)
+        return adapted
+
+    def _adapt_query_for_postgres(self, query: str, param_count: int) -> str:
         """Adapt SQLite-oriented SQL to PostgreSQL (upserts + placeholders)."""
         adapted = query
+        upper = adapted.upper()
 
-        if "INSERT OR REPLACE" in adapted:
+        if "INSERT OR REPLACE" in upper:
             adapted = self._adapt_insert_or_replace(adapted)
-        if "INSERT OR IGNORE" in adapted:
+        if "INSERT OR IGNORE" in upper:
             adapted = self._adapt_insert_or_ignore(adapted)
 
-        # Convert SQLite-style ? placeholders to psycopg2-style %s
-        if "?" in adapted:
-            adapted = adapted.replace("?", "%s")
-
+        adapted = self._replace_placeholders(adapted, param_count)
         return adapted
+
+    def _pg_run(self, coro, timeout: int = 30):
+        """Run an asyncpg coroutine on the dedicated event loop and wait for the result."""
+        if self._loop is None:
+            raise RuntimeError("PostgreSQL event loop is not initialized")
+        fut = asyncio.run_coroutine_threadsafe(coro, self._loop)
+        return fut.result(timeout=timeout)
+
+    def _pg_execute(self, query: str, params: tuple) -> _PGCursorResult:
+        """Execute a non-SELECT statement and return a minimal cursor-like result."""
+        if self._pg_pool is None:
+            raise RuntimeError("PostgreSQL pool is not initialized")
+
+        async def _exec():
+            async with self._pg_pool.acquire() as conn:
+                result = await conn.execute(query, *params)
+                return result
+
+        result: str = self._pg_run(_exec())
+        # asyncpg returns strings like "INSERT 0 1" or "DELETE 0 3"
+        parts = result.split()
+        rowcount = int(parts[-1]) if parts and parts[-1].isdigit() else 0
+        return _PGCursorResult(rowcount=rowcount)
+
+    def _pg_fetchone(self, query: str, params: tuple) -> Optional[tuple]:
+        """Execute a SELECT and fetch one row."""
+        if self._pg_pool is None:
+            raise RuntimeError("PostgreSQL pool is not initialized")
+
+        async def _fetchone():
+            async with self._pg_pool.acquire() as conn:
+                row = await conn.fetchrow(query, *params)
+                return tuple(row) if row is not None else None
+
+        return self._pg_run(_fetchone())
+
+    def _pg_fetchall(self, query: str, params: tuple) -> List[tuple]:
+        """Execute a SELECT and fetch all rows."""
+        if self._pg_pool is None:
+            raise RuntimeError("PostgreSQL pool is not initialized")
+
+        async def _fetchall():
+            async with self._pg_pool.acquire() as conn:
+                rows = await conn.fetch(query, *params)
+                return [tuple(row) for row in rows]
+
+        return self._pg_run(_fetchall())
 
     # ------------------------------------------------------------------ public API
     def get_connection(self):
@@ -340,39 +436,65 @@ class Database:
 
     def execute(self, query: str, params: tuple = ()) :
         """Execute a query with parameters."""
+        if self.backend == "postgres":
+            param_count = len(params)
+            sql = self._adapt_query_for_postgres(query, param_count)
+            return self._pg_execute(sql, params)
+
         if self.connection is None:
-            raise RuntimeError("Database connection is not initialized")
+            raise RuntimeError("SQLite connection is not initialized")
 
         with self._lock:
             cursor = self.connection.cursor()
-            if self.backend == "postgres":
-                sql = self._adapt_query_for_postgres(query)
-                cursor.execute(sql, params or None)
-            else:
-                cursor.execute(query, params)
+            cursor.execute(query, params)
             return cursor
 
     def executemany(self, query: str, params_list: List[tuple]):
         """Execute a query with multiple parameter sets."""
+        if self.backend == "postgres":
+            if not params_list:
+                return _PGCursorResult(rowcount=0)
+            param_count = len(params_list[0])
+            sql = self._adapt_query_for_postgres(query, param_count)
+
+            if self._pg_pool is None:
+                raise RuntimeError("PostgreSQL pool is not initialized")
+
+            async def _execmany():
+                async with self._pg_pool.acquire() as conn:
+                    result = await conn.executemany(sql, params_list)
+                    return result
+
+            result: str = self._pg_run(_execmany())
+            parts = result.split()
+            rowcount = int(parts[-1]) if parts and parts[-1].isdigit() else 0
+            return _PGCursorResult(rowcount=rowcount)
+
         if self.connection is None:
-            raise RuntimeError("Database connection is not initialized")
+            raise RuntimeError("SQLite connection is not initialized")
 
         with self._lock:
             cursor = self.connection.cursor()
-            if self.backend == "postgres":
-                sql = self._adapt_query_for_postgres(query)
-                cursor.executemany(sql, params_list)
-            else:
-                cursor.executemany(query, params_list)
+            cursor.executemany(query, params_list)
             return cursor
 
     def fetchone(self, query: str, params: tuple = ()) -> Optional[tuple]:
         """Execute query and fetch one row."""
+        if self.backend == "postgres":
+            param_count = len(params)
+            sql = self._adapt_query_for_postgres(query, param_count)
+            return self._pg_fetchone(sql, params)
+
         cursor = self.execute(query, params)
         return cursor.fetchone()
 
     def fetchall(self, query: str, params: tuple = ()) -> List[tuple]:
         """Execute query and fetch all rows."""
+        if self.backend == "postgres":
+            param_count = len(params)
+            sql = self._adapt_query_for_postgres(query, param_count)
+            return self._pg_fetchall(sql, params)
+
         cursor = self.execute(query, params)
         return cursor.fetchall()
 
@@ -418,11 +540,31 @@ class Database:
 
     def close(self) -> None:
         """Close database connection."""
+        if self.backend == "postgres":
+            # Close asyncpg resources
+            if self._pg_pool is not None and self._loop is not None:
+                async def _close_pool():
+                    await self._pg_pool.close()
+
+                try:
+                    self._pg_run(_close_pool(), timeout=10)
+                except Exception:  # pragma: no cover - defensive
+                    logger.exception("Error while closing PostgreSQL pool")
+
+            if self._loop is not None:
+                self._loop.call_soon_threadsafe(self._loop.stop)
+            if self._loop_thread is not None:
+                self._loop_thread.join(timeout=5)
+
+            self._pg_pool = None
+            self._loop = None
+            self._loop_thread = None
+
         if self.connection:
             try:
                 self.connection.close()
             except Exception:  # pragma: no cover - defensive
-                logger.exception("Error while closing database connection")
+                logger.exception("Error while closing SQLite connection")
 
 
 # Global database instance
